@@ -1,0 +1,21 @@
+To Do
+	NetworkDAO
+		Line 34 needs to be updated to the correct URL to retrieve image from.
+
+	SearchDAO
+	    Line 15 needs to be completed, this is just a placeholder text.
+
+	NurtitionDTO
+	    Template class created, need to add each JSON element that will be transferred.
+
+
+Progress
+    8/31
+        Created base project, and added gitignore file.
+    10/5
+        Added Maven integration to project, and updated pom.xml to include Spring dependencies and GSON dependencies.
+        Added DAO/DTO/Service folders.
+        Created application run file.
+        Created controller and setup /home homepage URL.
+        Created bare bones SearchDAO and interface for the class, which will be used for searching the APIs for food information.
+        Created NetworkDAO which creates the network request that will be used by any class that will be accessing APIs for information.
