@@ -8,6 +8,11 @@ To Do
 	NurtitionDTO
 	    Template class created, need to add each JSON element that will be transferred.
 
+	home.css
+	    Needs to have code.
+
+    home.html
+        Needs to have code.
 
 Progress
     8/31
@@ -19,3 +24,5 @@ Progress
         Created controller and setup /home homepage URL.
         Created bare bones SearchDAO and interface for the class, which will be used for searching the APIs for food information.
         Created NetworkDAO which creates the network request that will be used by any class that will be accessing APIs for information.
+        Created templates for ProfileDTO/RecipeDTO/PantryDTO.
+        Added CSS/HTML directories and base templates.
