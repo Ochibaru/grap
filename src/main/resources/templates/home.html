@@ -5,6 +5,14 @@
     <title>Welcome to GRAP</title>
 </head>
 <body>
-
+Your recipe is:
+<!--<div th:each="recipe : ${recipes}" th:text="${recipe.title}">-->
+<!--</div>-->
+<!--<div class="card" style="max-width: 245px; max-height: 400px;" >-->
+<!--    <div class="card-body" th:each="recipe : ${recipes}" th:text="${recipe.title}">-->
+<!--    </div>-->
+<!--</div>-->
+<!--<p th:each="recipe : ${recipes}" th:text="${recipe.title}"/>-->
+<p th:text="${recipes}"/>
 </body>
 </html>
