@@ -2,7 +2,6 @@ package com.grap.dao;
 
 import okhttp3.*;
 import org.springframework.stereotype.Component;
-import java.net.URL;
 
 @Component
 public class NetworkDAO {
@@ -25,13 +24,9 @@ public class NetworkDAO {
                 .build();
 
         try (Response response = client.newCall(request).execute()){
-
             responseBody = response.body().string();
-            // System.out.print(responseBody);
-
         }
         return responseBody;
     }
-
 }
 

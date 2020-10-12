@@ -6,33 +6,20 @@ import lombok.Data;
 public @Data
 class RecipeDTO{
 
-    @SerializedName("calories")
-    @Expose
-    private Float calories;
     @SerializedName("label")
     @Expose
     private String label;
 
+    @SerializedName("calories")
+    @Expose
+    private Float calories;
 
-//    @SerializedName("ingredients")
-//    @Expose
-//    private int ingredients;
-//    @SerializedName("calories")
-//    @Expose
-//    private String calories;
-//
-//
-//    public int getIngredients() {
-//        return ingredients;
-//    }
-//
-//    public String getCalories() {
-//        return calories;
-//    }
-//
+    @SerializedName("image")
+    @Expose
+    private String image;
+
     @Override
     public String toString() {
-        return label;
-
+        return label + calories + image;
     }
 }

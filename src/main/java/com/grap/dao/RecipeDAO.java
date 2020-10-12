@@ -6,9 +6,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,49 +21,29 @@ public class RecipeDAO implements IRecipeDAO{
         return getRecipesDTOS(recipes, rawJson);
     }
 
-    @Override
-    public List<RecipeDTO> fetch(String filepath) throws Exception{
-        List<RecipeDTO> recipes = new ArrayList<>();
-
-        String rawJson = "";
-        try{
-            rawJson = new String ( Files.readAllBytes( Paths.get(filepath) ) );
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        return getRecipesDTOS(recipes, rawJson);
-    }
-
-
     private List<RecipeDTO> getRecipesDTOS(List<RecipeDTO> recipes, String rawJson) throws Exception {
         JSONObject obj = new JSONObject(rawJson);
-        JSONArray movies = obj.getJSONArray("hits");
-        //JSONObject recipe = movies.getJSONObject("recipe");
+        JSONArray recipeBook = obj.getJSONArray("hits");
 
-        for (int i = 0; i < movies.length(); i++) {
+        for (int i = 0; i < recipeBook.length(); i++) {
 
             // JSON Data
-            JSONObject jsonRecipe = movies.getJSONObject(i);
-            // Movie object that will be populated from JSON data
+            JSONObject jsonRecipe = recipeBook.getJSONObject(i);
+            JSONObject recipe = jsonRecipe.getJSONObject("recipe");
             RecipeDTO recipeDTO = new RecipeDTO();
 
-            JSONObject recipe = jsonRecipe.getJSONObject("recipe");
-//            Float calories = jsonRecipe.getFloat("calories");
+            Float calories = recipe.getFloat("calories");
             String label = recipe.getString("label");
-
+            String image = recipe.getString("image");
 
             // populate the DTO with this information
-//            recipeDTO.setCalories(calories);
+            recipeDTO.setCalories(calories);
             recipeDTO.setLabel(label);
+            recipeDTO.setImage(image);
 
             // add the populated movie to our collection
             recipes.add(recipeDTO);
         }
-
         return recipes;
     }
-
 }
