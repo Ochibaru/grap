@@ -50,6 +50,20 @@ public class GRAPController{
         return "home";
     }
 
+    @RequestMapping("/recipes")
+    public ModelAndView recipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
+            modelAndView.setViewName("home");
+            modelAndView.addObject("recipes", recipes);
+        } catch (Exception  e) {
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
+
     // search for recipes
     @RequestMapping("/searchRecipes")
     public ModelAndView searchRecipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
