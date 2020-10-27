@@ -23,8 +23,7 @@ public class FirebaseDAO implements IFirebaseDAO {
         Firestore db = FirestoreClient.getFirestore();
         LocalDate current = LocalDate.now();
 
-
-        db.collection("Testing").document(String.valueOf(current));
+        db.collection(collectionDocumentPath).document(String.valueOf(current));
 
     }
 
@@ -32,7 +31,7 @@ public class FirebaseDAO implements IFirebaseDAO {
         FileInputStream serviceFirebaseAccount =
                 null;
         try {
-            serviceFirebaseAccount = new FileInputStream("src/test/resources/grap-c2990-firebase-adminsdk-q3p5x-1321d6e6e4.json");
+            serviceFirebaseAccount = new FileInputStream("src/test/resources/service_account_pk.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

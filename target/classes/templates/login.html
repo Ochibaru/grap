@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/login.css" />
+    <title>Login</title>
+
+    <script>
+        $('.message a').click(function(){
+            $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+        });
+    </script>
+
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+            <form class="register-form">
+                <input type="text" id="name" placeholder="name"/>
+                <input type="password" id="password" placeholder="password"/>
+                <input type="text" id="emailRegister" placeholder="email address"/>
+                <button>create</button>
+                <p class="message">Already registered? <a href="#">Sign In</a></p>
+            </form>
+            <form th:action="@{/login.html}" method="post">
+                <form class="login-form">
+                    <input type="text" id="emailLogin" placeholder="email"/>
+                    <input type="password" id="passwordLogin" placeholder="password"/>
+                    <button>login</button>
+                    <p class="message">Not registered? <a href="#">Create an account</a></p>
+                </form>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

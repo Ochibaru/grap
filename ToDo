@@ -18,7 +18,10 @@ To Do
         Needs to have test code implemented.
 
     NetworkDAO
-        Needs to have exception caught with relative information returned
+        Needs to have exception caught with relative information returned.
+
+    login-error.html
+        Needs to be created.
 
 Progress
     8/31
@@ -43,9 +46,16 @@ Progress
         Added firebase-admin to pom.xml file for Firebase dependencies.
         Created Firebase DAO/Test/Service classes.
         Fix FirebaseServiceTest assertEquals line to equal actual number.
+    10/26
+        FirebaseServiceTest is completed and runs correctly. (Except whenLoginToFirebase_ThenCorrect, need to verify how to receive auth information from Firestore.)
+        Created a temporary login page to test Firebase.
+        Added login to controller.
 
 Informational
     EDAMAM API for Nutrition Analysis/Recipe Analysis
         Path: https://api.edamam.com/api/nutrition-details
         Returns nutritional information based on a POST request of the recipe content
         Requires Parameters: app_id/app_key. Optional Parameter: force (Forces the re-evaluation of the recipe. The value, if any, is ignored.)
+
+Research
+    SneakyThrows(FirebaseServiceTest)
