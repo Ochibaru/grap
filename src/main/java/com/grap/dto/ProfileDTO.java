@@ -1,9 +1,11 @@
 package com.grap.dto;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import lombok.Data;
 import org.springframework.lang.NonNull;
 
-public class ProfileDTO{
+
+public @Data class ProfileDTO{
 
     @NonNull
     private String firstName;
