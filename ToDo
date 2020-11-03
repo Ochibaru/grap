@@ -5,7 +5,7 @@ To Do
 	SearchDAO
 	    Line 15 needs to be completed, this is just a placeholder text.
 
-	NurtitionDTO
+	NutritionDTO
 	    Template class created, need to add each JSON element that will be transferred.
 
 	home.css
@@ -13,6 +13,12 @@ To Do
 
     home.html
         Needs to have code.
+
+    src/test
+        Needs to have test code implemented.
+
+    NetworkDAO
+        Needs to have exception caught with relative information returned
 
 Progress
     8/31
@@ -26,3 +32,20 @@ Progress
         Created NetworkDAO which creates the network request that will be used by any class that will be accessing APIs for information.
         Created templates for ProfileDTO/RecipeDTO/PantryDTO.
         Added CSS/HTML directories and base templates.
+    10/10
+        Added LOMBOK/JUnit to Maven dependencies.
+        Added sample request and response JSON file from EDAMAM API for Nutrition Analysis/Recipe Analysis. (/test/resources)
+        Created DTO for Nutrition Analysis via EDAMAM.
+    10/11
+        Created NutritionServiceTest for test case on Nutrition API calls, it is running successfully.
+        Corrected NetworkDAO class to allow the sending of JSON text as a POST body request.
+        Created Firebase account and set up a new project for GRAP, and generated a new private key for authenticating. (/test/resources/grap-c2990-firebase-adminsdk-q3p5x-1321d6e6e4)
+        Added firebase-admin to pom.xml file for Firebase dependencies.
+        Created Firebase DAO/Test/Service classes.
+        Fix FirebaseServiceTest assertEquals line to equal actual number.
+
+Informational
+    EDAMAM API for Nutrition Analysis/Recipe Analysis
+        Path: https://api.edamam.com/api/nutrition-details
+        Returns nutritional information based on a POST request of the recipe content
+        Requires Parameters: app_id/app_key. Optional Parameter: force (Forces the re-evaluation of the recipe. The value, if any, is ignored.)

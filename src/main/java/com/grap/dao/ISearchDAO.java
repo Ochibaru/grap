@@ -1,5 +1,9 @@
 package com.grap.dao;
 
+import com.grap.dto.RecipeDTO;
+
+import java.util.List;
+
 public interface ISearchDAO {
-    void fetch(String searchTerm) throws Exception;
+    List<RecipeDTO> fetch(String searchTerm) throws Exception;
 }
