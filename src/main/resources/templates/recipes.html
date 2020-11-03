@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to GRAP</title>
+    <title>Recipes</title>
     <meta charset="ISO-8859-1"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
@@ -28,19 +28,14 @@
 	</script>
 </head>
 <body>
-
-<nav class="navbar navbar-light" style="background-color: grey;">
+<nav class="navbar navbar-light" style="background-color: black;">
     <h1>GRAP</h1>
-    <a href="recipes"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Recipes </button></a>
     <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">
         <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
     </form>
 </nav><br/>
 
-Your recipe is:
-
-<div id="bxslider" class="card-deck1 col-xs-6" style="padding: 20px">
     <div class="card" style="max-width: 245px; max-height: 400px;" th:each="recipe : ${recipes}">
         <div class="card-header" th:text="${recipe.label}">
         </div>
@@ -49,19 +44,6 @@ Your recipe is:
             <img class="image" th:src="@{${recipe.image}}">
         </div>
     </div>
-</div>
-
-<script>
-	$(document).ready(function () {
-		$(".image").mouseenter(function(){
-			$(this).css( {"opacity":"0.8"} );
-		}).mouseout(function(){
-			$(this).css( {"opacity":"1.0"} );
-		});
-	});
-</script>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </body>
 </html>
