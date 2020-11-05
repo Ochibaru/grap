@@ -8,25 +8,14 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/sunny/jquery-ui.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="../static/css/recipes.css">
+        <link rel="stylesheet" href="../css/recipes.css">
+        <link rel="stylesheet" href="../css/grap.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-        <script src="../static/javascript/recipes.js"></script>
-
-        <style>
-
-	    </style>
-
-        <script type="text/javascript">
-            $(function() {
-                $("#search").autocomplete({
-                    source: "searchAutocomplete",
-                    minLength: 3
-                });
-            });
-        </script>
+        <script src="../javascript/recipes.js"></script>
+        <script src="../javascript/grap.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-light" style="background-color: orange;">
@@ -36,8 +25,6 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
             </form>
         </nav><br/>
-
-
 
         <div class="card" style="max-width: 245px; max-height: 400px;" th:each="recipe : ${recipes}">
             <div class="card-header" th:text="${recipe.label}">
