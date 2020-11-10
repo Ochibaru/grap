@@ -50,12 +50,12 @@ public class GRAPController{
         return "home";
     }
 
-    @RequestMapping("/recipes")
+    @RequestMapping("/home/recipes")
     public ModelAndView recipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
         ModelAndView modelAndView = new ModelAndView();
         try {
             Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
-            modelAndView.setViewName("home");
+            modelAndView.setViewName("recipes");
             modelAndView.addObject("recipes", recipes);
         } catch (Exception  e) {
             e.printStackTrace();
@@ -80,7 +80,7 @@ public class GRAPController{
         return modelAndView;
     }
 
-    @RequestMapping("/searchAutocomplete")
+    @RequestMapping(value={"/searchAutocomplete", "home/*"})
     @ResponseBody
     public List<String> searchAutocomplete(@RequestParam(value="term", required=false, defaultValue="") String term) {
         List<String> suggestions = new ArrayList<String>();

@@ -18,8 +18,11 @@ public class RecipeService implements IRecipeService{
         List<RecipeDTO> recipes;
 
         // This is because I am unable to make Network requests at work, uncomment line 27 and comment line 26 to switch to the actual network requests
-        // nowPlayingMovies = nowPlayingDAO.fetch("src\\test\\resources\\nowplayingmovieresults.json");
-        recipes = recipeDAO.fetch();
+        recipes = recipeDAO.fetch("src\\main\\resources\\static\\data\\pizza.json");
+//      recipes = recipeDAO.fetch();
+
+        // allFood.json attempt to place all local json to one file, also need to change RecipeService
+        // recipes = recipeDAO.fetch("src\\main\\resources\\static\\data\\allFood.json");
 
         try{
             if (recipes != null) {

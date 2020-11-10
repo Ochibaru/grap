@@ -1,49 +1,329 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Recipes</title>
-    <meta charset="ISO-8859-1"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/sunny/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta charset="ISO-8859-1"/>
+        <title>Recipes</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/sunny/jquery-ui.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="../css/recipes.css">
+        <link rel="stylesheet" href="../css/grap.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+        <script src="../javascript/recipes.js"></script>
+        <script src="../javascript/grap.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-light" style="background-color: orange;">
+            <h1>GRAP</h1>
+            <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">
+                <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
+            </form>
+        </nav><br/>
 
-    <style>
-		.ui-autocomplete-loading {
-			background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
-		}
-	</style>
-    <script type="text/javascript">
-		$(function() {
-			$("#search").autocomplete({
-				source: "searchAutocomplete",
-				minLength: 3
-			});
-		});
-	</script>
-</head>
-<body>
-<nav class="navbar navbar-light" style="background-color: black;">
-    <h1>GRAP</h1>
-    <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">
-        <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
-    </form>
-</nav><br/>
+        <div class="container">
+            <h2>Meals</h2>
+            <div id="bxslider1" class="card-deck m-auto">
+                <div class="card">
+                    <div class="card-header">Breakfast</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/meals/breakfast.jpg">
+                    </div>
+                </div>
 
-    <div class="card" style="max-width: 245px; max-height: 400px;" th:each="recipe : ${recipes}">
-        <div class="card-header" th:text="${recipe.label}">
+                <div class="card">
+                    <div class="card-header">Lunch</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/meals/lunch.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Dinner</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/meals/dinner.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Snack</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/meals/snack.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Teatime</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/meals/teatime.jpg">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <div th:text="${recipe.calories}">Calories: </div>
-            <img class="image" th:src="@{${recipe.image}}">
-        </div>
-    </div>
 
-</body>
+        <div class="container">
+            <h2>Dishes</h2>
+            <div id="bxslider2" class="card-deck m-auto">
+                <div class="card">
+                    <div class="card-header">Alcohol</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/alcohol.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Biscuits and Cookies</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/biscuitsAndCookies.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Bread</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/bread.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Cereals</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/cereal.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Drinks</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/drinks.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Desserts</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/desserts.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Egg</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/egg.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Main course</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/mainCourse.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Omelet</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/omelet.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Pancake</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/pancake.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Preps</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/preps.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Preserve</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/preserves.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Salad</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/salad.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Sandwiches</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/sandwich.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Soup</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/soup.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Starter</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/dishes/starter.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <h2>Cuisines</h2>
+            <div id="bxslider3" class="card-deck m-auto">
+                <div class="card">
+                    <div class="card-header">American</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/americanCuisine.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Asian</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/asianCuisine.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">British</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/british.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Caribbean</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/caribbean.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Central Europe</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/centralEuropean.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Chinese</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/chinese.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Eastern Europe</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/easternEuropean.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">French</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/french.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Indian</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/indian.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Italian</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/italian.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Japanese</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/japanese.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Kosher</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/kosher.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Mediterranean</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/mediterranean.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Mexican</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/mexican.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Middle Eastern</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/middleEastern.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Nordic</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/nordic.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">South American</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/southAmerican.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">South East Asian</div>
+                    <div class="card-body">
+                        <img class="image" src="../images/cuisine/southeastAsian.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div id="bxslider4" class="card-deck m-auto">
+                <div class="card" th:each="recipe : ${recipes}">
+                    <div class="card-header" th:text="${recipe.label}"></div>
+                    <div class="card-body">
+                        <img class="image" th:src="@{${recipe.image}}">
+                    </div>
+                    <div class="card-footer" th:text="@{${'Calories: ' + recipe.calories}}"></div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
