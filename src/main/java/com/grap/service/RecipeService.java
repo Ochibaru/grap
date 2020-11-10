@@ -21,6 +21,9 @@ public class RecipeService implements IRecipeService{
         recipes = recipeDAO.fetch("src\\main\\resources\\static\\data\\pizza.json");
 //      recipes = recipeDAO.fetch();
 
+        // allFood.json attempt to place all local json to one file, also need to change RecipeService
+        // recipes = recipeDAO.fetch("src\\main\\resources\\static\\data\\allFood.json");
+
         try{
             if (recipes != null) {
                 return recipes;

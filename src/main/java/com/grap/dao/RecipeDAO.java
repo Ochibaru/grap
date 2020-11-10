@@ -1,5 +1,6 @@
 package com.grap.dao;
 
+import com.google.gson.JsonObject;
 import com.grap.dto.RecipeDTO;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,6 +48,8 @@ public class RecipeDAO implements IRecipeDAO{
         //String queryParam = rawJson + "pizza";
         JSONObject obj = new JSONObject(rawJson);
         JSONArray recipeBook = obj.getJSONArray("hits");
+        // allFood.json attempt to place all local json to one file, also need to change RecipeService
+        // JSONArray recipeBook = obj.getJSONArray("all");
 
         for (int i = 0; i < recipeBook.length(); i++) {
 
@@ -54,6 +57,13 @@ public class RecipeDAO implements IRecipeDAO{
             JSONObject jsonRecipe = recipeBook.getJSONObject(i);
             JSONObject recipe = jsonRecipe.getJSONObject("recipe");
             RecipeDTO recipeDTO = new RecipeDTO();
+
+            // allFood.json attempt to place all local json to one file, also need to change RecipeService
+//            JSONObject jsonRecipe = recipeBook.getJSONObject(i);
+//            JSONArray recipeType = jsonRecipe.getJSONArray("hits");
+//            JSONObject type = recipeType.getJSONObject(i);
+//            JSONObject recipe = type.getJSONObject("recipe");
+//            RecipeDTO recipeDTO = new RecipeDTO();
 
             Float calories = recipe.getFloat("calories");
             String label = recipe.getString("label");

@@ -4,4 +4,15 @@ $(document).ready(function () {
     }).mouseout(function(){
         $(this).css( {"opacity":"1.0"} );
     });
+
+    $("#bxslider1, #bxslider2, #bxslider3, #bxslider4").bxSlider({
+        minSlides: 1,
+        maxSlides: 5,
+        mode: 'horizontal',
+        adaptiveHeight: false,
+        slideWidth: 285,
+        moveSlides: 5,
+        touchEnabled: true,
+        pager: false
+    });
 });
