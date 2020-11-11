@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class RecipeDAO implements IRecipeDAO{
+public class RecipeDAO implements IRecipeDAO {
     @Autowired
     private NetworkDAO networkDAO;
 
     @Override
-    public List<RecipeDTO> fetch() throws Exception{
+    public List<RecipeDTO> fetch() throws Exception {
         List<RecipeDTO> recipes = new ArrayList<>();
 //        String endpoint = "https://api.edamam.com/search?app_id=47c17ed5";
 //        String api = "&app_key=b53ffdd94b4b532aee16d1502bca8359";
@@ -29,15 +29,13 @@ public class RecipeDAO implements IRecipeDAO{
     }
 
     @Override
-    public List<RecipeDTO> fetch(String filepath) throws Exception{
+    public List<RecipeDTO> fetch(String filepath) throws Exception {
         List<RecipeDTO> recipes = new ArrayList<>();
 
         String rawJson = "";
-        try{
-            rawJson = new String ( Files.readAllBytes( Paths.get(filepath) ) );
-        }
-        catch (IOException e)
-        {
+        try {
+            rawJson = new String(Files.readAllBytes(Paths.get(filepath)));
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -79,4 +77,70 @@ public class RecipeDAO implements IRecipeDAO{
         }
         return recipes;
     }
+
+//    @Override
+//    public List<RecipeDTO> fetchSpoon() throws Exception{
+//        List<RecipeDTO> spoonRecipes = new ArrayList<>();
+////        String endpoint = "https://api.edamam.com/search?app_id=47c17ed5";
+////        String api = "&app_key=b53ffdd94b4b532aee16d1502bca8359";
+////        String rawJson = networkDAO.request(endpoint + api);
+//        String rawJson = networkDAO.request("https://api.spoonacular.com/recipes/search?apiKey=20f0acb7d3ac49f0aa61782da562de2e&cuisine=");
+//        return getSpoonRecipesDTOS(spoonRecipes, rawJson);
+//    }
+//
+//    @Override
+//    public List<RecipeDTO> fetchSpoon(String filepath) throws Exception{
+//        List<RecipeDTO> spoonRecipes = new ArrayList<>();
+//
+//        String rawJson = "";
+//        try{
+//            rawJson = new String ( Files.readAllBytes( Paths.get(filepath) ) );
+//        }
+//        catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+//        return getSpoonRecipesDTOS(spoonRecipes, rawJson);
+//    }
+//
+//    private List<RecipeDTO> getSpoonRecipesDTOS(List<RecipeDTO> spoonRecipes, String rawJson) throws Exception {
+//        //String queryParam = rawJson + "pizza";
+//        JSONObject obj = new JSONObject(rawJson);
+//        JSONArray recipeBook = obj.getJSONArray("results");
+//        // allFood.json attempt to place all local json to one file, also need to change RecipeService
+//        // JSONArray recipeBook = obj.getJSONArray("all");
+//
+//        for (int i = 0; i < recipeBook.length(); i++) {
+//
+//            // JSON Data
+//            JSONObject jsonRecipe = recipeBook.getJSONObject(i);
+//            JSONObject recipe = jsonRecipe.getJSONObject("title");
+//            RecipeDTO recipeDTO = new RecipeDTO();
+//
+//            // allFood.json attempt to place all local json to one file, also need to change RecipeService
+////            JSONObject jsonRecipe = recipeBook.getJSONObject(i);
+////            JSONArray recipeType = jsonRecipe.getJSONArray("hits");
+////            JSONObject type = recipeType.getJSONObject(i);
+////            JSONObject recipe = type.getJSONObject("recipe");
+////            RecipeDTO recipeDTO = new RecipeDTO();
+//
+//            String title = recipe.getString("title");
+//            String readyInMinutes = recipe.getString("readyInMinutes");
+//            String image = recipe.getString("image");
+//            String servings = recipe.getString("servings");
+//            String sourceUrl = recipe.getString("sourceUrl");
+//
+//            // populate the DTO with this information
+//            recipeDTO.setTitle(title);
+//            recipeDTO.setReadyInMinutes(readyInMinutes);
+//            recipeDTO.setImage(image);
+//            recipeDTO.setServings(servings);
+//            recipeDTO.setSourceUrl(sourceUrl);
+//
+//            // add the populated movie to our collection
+//            spoonRecipes.add(recipeDTO);
+//        }
+//        return spoonRecipes;
+//    }
 }

@@ -12,7 +12,7 @@ $(document).ready(function () {
         adaptiveHeight: false,
         slideWidth: 285,
         moveSlides: 5,
-        touchEnabled: true,
+        touchEnabled: false,
         pager: false
     });
 });

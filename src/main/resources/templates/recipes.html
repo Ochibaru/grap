@@ -25,6 +25,8 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
             </form>
         </nav><br/>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" th:attr="onclick=@{/searchRecipes?searchTerm=american}">American Cuisine</button>
+
 
         <div class="container">
             <h2>Meals</h2>
@@ -189,7 +191,7 @@
                 <div class="card">
                     <div class="card-header">American</div>
                     <div class="card-body">
-                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/americanCuisine.jpg?tr=w-640,h-480">
+                        <a th:href="@{/searchRecipes?searchTerm=american}"><img class="image" name="searchTerm" src="https://ik.imagekit.io/rzvkccjocg/americanCuisine.jpg?tr=w-640,h-480"></a>
                     </div>
                 </div>
 
