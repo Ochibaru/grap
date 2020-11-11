@@ -2,25 +2,22 @@ package com.grap;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.ServletContext;
 
 @Controller
 public class GRAPController{
 
-    /**
-     @Autowired
-     private IProfileService profileService;
-     @Autowired
-     private ISearchDAO searchDAO;
-     **/
+    private ServletContext servletContext;
+    public GRAPController(ServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
 
 
     @GetMapping(value = "/home")
-    public ModelAndView home() throws Exception {
+    public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
             try {
             // Needs code
@@ -33,8 +30,7 @@ public class GRAPController{
             }
 
     @PostMapping("/home")
-        public String create1() {
-
+        public String create() {
             return "home";
         }
 
@@ -46,11 +42,20 @@ public class GRAPController{
         return "login";
     }
 
-    // Login form with error
-    @RequestMapping("/login-error.html")
-    public String loginError(Model model) {
-        model.addAttribute("loginError", true);
+    @GetMapping(value = "/login")
+    public String loginRequest(Model model){
+        model.addAttribute("emailLogin");
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String createLogin() {
+        return "signup";
+    }
+
+    @RequestMapping("/login/signup")
+    public String signup(){
+        return "signup";
     }
 
 }

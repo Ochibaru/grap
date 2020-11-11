@@ -50,6 +50,11 @@ Progress
         FirebaseServiceTest is completed and runs correctly. (Except whenLoginToFirebase_ThenCorrect, need to verify how to receive auth information from Firestore.)
         Created a temporary login page to test Firebase.
         Added login to controller.
+    11/2
+        Added JS dependecies for firebase/firebaseui.
+
+    11/3
+        Completed login page, and hooked it up to Firebase.
 
 Informational
     EDAMAM API for Nutrition Analysis/Recipe Analysis
