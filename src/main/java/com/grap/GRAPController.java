@@ -55,7 +55,7 @@ public class GRAPController{
         ModelAndView modelAndView = new ModelAndView();
         try {
             Iterable<RecipeDTO> topics = recipeService.fetchRecipes();
-            modelAndView.setViewName("recipes");
+            modelAndView.setViewName("topics");
             modelAndView.addObject("topics", topics);
         } catch (Exception  e) {
             e.printStackTrace();
