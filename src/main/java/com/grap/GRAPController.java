@@ -50,7 +50,21 @@ public class GRAPController{
         return "home";
     }
 
-    @RequestMapping("/home/recipes")
+    @RequestMapping("/home/topics")
+    public ModelAndView topics(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
+            modelAndView.setViewName("recipes");
+            modelAndView.addObject("recipes", recipes);
+        } catch (Exception  e) {
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping("/home/topics/recipes")
     public ModelAndView recipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
         ModelAndView modelAndView = new ModelAndView();
         try {
@@ -69,7 +83,7 @@ public class GRAPController{
     public ModelAndView searchRecipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
         ModelAndView modelAndView = new ModelAndView();
         try {
-            Iterable<RecipeDTO> searchResults =  searchDAO.fetchSpoon(searchTerm);
+            Iterable<RecipeDTO> searchResults =  searchDAO.fetch(searchTerm);
             modelAndView.setViewName("searchRecipes");
             modelAndView.addObject("searchResults", searchResults);
             // set off and error if movies = 0
@@ -85,7 +99,7 @@ public class GRAPController{
     public List<String> searchAutocomplete(@RequestParam(value="term", required=false, defaultValue="") String term) {
         List<String> suggestions = new ArrayList<String>();
         try {
-            Iterable<RecipeDTO> searchResults =  searchDAO.fetchSpoon(term);
+            Iterable<RecipeDTO> searchResults =  searchDAO.fetch(term);
             for(RecipeDTO recipe : searchResults) {
                 suggestions.add(recipe.getLabel());
             }

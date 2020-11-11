@@ -35,11 +35,12 @@
 Your recipe is:
 
 <div id="bxslider" class="card-deck1 col-xs-6" style="padding: 20px">
-    <div class="card" style="max-width: 245px; max-height: 400px;" th:each="spoonRecipes : ${searchResults}">
-        <div class="card-header" th:text="${spoonRecipes.title}">
+    <div class="card" style="max-width: 245px; max-height: 400px;" th:each="recipe : ${searchResults}">
+        <div class="card-header" th:text="${recipe.label}">
         </div>
         <div class="card-body">
-            <img class="image" th:src="@{${spoonRecipes.image}}">
+            <div th:text="${recipe.calories}">Calories: </div>
+            <img class="image" th:src="@{${recipe.image}}">
         </div>
     </div>
 </div>

@@ -6,9 +6,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,112 +16,45 @@ public class SearchDAO implements ISearchDAO{
     private NetworkDAO networkDAO;
 
     //may have to encode if user enters a special character
-//    @Override
-//    public List<RecipeDTO> fetch(String searchTerm) throws Exception {
-//        List<RecipeDTO> searchResults = new ArrayList<>();
-//        String endpoint = "https://api.edamam.com/search?app_id=47c17ed5";
-//        String api = "&app_key=b53ffdd94b4b532aee16d1502bca8359&q=";
-//        String rawJson = networkDAO.request(endpoint + api + searchTerm);
-//        return getSearchRecipesDTOS(searchResults, rawJson);
-//    }
-//
-//    private List<RecipeDTO> getSearchRecipesDTOS(List<RecipeDTO> searchResults, String rawJson) {
-//        JSONObject obj = new JSONObject(rawJson);
-//        JSONArray recipes = obj.getJSONArray("hits");
-//
-//        for (int i = 0; i < recipes.length(); i++) {
-//
-//            // JSON Data
-//            JSONObject jsonRecipe = recipes.getJSONObject(i);
-//            JSONObject recipe = jsonRecipe.getJSONObject("recipe");
-//
-//            //skip over results that don't have a poster_path
-////            if(!(jsonRecipe.get("poster_path") instanceof String)) {
-////                continue;
-////            }
-//
-//            // Recipe object that will be populated from JSON data
-//            RecipeDTO recipeDTO = new RecipeDTO();
-//
-//            Float calories = recipe.getFloat("calories");
-//            String label = recipe.getString("label");
-//            String image = recipe.getString("image");
-//
-//            // populate the DTO with this information
-//            recipeDTO.setCalories(calories);
-//            recipeDTO.setLabel(label);
-//            recipeDTO.setImage(image);
-//
-//            // add the populated movie to our collection
-//            searchResults.add(recipeDTO);
-//        }
-//        return searchResults;
-//    }
-
-
     @Override
-    public List<RecipeDTO> fetchSpoon() throws Exception{
-        List<RecipeDTO> spoonRecipes = new ArrayList<>();
-//        String endpoint = "https://api.edamam.com/search?app_id=47c17ed5";
-//        String api = "&app_key=b53ffdd94b4b532aee16d1502bca8359";
-//        String rawJson = networkDAO.request(endpoint + api);
-        String rawJson = networkDAO.request("https://api.spoonacular.com/recipes/search?apiKey=20f0acb7d3ac49f0aa61782da562de2e&cuisine=");
-        return getSpoonRecipesDTOS(spoonRecipes, rawJson);
+    public List<RecipeDTO> fetch(String searchTerm) throws Exception {
+        List<RecipeDTO> searchResults = new ArrayList<>();
+        String endpoint = "https://api.edamam.com/search?app_id=47c17ed5";
+        String api = "&app_key=b53ffdd94b4b532aee16d1502bca8359&q=";
+        String rawJson = networkDAO.request(endpoint + api + searchTerm);
+        return getSearchRecipesDTOS(searchResults, rawJson);
     }
 
-    @Override
-    public List<RecipeDTO> fetchSpoon(String filepath) throws Exception{
-        List<RecipeDTO> spoonRecipes = new ArrayList<>();
-
-        String rawJson = "";
-        try{
-            rawJson = new String ( Files.readAllBytes( Paths.get(filepath) ) );
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        return getSpoonRecipesDTOS(spoonRecipes, rawJson);
-    }
-
-    private List<RecipeDTO> getSpoonRecipesDTOS(List<RecipeDTO> spoonRecipes, String rawJson) throws Exception {
-        //String queryParam = rawJson + "pizza";
+    private List<RecipeDTO> getSearchRecipesDTOS(List<RecipeDTO> searchResults, String rawJson) {
         JSONObject obj = new JSONObject(rawJson);
-        JSONArray recipeBook = obj.getJSONArray("results");
-        // allFood.json attempt to place all local json to one file, also need to change RecipeService
-        // JSONArray recipeBook = obj.getJSONArray("all");
+        JSONArray recipes = obj.getJSONArray("hits");
 
-        for (int i = 0; i < recipeBook.length(); i++) {
+        for (int i = 0; i < recipes.length(); i++) {
 
             // JSON Data
-            JSONObject jsonRecipe = recipeBook.getJSONObject(i);
-            JSONObject recipe = jsonRecipe.getJSONObject("title");
+            JSONObject jsonRecipe = recipes.getJSONObject(i);
+            JSONObject recipe = jsonRecipe.getJSONObject("recipe");
+
+            //skip over results that don't have a poster_path
+//            if(!(jsonRecipe.get("poster_path") instanceof String)) {
+//                continue;
+//            }
+
+            // Recipe object that will be populated from JSON data
             RecipeDTO recipeDTO = new RecipeDTO();
 
-            // allFood.json attempt to place all local json to one file, also need to change RecipeService
-//            JSONObject jsonRecipe = recipeBook.getJSONObject(i);
-//            JSONArray recipeType = jsonRecipe.getJSONArray("hits");
-//            JSONObject type = recipeType.getJSONObject(i);
-//            JSONObject recipe = type.getJSONObject("recipe");
-//            RecipeDTO recipeDTO = new RecipeDTO();
-
-            String title = recipe.getString("title");
-            String readyInMinutes = recipe.getString("readyInMinutes");
+            Float calories = recipe.getFloat("calories");
+            String label = recipe.getString("label");
             String image = recipe.getString("image");
-            String servings = recipe.getString("servings");
-            String sourceUrl = recipe.getString("sourceUrl");
 
             // populate the DTO with this information
-            recipeDTO.setTitle(title);
-            recipeDTO.setReadyInMinutes(readyInMinutes);
+            recipeDTO.setCalories(calories);
+            recipeDTO.setLabel(label);
             recipeDTO.setImage(image);
-            recipeDTO.setServings(servings);
-            recipeDTO.setSourceUrl(sourceUrl);
 
             // add the populated movie to our collection
-            spoonRecipes.add(recipeDTO);
+            searchResults.add(recipeDTO);
         }
-        return spoonRecipes;
+        return searchResults;
     }
 }
