@@ -54,9 +54,9 @@ public class GRAPController{
     public ModelAndView topics(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
         ModelAndView modelAndView = new ModelAndView();
         try {
-            Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
+            Iterable<RecipeDTO> topics = recipeService.fetchRecipes();
             modelAndView.setViewName("recipes");
-            modelAndView.addObject("recipes", recipes);
+            modelAndView.addObject("topics", topics);
         } catch (Exception  e) {
             e.printStackTrace();
             modelAndView.setViewName("error");
