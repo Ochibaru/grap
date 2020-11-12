@@ -18,15 +18,19 @@ class RecipeDTO{
     @Expose
     private String image;
 
-    @SerializedName("mealType")
+    @SerializedName("title")
     @Expose
-    private String mealType;
+    private String title;
 
-    @SerializedName("dishType")
+    @SerializedName("Time")
     @Expose
-    private String dishType;
+    private Integer readyInMinutes;
 
-    @SerializedName("cuisineType")
+    @SerializedName("servings")
     @Expose
-    private String cuisineType;
+    private Integer servings;
+
+    @SerializedName("sourceUrl")
+    @Expose
+    private String sourceUrl;
 }

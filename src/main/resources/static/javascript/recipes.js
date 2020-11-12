@@ -5,14 +5,39 @@ $(document).ready(function () {
         $(this).css( {"opacity":"1.0"} );
     });
 
-    $("#bxslider1, #bxslider2, #bxslider3, #bxslider4").bxSlider({
-        minSlides: 1,
-        maxSlides: 5,
-        mode: 'horizontal',
-        adaptiveHeight: false,
-        slideWidth: 285,
-        moveSlides: 5,
-        touchEnabled: true,
-        pager: false
+    $('.slider').slick({
+      dots: true,
+      infinite: false,
+      speed: 300,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            infinite: true,
+            dots: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+        // You can unslick at a given breakpoint now by adding:
+        // settings: "unslick"
+        // instead of a settings object
+      ]
     });
 });
