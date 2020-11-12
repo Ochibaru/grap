@@ -15,7 +15,7 @@ public class SearchDAO implements ISearchDAO{
     @Autowired
     private NetworkDAO networkDAO;
 
-    //may have to encode if user enters a special character
+    // May have to encode if user enters a special character
     @Override
     public List<RecipeDTO> fetch(String searchTerm) throws Exception {
         List<RecipeDTO> searchResults = new ArrayList<>();
@@ -35,7 +35,7 @@ public class SearchDAO implements ISearchDAO{
             JSONObject jsonRecipe = recipes.getJSONObject(i);
             JSONObject recipe = jsonRecipe.getJSONObject("recipe");
 
-            //skip over results that don't have a poster_path
+            // Skip over results that don't have a poster_path
 //            if(!(jsonRecipe.get("poster_path") instanceof String)) {
 //                continue;
 //            }
@@ -47,12 +47,12 @@ public class SearchDAO implements ISearchDAO{
             String label = recipe.getString("label");
             String image = recipe.getString("image");
 
-            // populate the DTO with this information
+            // Populate the DTO with this information
             recipeDTO.setCalories(calories);
             recipeDTO.setLabel(label);
             recipeDTO.setImage(image);
 
-            // add the populated movie to our collection
+            // Add the populated movie to our collection
             searchResults.add(recipeDTO);
         }
         return searchResults;

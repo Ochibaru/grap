@@ -24,11 +24,11 @@ class RecipeDTO{
 
     @SerializedName("Time")
     @Expose
-    private String readyInMinutes;
+    private Integer readyInMinutes;
 
     @SerializedName("servings")
     @Expose
-    private String servings;
+    private Integer servings;
 
     @SerializedName("sourceUrl")
     @Expose

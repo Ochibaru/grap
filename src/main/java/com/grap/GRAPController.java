@@ -38,7 +38,7 @@ public class GRAPController{
             modelAndView.addObject("recipes", recipes);
         }
         catch (Exception e){
-        // this should throw an error, not print stack trace
+        // This should throw an error, not print stack trace
         e.printStackTrace();
         modelAndView.setViewName("error");
         }
@@ -48,6 +48,22 @@ public class GRAPController{
     @PostMapping("/home")
     public String create() {
         return "home";
+    }
+
+    @GetMapping(value = "/test")
+    public ModelAndView test() throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
+            modelAndView.setViewName("test");
+            modelAndView.addObject("recipes", recipes);
+        }
+        catch (Exception e){
+            // This should throw an error, not print stack trace
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
     }
 
     @RequestMapping("/home/topics")
@@ -68,9 +84,12 @@ public class GRAPController{
     public ModelAndView recipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
         ModelAndView modelAndView = new ModelAndView();
         try {
-            Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
+            Iterable<RecipeDTO> spoonRecipes = recipeService.fetchSpoonRecipes();
             modelAndView.setViewName("recipes");
-            modelAndView.addObject("recipes", recipes);
+            modelAndView.addObject("spoonRecipes", spoonRecipes);
+
+            Iterable<RecipeDTO> topics = recipeService.fetchRecipes();
+            modelAndView.addObject("topics", topics);
         } catch (Exception  e) {
             e.printStackTrace();
             modelAndView.setViewName("error");
@@ -78,7 +97,7 @@ public class GRAPController{
         return modelAndView;
     }
 
-    // search for recipes
+    // Search for recipes
     @RequestMapping("/searchRecipes")
     public ModelAndView searchRecipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
         ModelAndView modelAndView = new ModelAndView();
@@ -86,7 +105,7 @@ public class GRAPController{
             Iterable<RecipeDTO> searchResults =  searchDAO.fetch(searchTerm);
             modelAndView.setViewName("searchRecipes");
             modelAndView.addObject("searchResults", searchResults);
-            // set off and error if movies = 0
+            // Set off and error if movies = 0
         } catch (Exception  e) {
             e.printStackTrace();
             modelAndView.setViewName("error");
@@ -94,7 +113,7 @@ public class GRAPController{
         return modelAndView;
     }
 
-    @RequestMapping(value={"/searchAutocomplete", "home/*"})
+    @RequestMapping(value={"/searchAutocomplete", "home/*", "home/topics/*"})
     @ResponseBody
     public List<String> searchAutocomplete(@RequestParam(value="term", required=false, defaultValue="") String term) {
         List<String> suggestions = new ArrayList<String>();
