@@ -1,0 +1,100 @@
+{
+  "results": [
+    {
+      "id": 715424,
+      "title": "The Best Chili",
+      "readyInMinutes": 130,
+      "servings": 8,
+      "sourceUrl": "http://www.pinkwhen.com/the-best-chili-recipe/",
+      "openLicense": 2,
+      "image": "the-best-chili-715424.jpg"
+    },
+    {
+      "id": 642540,
+      "title": "Falafel Burgers",
+      "readyInMinutes": 45,
+      "servings": 4,
+      "sourceUrl": "http://www.foodista.com/recipe/FBWMX8MY/falafel-burgers",
+      "openLicense": 2,
+      "image": "Falafel-Burgers-642540.jpg"
+    },
+    {
+      "id": 646512,
+      "title": "Salmon Caesar Salad",
+      "readyInMinutes": 45,
+      "servings": 2,
+      "sourceUrl": "http://www.foodista.com/recipe/36WZD7DS/healthy-salmon-caesar-salad-recipe",
+      "openLicense": 2,
+      "image": "Healthy-Salmon-Caesar-Salad-646512.jpg"
+    },
+    {
+      "id": 1046982,
+      "title": "How to Make the Perfect Sweet Potato Sloppy Joes",
+      "readyInMinutes": 40,
+      "servings": 4,
+      "sourceUrl": "https://www.pinkwhen.com/how-to-make-the-perfect-sweet-potato-sloppy-joes/",
+      "openLicense": 2,
+      "image": "how-to-make-the-perfect-sweet-potato-sloppy-joes-1046982.jpg"
+    },
+    {
+      "id": 637897,
+      "title": "Chicken and Chickpea Chili",
+      "readyInMinutes": 60,
+      "servings": 6,
+      "sourceUrl": "http://www.foodista.com/recipe/PD75LLZQ/chicken-and-chickpea-chili",
+      "openLicense": 2,
+      "image": "Chicken-and-Chickpea-Chili-637897.jpg"
+    },
+    {
+      "id": 638552,
+      "title": "Chili chops with cauliflower salad",
+      "readyInMinutes": 45,
+      "servings": 4,
+      "sourceUrl": "http://www.foodista.com/recipe/B2NXFCCF/chili-chops-with-cauliflower-salad",
+      "openLicense": 2,
+      "image": "Chili-chops-with-cauliflower-salad-638552.jpg"
+    },
+    {
+      "id": 644581,
+      "title": "Ginger Garlic Chili Salmon",
+      "readyInMinutes": 45,
+      "servings": 2,
+      "sourceUrl": "https://www.foodista.com/recipe/HY66L25Y/ginger-garlic-chili-salmon",
+      "openLicense": 2,
+      "image": "Ginger-Garlic-Chili-Salmon-644581.jpg"
+    },
+    {
+      "id": 660288,
+      "title": "Slow Cooker Kahlua Pork with Sweet Chili Pineapple Sauce",
+      "readyInMinutes": 660,
+      "servings": 12,
+      "sourceUrl": "http://www.foodista.com/recipe/NQB678JF/slow-cooker-kahlua-pork-with-sweet-chili-pineapple-sauce",
+      "openLicense": 2,
+      "image": "Slow-Cooker-Kahlua-Pork-with-Sweet-Chili-Pineapple-Sauce-660288.jpg"
+    },
+    {
+      "id": 991010,
+      "title": "Chicken Ranch Burgers",
+      "readyInMinutes": 25,
+      "servings": 3,
+      "sourceUrl": "https://www.pinkwhen.com/chicken-ranch-burgers-recipe/",
+      "openLicense": 2,
+      "image": "chicken-ranch-burgers-991010.jpg"
+    },
+    {
+      "id": 637631,
+      "title": "Cheesy Bacon Burger with Spicy Chipotle Aiolo Sauce",
+      "readyInMinutes": 45,
+      "servings": 4,
+      "sourceUrl": "http://www.foodista.com/recipe/VWDL3M4T/cheesy-bacon-burger-with-spicy-chipotle-aiolo-sauce",
+      "openLicense": 2,
+      "image": "Cheesy-Bacon-Burger-with-Spicy-Chipotle-Aiolo-Sauce-637631.jpg"
+    }
+  ],
+  "baseUri": "https://spoonacular.com/recipeImages/",
+  "offset": 0,
+  "number": 10,
+  "totalResults": 312,
+  "processingTimeMs": 106,
+  "expires": 1605299983106
+}
