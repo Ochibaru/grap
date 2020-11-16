@@ -18,8 +18,19 @@ class RecipeDTO{
     @Expose
     private String image;
 
-    @Override
-    public String toString() {
-        return label + calories + image;
-    }
+    @SerializedName("title")
+    @Expose
+    private String title;
+
+    @SerializedName("Time")
+    @Expose
+    private Integer readyInMinutes;
+
+    @SerializedName("servings")
+    @Expose
+    private Integer servings;
+
+    @SerializedName("sourceUrl")
+    @Expose
+    private String sourceUrl;
 }

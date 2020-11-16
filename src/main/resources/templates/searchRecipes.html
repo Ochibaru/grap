@@ -1,30 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Welcome to GRAP</title>
     <meta charset="ISO-8859-1"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js%22%3E"></script>
+    <title>Welcome to GRAP</title>
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="../../css/grap.css">
+
+    <!-- jquery, must come before bootstrap. This is styling for autocomplete. -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <style>
-  		.ui-autocomplete-loading {
-    		background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
- 		 }
-    </style>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript">
-		$(function() {
-			$("#search").autocomplete({
-				source: "searchAutocomplete",
-				minLength: 3
-			});
-		});
-	</script>
+
+    <!-- Bootstrap latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- bxslider -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" />
+
+    <!-- jquery, must come before bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- jquery, must come before bootstrap. This is for autocomplete. -->
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+
+    <!-- Slick Carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+    <!-- bxslider -->
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+    <!-- Local Javascript -->
+    <script src="../../javascript/topics.js"></script>
+    <script src="../../javascript/grap.js"></script>
+
 </head>
 <body>
 
-<nav class="navbar navbar-light" style="background-color: black;">
+<nav class="navbar navbar-light">
     <h1>GRAP</h1>
     <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">
         <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
@@ -32,29 +51,18 @@
     </form>
 </nav><br/>
 
-Your recipe is:
-
-<div id="bxslider" class="card-deck1 col-xs-6" style="padding: 20px">
-    <div class="card" style="max-width: 245px; max-height: 400px;" th:each="recipe : ${searchResults}">
-        <div class="card-header" th:text="${recipe.label}">
-        </div>
-        <div class="card-body">
-            <div th:text="${recipe.calories}">Calories: </div>
-            <img class="image" th:src="@{${recipe.image}}">
+<div class="container">
+    <div id="bxslider1" class="card-deck m-auto">
+        <div class="card" th:each="recipe : ${searchResults}">
+            <div class="card-header" th:text="${recipe.label}">
+            </div>
+            <div class="card-body">
+                <div th:text="'Calories: ' + ${recipe.calories}"></div>
+                <img class="image" th:src="@{${recipe.image}}">
+            </div>
         </div>
     </div>
 </div>
 
-<script>
-	$(document).ready(function () {
-		$(".image").mouseenter(function(){
-			$(this).css( {"opacity":"0.8"} );
-		}).mouseout(function(){
-			$(this).css( {"opacity":"1.0"} );
-		});
-	});
-</script>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

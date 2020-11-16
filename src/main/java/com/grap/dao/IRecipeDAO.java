@@ -6,4 +6,10 @@ import java.util.List;
 
 public interface IRecipeDAO {
     List<RecipeDTO> fetch() throws Exception;
+
+    List<RecipeDTO> fetch(String filepath) throws Exception;
+
+    List<RecipeDTO> fetchSpoon() throws Exception;
+
+    List<RecipeDTO> fetchSpoon(String filepath) throws Exception;
 }
