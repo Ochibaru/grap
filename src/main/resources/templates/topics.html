@@ -43,13 +43,15 @@
 
     </head>
     <body>
-        <nav class="navbar navbar-light">
-            <h1>GRAP</h1>
-            <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">
-                <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
-            </form>
-        </nav><br/>
+
+    <div th:replace="/topnav :: navbar"></div>
+<!--        <nav class="navbar navbar-light">-->
+<!--            <h1>GRAP</h1>-->
+<!--            <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">-->
+<!--                <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">-->
+<!--                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>-->
+<!--            </form>-->
+<!--        </nav><br/>-->
 
         <div class="container">
             <h2>Meals</h2>
@@ -214,7 +216,7 @@
                 <div class="card">
                     <div class="card-header">American</div>
                     <div class="card-body">
-                        <a th:href="@{/home/topics/recipes}"><img class="image" name="searchTerm" src="https://ik.imagekit.io/rzvkccjocg/americanCuisine.jpg?tr=w-640,h-480"></a>
+                        <a th:href="@{/userHome/topics/recipes}"><img class="image" name="searchTerm" src="https://ik.imagekit.io/rzvkccjocg/americanCuisine.jpg?tr=w-640,h-480"></a>
                     </div>
                 </div>
 
