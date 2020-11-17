@@ -6,10 +6,10 @@ const txtUserLastName = document.getElementById('userLastName');
 const txtUserEmail = document.getElementById('userEmail');
 const txtUserPwd = document.getElementById('userPassword');
 const btnSignUp = document.getElementById('btnSignup');
-
+//txtSIUserEmail
 // Working For Sign Up Form
 // Full Name Validation
-function checkUserFullName(){
+function checkUserFirstName(){
     let userSurname = document.getElementById("userFullName").value;
     let flag = false;
     if(userSurname === ""){
@@ -110,7 +110,7 @@ export function signIn(){
                 title: 'Successfully signed in',
             }).then((value) => {
                 setTimeout(function(){
-                    window.location.replace("./pages/profile.html");
+                    window.location.replace("../profile");
                 }, 1000)
             });
         }).catch((error) => {
@@ -125,127 +125,21 @@ export function signIn(){
         });
     }
 }
-// Profile: Get data from server and show in the page
-firebase.auth().onAuthStateChanged((user)=>{
-    if (user) {
-        //   User is signed in.
-        let user = firebase.auth().currentUser;
-        let uid
-        if(user != null){
-            uid = user.uid;
-        }
-        let firebaseRefKey = firebase.database().ref().child(uid);
-        firebaseRefKey.on('value', (dataSnapShot)=>{
-            document.getElementById("userPfFullName").innerHTML = dataSnapShot.val().userFullName;
-            document.getElementById("userPfSurname").innerHTML = dataSnapShot.val().userSurname;
-            // userEmail = dataSnapShot.val().userEmail;
-            // userPassword = dataSnapShot.val().userPassword;
-            document.getElementById("userPfBio").innerHTML = dataSnapShot.val().userBio;
-        })
-    } else {
-        //   No user is signed in.
-    }
-});
-// Show edit profile form with detail
-function showEditProfileForm(){
-    document.getElementById("profileSection").style.display = "none"
-    document.getElementById("editProfileForm").style.display = "block"
-    let userPfFullName = document.getElementById("userPfFullName").innerHTML;
-    let userPfSurname = document.getElementById("userPfSurname").innerHTML;
-    let userPfBio = document.getElementById("userPfBio").innerHTML;
-    document.getElementById("userFullName").value = userPfFullName;
-    document.getElementById("userSurname").value = userPfSurname;
-    document.getElementById("userBio").value = userPfBio;
-}
-// Hide edit profile form
-function hideEditProfileForm(){
-    document.getElementById("profileSection").style.display = "block";
-    document.getElementById("editProfileForm").style.display = "none";
-}
-// Save profile and update database
-function saveProfile(){
-    let userFullName = document.getElementById("userFullName").value
-    let userSurname = document.getElementById("userSurname").value
-    let userBio = document.getElementById("userBio").value
-    let userFullNameFormat = /^([A-Za-z.\s_-])/;
-    let checkUserFullNameValid = userFullName.match(userFullNameFormat);
-    if(checkUserFullNameValid == null){
-        return checkUserFullName();
-    }else if(userSurname === ""){
-        return checkUserLastName();
-    }else{
-        let user = firebase.auth().currentUser;
-        let uid;
-        if(user != null){
-            uid = user.uid;
-        }
-        let firebaseRef = firebase.database().ref();
-        let userData = {
-            userFullName: userFullName,
-            userSurname: userSurname,
-            userBio: userBio,
-        }
-        firebaseRef.child(uid).set(userData);
-        return new Swal({
-            type: 'successful',
-            title: 'Update successful',
-            text: 'Profile updated.',
-        }).then((value) => {
-            setTimeout(function(){
-                document.getElementById("profileSection").style.display = "block";
 
-                document.getElementById("editProfileForm").style.display = "none";
-            }, 1000)
-        });
-    }
-}
-// Working For Sign Out
-function signOut(){
-    firebase.auth().signOut().then(function() {
-        // Sign-out successful.
-        return new Swal({
-            type: 'successful',
-            title: 'Signed Out',
-        }).then((value) => {
-            setTimeout(function(){
-                window.location.replace("../login.html");
-            }, 1000)
-        });
-    }).catch(function(error) {
-        // An error happened.
-        let errorMessage = error.message;
-        swal({
-            type: 'error',
-            title: 'Error',
-            text: "Error",
-        })
-    });
-}
-
+/*
 txtSIUserEmail.addEventListener('onchange', function (event) {
     checkUserSIEmail();
 });
-
 txtSIUserPwd.addEventListener('onchange', function (event) {
     checkUserSIPassword();
 });
+ */
 
 btnSignIn.addEventListener('click', function (event) {
     console.log("hitting sign in");
+    checkUserFirstName();
+    checkUserLastName();
+    checkUserPassword();
     signIn();
 });
-txtUserFirstName.addEventListener('onchange', function (){
-    checkUserFullName();
-});
-txtUserLastName.addEventListener('onchange', function (){
-    checkUserLastName();
-});
-txtUserEmail.addEventListener('onchange', function (){
-    checkUserEmail();
-});
-txtUserPwd.addEventListener('onchange', function (){
-    checkUserPassword();
-});
-btnSignUp.addEventListener('click', function (event) {
-    signUp();
-});
+

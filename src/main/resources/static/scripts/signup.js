@@ -1,28 +1,30 @@
+const btnSignUp = document.getElementById('btnSignup');
+
 // Working For Sign Up Form
 // Full Name Validation
-function checkUserFullName(){
-    let userSurname = document.getElementById("userFullName").value;
+function checkUserFirstName(){
+    let userSurname = document.getElementById("userFirstName").value;
     let flag = false;
     if(userSurname === ""){
         flag = true;
     }
     if(flag){
-        document.getElementById("userFullNameError").style.display = "block";
+        document.getElementById("userFirstNameError").style.display = "block";
     }else{
-        document.getElementById("userFullNameError").style.display = "none";
+        document.getElementById("userFirstNameError").style.display = "none";
     }
 }
-// User Surname Validation
+// User  Validation
 function checkUserLastName(){
-    let userSurname = document.getElementById("userSurname").value;
+    let userSurname = document.getElementById("userLastName").value;
     let flag = false;
     if(userSurname === ""){
         flag = true;
     }
     if(flag){
-        document.getElementById("userSurnameError").style.display = "block";
+        document.getElementById("userLastNameError").style.display = "block";
     }else{
-        document.getElementById("userSurnameError").style.display = "none";
+        document.getElementById("userLastNameError").style.display = "none";
     }
 }
 // Email Validation
@@ -51,21 +53,21 @@ function checkUserPassword(){
 }
 // Submitting and Creating new user in firebase authentication
 function signUp(){
-    let userFullName = document.getElementById("userFullName").value;
-    let userSurname = document.getElementById("userSurname").value;
+    let userFirstName = document.getElementById("userFirstName").value;
+    let userLastName = document.getElementById("userLastName").value;
     let userEmail = document.getElementById("userEmail").value;
     let userPassword = document.getElementById("userPassword").value;
     let userFullNameFormat = /^([A-Za-z.\s_-])/;
     let userEmailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let userPasswordFormat = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;
 
-    let checkUserFullNameValid = userFullName.match(userFullNameFormat);
+    let checkUserFullNameValid = userFirstName.match(userFullNameFormat);
     let checkUserEmailValid = userEmail.match(userEmailFormat);
     let checkUserPasswordValid = userPassword.match(userPasswordFormat);
 
     if(checkUserFullNameValid == null){
-        return checkUserFullName();
-    }else if(userSurname === ""){
+        return checkUserFirstName();
+    }else if(userLastName === ""){
         return checkUserLastName();
     }else if(checkUserEmailValid == null){
         return checkUserEmail();
@@ -80,8 +82,8 @@ function signUp(){
             }
             let firebaseRef = firebase.database().ref();
             let userData = {
-                userFullName: userFullName,
-                userSurname: userSurname,
+                userFirstName: userFirstName,
+                userLastName: userLastName,
                 userEmail: userEmail,
                 userPassword: userPassword
             }
@@ -89,7 +91,7 @@ function signUp(){
             return new Swal('Your Account Created','Your account was created successfully, you can log in now.',
             ).then((value) => {
                 setTimeout(function(){
-                    window.location.replace("../index.html");
+                    window.location.replace("../index");
                 }, 1000)
             });
         }).catch((error) => {
@@ -104,3 +106,7 @@ function signUp(){
         });
     }
 }
+
+btnSignUp.addEventListener('click', function (event) {
+    signUp();
+});
