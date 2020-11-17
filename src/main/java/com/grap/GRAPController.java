@@ -96,6 +96,24 @@ public class GRAPController{
         return modelAndView;
     }
 
+    // Pantry Attempt
+    @GetMapping(value = "/RJPantry")
+    public ModelAndView RJPantry(@RequestParam(value="pantries", required=false, defaultValue="") String pantries) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            Iterable<PantryDTO> pantry = pantryDAO.fetch(pantries);
+//            List<PantryDTO> pantry = pantryService.fetch(firebaseService.getUser(uid).getEmail());
+            modelAndView.setViewName("RJPantry");
+            modelAndView.addObject("pantry", pantry);
+        }
+        catch (Exception e){
+            // This should throw an error, not print stack trace
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
+
     @RequestMapping("/home/topics")
     public ModelAndView topics(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
         ModelAndView modelAndView = new ModelAndView();
