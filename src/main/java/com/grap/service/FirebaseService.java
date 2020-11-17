@@ -40,7 +40,7 @@ public class FirebaseService implements IFirebaseService {
     private final String serviceAccountPath = "./serviceAccount.json";
 
 
-    // Umers Attempt made by RJ
+    // RJ's Implementation of Stara
     // @PostConstruct - Initialize this class automatically once SpringBoot has finished starting
     @PostConstruct
     public void initialize() {
@@ -49,13 +49,13 @@ public class FirebaseService implements IFirebaseService {
             FileInputStream serviceAccountFile = new FileInputStream(serviceAccountPath);
             GoogleCredentials serviceCredentials = GoogleCredentials.fromStream(serviceAccountFile);
 
-            // Configure Firebase for Stara database
+            // Configure Firebase for GRAP (: database
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(serviceCredentials)
                     .setDatabaseUrl("https://grap-c2990.firebaseio.com")
                     .build();
 
-            // Initialize Firebase for Stara
+            // Initialize Firebase for Grap (:
             FirebaseApp.initializeApp(options);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
