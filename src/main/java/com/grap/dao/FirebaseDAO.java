@@ -6,6 +6,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
+import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,40 +16,57 @@ public class FirebaseDAO implements IFirebaseDAO {
 
     @Override
     public void requestLoginFirebase() {
-        serviceAccount();
+//        serviceAccount();
     }
 
-    public void createFirebaseEntry(String collectionDocumentPath){
-        serviceAccount();
-        Firestore db = FirestoreClient.getFirestore();
-        LocalDate current = LocalDate.now();
-
-
-        db.collection("Testing").document(String.valueOf(current));
-
-    }
-
-    private void serviceAccount() {
-        FileInputStream serviceFirebaseAccount =
-                null;
-        try {
-            serviceFirebaseAccount = new FileInputStream("src/test/resources/grap-c2990-firebase-adminsdk-q3p5x-1321d6e6e4.json");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        FirebaseOptions options = null;
-        try {
-            assert serviceFirebaseAccount != null;
-            options = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceFirebaseAccount))
-                    .setDatabaseUrl("https://grap-c2990.firebaseio.com")
-                    .build();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        assert options != null;
-        FirebaseApp.initializeApp(options);
-    }
+//    public void createFirebaseEntry(String collectionDocumentPath){
+//        serviceAccount();
+//        Firestore db = FirestoreClient.getFirestore();
+//        LocalDate current = LocalDate.now();
+//
+//
+//        db.collection("Testing").document(String.valueOf(current));
+//
+//    }
+//
+//    private void serviceAccount() {
+//        FileInputStream serviceFirebaseAccount =
+//                null;
+//        try {
+//            serviceFirebaseAccount = new FileInputStream("src/test/resources/grap-c2990-firebase-adminsdk-q3p5x-1321d6e6e4.json");
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//        FirebaseOptions options = null;
+//        try {
+//            assert serviceFirebaseAccount != null;
+//            options = new FirebaseOptions.Builder()
+//                    .setCredentials(GoogleCredentials.fromStream(serviceFirebaseAccount))
+//                    .setDatabaseUrl("https://grap-c2990.firebaseio.com")
+//                    .build();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        assert options != null;
+//        FirebaseApp.initializeApp(options);
+//    }
+//
+//    @PostConstruct
+//    public void initialize() {
+//        try {
+//            FileInputStream serviceAccount =
+//                    new FileInputStream("./serviceAccount.json");
+//
+//            FirebaseOptions options = new FirebaseOptions.Builder()
+//                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+//                    .setDatabaseUrl("https://grap-c2990.firebaseio.com")
+//                    .build();
+//
+//            FirebaseApp.initializeApp(options);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
