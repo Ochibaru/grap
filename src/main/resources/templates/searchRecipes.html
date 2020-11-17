@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
     <meta charset="ISO-8859-1"/>
     <title>Welcome to GRAP</title>
 
@@ -48,13 +47,13 @@
     <h1>GRAP</h1>
     <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">
         <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
     </form>
 </nav><br/>
 
 <div class="container">
     <div id="bxslider1" class="card-deck m-auto">
-        <div class="card" th:each="recipe : ${recipes}">
+        <div class="card" th:each="recipe : ${searchResults}">
             <div class="card-header" th:text="${recipe.label}">
             </div>
             <div class="card-body">
