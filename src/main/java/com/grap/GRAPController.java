@@ -10,11 +10,18 @@ import com.grap.service.FirebaseService;
 import com.grap.service.IRecipeService;
 import com.grap.service.PantryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,12 +41,27 @@ public class GRAPController{
     @Autowired
     private PantryService pantryService;
 
-/**
- @Autowired
- private IProfileService profileService;
- @Autowired
- private ISearchDAO searchDAO;
- **/
+    /**
+     @Autowired
+     private IProfileService profileService;
+     @Autowired
+     private ISearchDAO searchDAO;
+     **/
+
+    @GetMapping("/")
+    public String displaySchedule(@RequestParam(value = "countryCode", required = false) String countryCode, Model model, @CookieValue(value = "uid", required = false) String uid) throws Exception {
+
+        try {
+            // if (countryCode == null) { countryCode = "US"; }
+            List<RecipeDTO> recipes = recipeService.fetchRecipes();
+            model.addAttribute("recipes", recipes);
+            model.addAttribute("uid", uid);
+            return "recipes";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
 
     @GetMapping(value = "/home")
     public ModelAndView home() throws Exception {
@@ -96,22 +118,45 @@ public class GRAPController{
         return modelAndView;
     }
 
+    // Reference: https://dzone.com/articles/how-to-use-cookies-in-spring-boot
+    @GetMapping("/set-uid")
+    public String setCookie(HttpServletResponse response, @RequestParam(value = "uid") String uid) {
+        Cookie cookie = new Cookie("uid", uid);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        return "redirect:/RJPantry";
+    }
+
+    // Reference: https://attacomsian.com/blog/cookies-spring-boot#deleting-cookie
+    @GetMapping("/unset-uid")
+    public String unsetCookie(HttpServletResponse response) {
+        Cookie cookie = new Cookie("uid", null);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        return "redirect:/";
+    }
+
     // Pantry Attempt
     @GetMapping(value = "/RJPantry")
-    public ModelAndView RJPantry(@RequestParam(value="pantries", required=false, defaultValue="") String pantries) throws Exception {
-        ModelAndView modelAndView = new ModelAndView();
+    public String fetchPantry(@CookieValue(value="uid", required=false) String uid, Model model) {
         try {
-            Iterable<PantryDTO> pantry = pantryDAO.fetch(pantries);
-//            List<PantryDTO> pantry = pantryService.fetch(firebaseService.getUser(uid).getEmail());
-            modelAndView.setViewName("RJPantry");
-            modelAndView.addObject("pantry", pantry);
-        }
-        catch (Exception e){
-            // This should throw an error, not print stack trace
+            if (uid == null) {
+                System.out.println("No UID cookie found. User is not logged in.");
+                return "login";
+            }
+
+            System.out.println("User is logged in. Fetching favorites.");
+            List<PantryDTO> pantries = pantryService.fetchAll(firebaseService.getUser(uid).getEmail());
+            model.addAttribute("pantries", pantries);
+            model.addAttribute("uid", uid);
+            return "RJPantry";
+        } catch (Exception e) {
             e.printStackTrace();
-            modelAndView.setViewName("error");
+            return "error";
         }
-        return modelAndView;
     }
 
     @RequestMapping("/home/topics")
@@ -174,16 +219,5 @@ public class GRAPController{
             e.printStackTrace();
         }
         return suggestions;
-    }
-
-    @GetMapping(value = "/login")
-    public String loginRequest(Model model){
-        model.addAttribute("emailLogin");
-        return "login";
-    }
-
-    @GetMapping(value = "/signup")
-    public ModelAndView signUpRequest(){
-        return new ModelAndView();
     }
 }

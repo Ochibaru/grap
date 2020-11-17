@@ -22,23 +22,10 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 @Service
-public class FirebaseService implements IFirebaseService {
-
-//    @Autowired
-//    private Firestore firestore;
-//
-//    private CollectionReference getTestingCollection(){
-//        return firestore.collection("Testing");
-//    }
-
-    @Override
-    public void requestLoginFirebase() {
-
-    }
+public class FirebaseService {
 
     // Path to Firebase service account private key json
     private final String serviceAccountPath = "./serviceAccount.json";
-
 
     // RJ's Implementation of Stara
     // @PostConstruct - Initialize this class automatically once SpringBoot has finished starting
