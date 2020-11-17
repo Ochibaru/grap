@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Pantry</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/sunny/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+    <script type="text/javascript">
+        $(function() {
+            $("#search").autocomplete({
+                source: "searchAutocomplete",
+                minLength: 3
+            });
+        });
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-light" style="background-color: black;">
+    <h1>GRAP</h1>
+    <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">
+        <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
+    </form>
+</nav><br/>
+
+
+</div>
+
+<br>
+
+
+<form action="/action_page.php" >
+    <label for = "quantity"><b>Quantity</b></label>
+    <input type = "number" id = "quantity" name = "quantity" min = "0" step = "1"> <br> <br>
+
+    <label for = "name"><b>Name</b></label>
+    <input type = "text" id = "name" name = "name">
+    <br> <br>
+
+    <label for = "measurement"><b>Measurement</b></label>
+    <input type = "double" id = "measurement" name = "measurement">
+
+    <select name="weight" id="weight">
+        <option value="kg">kg</option>
+        <option value="gm">gm</option>
+        <option value="pound">pound</option>
+        <option value="ounce">ounce</option>
+        <option value="litre">litre</option>
+    </select>
+    <br> <br>
+
+    <input type = "Submit" value = "Submit">
+
+</form>
+
+</body>
+
+</html>
