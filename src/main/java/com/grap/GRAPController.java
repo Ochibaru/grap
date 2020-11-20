@@ -190,21 +190,21 @@ public class GRAPController{
     }
 
     // Search for recipes
-    @RequestMapping("/loginSearchRecipes")
-    public ModelAndView loginSearchRecipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm, @CookieValue(value="uid", required=false) String uid, Model model) {
-        ModelAndView modelAndView = new ModelAndView();
-        try {
-            Iterable<RecipeDTO> searchResults =  searchDAO.fetch(searchTerm);
-            modelAndView.setViewName("loginSearchRecipes");
-            modelAndView.addObject("searchResults", searchResults);
-            model.addAttribute("uid", uid);
-            // Set off and error if movies = 0
-        } catch (Exception  e) {
-            e.printStackTrace();
-            modelAndView.setViewName("error");
-        }
-        return modelAndView;
-    }
+//    @RequestMapping("/loginSearchRecipes")
+//    public ModelAndView loginSearchRecipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm, @CookieValue(value="uid", required=false) String uid, Model model) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        try {
+//            Iterable<RecipeDTO> searchResults =  searchDAO.fetch(searchTerm);
+//            modelAndView.setViewName("loginSearchRecipes");
+//            modelAndView.addObject("searchResults", searchResults);
+//            model.addAttribute("uid", uid);
+//            // Set off and error if movies = 0
+//        } catch (Exception  e) {
+//            e.printStackTrace();
+//            modelAndView.setViewName("error");
+//        }
+//        return modelAndView;
+//    }
 
     @RequestMapping(value={"/searchAutocomplete", "userHome/*", "userHome/topics/*"})
     @ResponseBody

@@ -5,6 +5,8 @@
     <meta charset="ISO-8859-1"/>
     <title>Pantry</title>
 
+
+
     <!-- Local CSS -->
     <link rel="stylesheet" href="../../css/grap.css">
 
@@ -20,6 +22,15 @@
     <!-- Slick Carousel -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" />
+
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+    <!-- Add additional services you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-functions.js"></script>
 
     <!-- jquery, must come before bootstrap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -40,21 +51,48 @@
     <!-- Local Javascript -->
     <script src="../../javascript/topics.js"></script>
     <script src="../../javascript/grap.js"></script>
+    <script src="../../javascript/RJPantry.js"></script>
 
 </head>
 <body>
 
 <div th:replace="/topnav :: navbar"></div>
 
+<form action="/action_page.php" >
+    <label for = "quantity"><b>Quantity</b></label>
+    <input type = "number" id = "quantity" name = "quantity" min = "0" step = "1"> <br> <br>
+
+    <label for = "name"><b>Name</b></label>
+    <input type = "text" id = "name" name = "name">
+    <br> <br>
+
+    <label for = "measurement"><b>Measurement</b></label>
+    <input type = "double" id = "measurement" name = "measurement">
+
+    <select name="weight" id="weight">
+        <option value="kg">kg</option>
+        <option value="gm">gm</option>
+        <option value="pound">pound</option>
+        <option value="ounce">ounce</option>
+        <option value="litre">litre</option>
+    </select>
+    <br> <br>
+
+<!--    <input type = "Submit" value = "Submit">-->
+    <input id="someInput" type="text">
+    <input type="button" value="Say Hello" onClick="doStuff()">
+
+</form>
+
 <div class="container">
     <div id="bxslider1" class="card-deck m-auto">
         <div class="card" th:each="pantry : ${pantries}">
-            <div class="card-header" th:text="${pantry.name}">
-            </div>
             <div class="card-body">
-<!--                <div th:text="'Calories: ' + ${recipe.calories}"></div>-->
-<!--                <img class="image" th:src="@{${recipe.image}}">-->
+                <div th:text="'Name: ' + ${pantry.name}"></div>
+                <div th:text="'Quantity: ' + ${pantry.quantity}"></div>
+                <div th:text="'Measurement: ' + ${pantry.measurement}"></div>
             </div>
+
         </div>
     </div>
 </div>

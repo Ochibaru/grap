@@ -40,28 +40,20 @@
 
 <div th:replace="/topnav :: navbar"></div>
 
-<!--    <nav class="navbar navbar-light">-->
-<!--        <h1>GRAP</h1>-->
-<!--        <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">-->
-<!--            <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">-->
-<!--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-<!--        </form>-->
-<!--    </nav><br/>-->
-
-    <div class="container">
-        <div class="row slider">
-            <div class="col-md-12" th:each="recipe : ${spoonRecipes}">
-                <div class="card">
-                    <div class="card-header" th:text="${recipe.title}"></div>
-                    <div class="card-body">
-                        <div th:text="'Time to cook: ' + ${recipe.readyInMinutes} + 'minutes'"></div>
-                        <img class="image" th:src="'https://ik.imagekit.io/rzvkccjocg/' + @{${recipe.image}} + '?tr=w-200,h-200'">
-                    </div>
-                    <a th:href="${recipe.sourceUrl}"><button class="btn btn-outline-success my-2 my-sm-0">Instructions</button></a>
+<div class="container">
+    <div class="row slider">
+        <div class="col-md-12" th:each="recipe : ${spoonRecipes}">
+            <div class="card">
+                <div class="card-header" th:text="${recipe.title}"></div>
+                <div class="card-body">
+                    <div th:text="'Time to cook: ' + ${recipe.readyInMinutes} + 'minutes'"></div>
+                    <img class="image" th:src="'https://ik.imagekit.io/rzvkccjocg/' + @{${recipe.image}} + '?tr=w-200,h-200'">
                 </div>
+                <a th:href="${recipe.sourceUrl}"><button class="btn btn-outline-success my-2 my-sm-0">Instructions</button></a>
             </div>
         </div>
     </div>
+</div>
 
 </body>
 </html>

@@ -8,15 +8,13 @@ class  PantryDTO {
 
 //    @SerializedName("ingredients")
 //    private String ingredients;
-//
-//    @SerializedName("quantity")
-//    private int quantity;
+
+    @SerializedName("quantity")
+    private int quantity;
 
     @SerializedName("name")
     private String name;
-//
-//    @SerializedName("measurement")
-//    private Double measurement;
 
-
+    @SerializedName("measurement")
+    private Double measurement;
 }
