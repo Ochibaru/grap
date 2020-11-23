@@ -1,6 +1,7 @@
 HELP.md
 .gradle
 build/
+target/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -96,7 +97,7 @@ ehthumbs_vista.db
 # Dump file
 *.stackdump
 
-# Folder config file
+# Folder initFirebase file
 [Dd]esktop.ini
 
 # Recycle Bin used on file shares

@@ -6,6 +6,7 @@ import com.grap.dto.RecipeDTO;
 import com.grap.service.IRecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,7 +31,7 @@ public class GRAPController{
  **/
 
     @GetMapping(value = "/home")
-    public ModelAndView home() throws Exception {
+    public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
         try {
             Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
@@ -51,7 +52,7 @@ public class GRAPController{
     }
 
     @GetMapping(value = "/test")
-    public ModelAndView test() throws Exception {
+    public ModelAndView test() {
         ModelAndView modelAndView = new ModelAndView();
         try {
             Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
@@ -126,5 +127,21 @@ public class GRAPController{
             e.printStackTrace();
         }
         return suggestions;
+    }
+
+    @GetMapping(value = "/login")
+    public String loginRequest(Model model){
+        model.addAttribute("emailLogin");
+        return "login";
+    }
+
+    @GetMapping(value = "/signup")
+    public ModelAndView signUpRequest(){
+        return new ModelAndView();
+    }
+
+    @GetMapping(value = "/index")
+    public ModelAndView index(){
+        return new ModelAndView();
     }
 }
