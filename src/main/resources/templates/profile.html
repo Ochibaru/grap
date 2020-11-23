@@ -69,6 +69,21 @@ var updates = {};
 updates['/posts/' + newPostKey] = postData;
 updates['/user-posts/' + uid + '/' + newPostKey] = postData;
 return firebase.database().ref().update(updates);
+
+    UserRecord userRecord = FirebaseAuth.getInstance().getUserByEmail(email);
+
+    UpdateRequest request = new UpdateRequest(uid)
+        .setFirstName("Jane")
+        .setLastName("Doe")
+        .setEmail("user@example.com")
+        .setEmailVerified(true)
+        .setUsername("Jane Doe")
+        .setAddress(true);
+
+
+    UserRecord userRecord = FirebaseAuth.getInstance().updateUser(request);
+    System.out.println("Successfully updated user: " + userRecord.getUid());
+
 }
 </script>
 
