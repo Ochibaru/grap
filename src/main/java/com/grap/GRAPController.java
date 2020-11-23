@@ -139,4 +139,9 @@ public class GRAPController{
     public ModelAndView signUpRequest(){
         return new ModelAndView();
     }
+
+    @GetMapping(value = "/index")
+    public ModelAndView index(){
+        return new ModelAndView();
+    }
 }

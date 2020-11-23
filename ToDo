@@ -55,6 +55,8 @@ Progress
 
     11/3
         Completed login page, and hooked it up to Firebase.
+    11/22
+        Added CSS for HTML login page.
 
 Informational
     EDAMAM API for Nutrition Analysis/Recipe Analysis
@@ -64,3 +66,6 @@ Informational
 
 Research
     SneakyThrows(FirebaseServiceTest)
+
+Style Coding
+    https://codepen.io/JFarrow/pen/fFrpg
