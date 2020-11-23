@@ -158,16 +158,68 @@ function handleConfigChange() {
  * Initializes the app.
  */
 var initApp = function() {
-    document.getElementById('sign-out').addEventListener('click', function() {
+
+    $('.readmore h3').click(function (){
         firebase.auth().signOut();
-    });
-    document.getElementById('delete-account').addEventListener(
-        'click', function() {
-            deleteAccount();
-        });
-    document.getElementById('sign-out').addEventListener('click', function() {
-        firebase.auth().signOut();
-    });
+    })
+    $('.readmore h4').click(function (){
+        deleteAccount();
+    })
+    $('.btnProfileNav').click(function (){
+        userProfilePage();
+    })
+    document.getElementById("btnEdit").addEventListener("click", updateProfileInfo, true);
+
+    connect();
 };
 
 window.addEventListener('load', initApp);
+
+
+/**
+ * Edit Profile
+ */
+function userProfilePage(){
+    document.getElementById('user-signed-in').style.display = 'none';
+    document.getElementById('user-signed-out').style.display = 'none';
+    document.getElementById('profile').style.display = 'block';
+}
+
+function updateProfileInfo(){
+    var user = firebase.auth().currentUser;
+    if (user != null) {
+        var displayName = document.getElementById('username').value;
+        user.updateProfile({displayName: displayName, photoURL: user.photoURL}).then(function () {
+            sendProfileInformation();
+            // Update Successful
+            console.log(user.displayName);
+        }).catch(function (error) {
+            // An error happened
+            console.log('Profile Nav error');
+        })
+    }
+}
+
+
+/*
+    Web Socket
+ */
+var stompClient = null;
+
+function connect() {
+    var socket = new SockJS('/profile-update');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/messages', function (updateProfile) {
+            // Use if sending message back to client side
+        });
+    });
+}
+
+function sendProfileInformation() {
+    var email = firebase.auth().currentUser.email;
+    var uid = firebase.auth().currentUser.uid;
+    console.log("login email shows: " + email);
+    stompClient.send("/profile-update", {}, JSON.stringify({'email': email, 'firstName': $("#firstName").val(), 'lastName': $("#lastName").val()}));
+}

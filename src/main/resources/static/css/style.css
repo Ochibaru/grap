@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 @import url(https://fonts.googleapis.com/css?family=Vidaloka|Oswald:400,300);
 
-<!-- Navigation Template Start-->
+/* <!-- Navigation Template Start --> */
 body {
     margin: 0;
 }
@@ -57,7 +57,7 @@ body {
 }
 .main-menu {
     background:#2e383f;
-    border-right:1px solid #e5e5e5;
+    border-right:1px solid #181d21;
     position:absolute;
     top:0;
     bottom:0;
@@ -84,7 +84,7 @@ body {
     border-collapse:collapse;
     border-spacing:0;
     color:#f9a828;
-    font-family: arial;
+    font-family: arial, serif;
     font-size: 14px;
     text-decoration:none;
     -webkit-transform:translateZ(0) scale(1,1);
@@ -141,13 +141,13 @@ nav ul,nav li {
     padding:0;
 }
 .main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
-    color:#fff;
-    background-color:#5fa2db;
+    color:#ececeb;
+    background-color:#07617d;
 }
 .area {
     float: left;
-    background: #e2e2e2;
-    width: 100%;
+    background: #1d2327;
+    width: 20%;
     height: 100%;
 }
 @font-face {
@@ -161,6 +161,7 @@ nav ul,nav li {
 }
 body {
     margin: 0;
+    color:#f9a828;
 }
 .clearfix {
     clear: both;
@@ -196,12 +197,10 @@ body {
         width: 40px;
     }
 }
-<!-- Navigation Template End-->
+/* <!-- Navigation Template End --> */
 
 
-
-
-<!-- Card Template Start-->
+/* <!-- Card Template Start --> */
 * {
     margin: 0;
     padding: 0;
@@ -210,7 +209,7 @@ body {
     transition: 0.2s;
 }
 body {
-    background: linear-gradient(to right, #8e9eab, #eef2f3);
+    background: linear-gradient(to right, #181d21, #2e383f);
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -342,4 +341,62 @@ i {
     font-size: 10px;
     margin-bottom: 5px;
 }
-<!-- Card Template End -->
+.item .readmore h4 {
+    display: block;
+    padding: 10px 15px;
+    border-radius: 40px;
+    border: 1px solid;
+    cursor: pointer;
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+/* <!-- Card Template End --> */
+
+
+
+/* <!-- Profile Template Start --> */
+input[type=text], input[type=email] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #465661;
+}
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+button {
+    background-color: #4CAF50;
+    color: black;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+.container-profile {
+    padding: 16px;
+}
+.editbtn, .returnbtn {
+    float: left;
+    width: 50%;
+}
+.returnbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+#profile-form fieldset {
+    background: #2e383f;
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 80%;
+    margin: 0 10%;
+}
+/* <!-- Profile Template End --> */

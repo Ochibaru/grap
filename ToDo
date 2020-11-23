@@ -57,6 +57,12 @@ Progress
         Completed login page, and hooked it up to Firebase.
     11/22
         Added CSS for HTML login page.
+        Added https://fontawesome.com/ to HTML page for Icons.
+    11/23
+        Added spring-websocket/spring-messaging dependencies to pom.xml.
+        Added WebSocketConfiguration to create a bi-directional, persistent connection.
+        Removed NonNull on ProfileDTO.
+        Changed Login.html to include Profile.html information to help with changing app to a single page web app.
 
 Informational
     EDAMAM API for Nutrition Analysis/Recipe Analysis
