@@ -77,8 +77,13 @@ var signInWithPopup = function() {
  * @param {!firebase.User} user
  */
 var handleSignedInUser = function(user) {
+
+
+    //var docRef = db.collection("Users").doc(user.uid);
+
     document.getElementById('user-signed-in').style.display = 'block';
     document.getElementById('user-signed-out').style.display = 'none';
+    //document.getElementById('fullName').textContent = user.name;
     document.getElementById('name').textContent = user.displayName;
     document.getElementById('email').textContent = user.email;
     document.getElementById('phone').textContent = user.phoneNumber;
@@ -114,6 +119,8 @@ var handleSignedOutUser = function() {
 firebase.auth().onAuthStateChanged(function(user) {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('loaded').style.display = 'block';
+    document.getElementById('profile').style.display = 'none';
+    document.getElementById('pantry').style.display = 'none';
     user ? handleSignedInUser(user) : handleSignedOutUser();
 });
 
@@ -158,16 +165,89 @@ function handleConfigChange() {
  * Initializes the app.
  */
 var initApp = function() {
-    document.getElementById('sign-out').addEventListener('click', function() {
+
+    $('.readmore h3').click(function (){
         firebase.auth().signOut();
-    });
-    document.getElementById('delete-account').addEventListener(
-        'click', function() {
-            deleteAccount();
+    })
+    $('.readmore h4').click(function (){
+        deleteAccount();
+    })
+    $('.btnProfileNav').click(function (){
+        userProfilePage();
+    })
+    document.getElementById("btnEdit").addEventListener("click", updateProfileInfo, true);
+
+    $('.btnPantryNav').click(function (){
+        userPantryPage();
+    })
+
+    $('body')
+        .on('click', 'div.three button.btn-search', function(event) {
+            event.preventDefault();
+            var $input = $('div.three input');
+            $input.focus();
+            if ($input.val().length() > 0) {
+                // submit form
+            }
         });
-    document.getElementById('sign-out').addEventListener('click', function() {
-        firebase.auth().signOut();
-    });
+
+    connect();
 };
 
 window.addEventListener('load', initApp);
+
+function userPantryPage(){
+    document.getElementById('user-signed-in').style.display = 'none';
+    document.getElementById('user-signed-out').style.display = 'none';
+    document.getElementById('profile').style.display = 'none';
+    document.getElementById('pantry').style.display = 'block';
+}
+
+/**
+ * Edit Profile
+ */
+function userProfilePage(){
+    document.getElementById('user-signed-in').style.display = 'none';
+    document.getElementById('user-signed-out').style.display = 'none';
+    document.getElementById('pantry').style.display = 'none';
+    document.getElementById('profile').style.display = 'block';
+}
+
+function updateProfileInfo(){
+    var user = firebase.auth().currentUser;
+    if (user != null) {
+        var displayName = document.getElementById('username').value;
+        user.updateProfile({displayName: displayName, photoURL: user.photoURL}).then(function () {
+            sendProfileInformation();
+            // Update Successful
+            console.log(user.displayName);
+        }).catch(function (error) {
+            // An error happened
+            console.log('Profile Nav error');
+        })
+    }
+}
+
+
+/*
+    Web Socket
+ */
+var stompClient = null;
+
+function connect() {
+    var socket = new SockJS('/profile-update');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/messages', function (updateProfile) {
+            // Use if sending message back to client side
+        });
+    });
+}
+
+function sendProfileInformation() {
+    var email = firebase.auth().currentUser.email;
+    var uid = firebase.auth().currentUser.uid;
+    console.log("login email shows: " + email);
+    stompClient.send("/profile-update", {}, JSON.stringify({'email': email, 'firstName': $("#firstName").val(), 'lastName': $("#lastName").val()}));
+}
