@@ -1,0 +1,12 @@
+{
+  "name": "UC",
+  "version": "1.0.0",
+  "dependencies": {
+    "firebase": "^8.0.0",
+    "sweetalert2": "^10.9.0"
+  },
+  "devDependencies": {
+    "firebaseui": "^4.7.0"
+  },
+  "type": "module"
+}

@@ -1,21 +1,18 @@
 package com.grap.dto;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import lombok.Data;
-import org.springframework.lang.NonNull;
 
+import com.google.firebase.database.annotations.NotNull;
+import lombok.Data;
 
 public @Data class ProfileDTO{
-
-    @NonNull
+    @NotNull
     private String firstName;
-    @NonNull
+
+    @NotNull
     private String lastName;
-    @NonNull
-    private String username;
-    @NonNull
+
+    private String password;
+    private String matchingPassword;
+
     private String email;
-    @NonNull
-    private String address;
 
 }

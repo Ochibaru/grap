@@ -1,11 +1,22 @@
 package com.grap;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.WriteResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserRecord;
+import com.google.firebase.cloud.FirestoreClient;
 import com.grap.dao.IRecipeDAO;
 import com.grap.dao.ISearchDAO;
+import com.grap.dto.ProfileDTO;
 import com.grap.dto.RecipeDTO;
 import com.grap.service.IRecipeService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,7 +33,8 @@ public class GRAPController{
     @Autowired
     private ISearchDAO searchDAO;
 
-/**
+
+    /**
  @Autowired
  private IProfileService profileService;
  @Autowired
@@ -30,7 +42,7 @@ public class GRAPController{
  **/
 
     @GetMapping(value = "/home")
-    public ModelAndView home() throws Exception {
+    public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
         try {
             Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
@@ -51,7 +63,7 @@ public class GRAPController{
     }
 
     @GetMapping(value = "/test")
-    public ModelAndView test() throws Exception {
+    public ModelAndView test() {
         ModelAndView modelAndView = new ModelAndView();
         try {
             Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
@@ -126,5 +138,73 @@ public class GRAPController{
             e.printStackTrace();
         }
         return suggestions;
+    }
+
+    @RequestMapping(value = "/login")
+    public ModelAndView searchNavBar(@RequestParam(value="searchItem", required=false, defaultValue="") String searchItem){
+        ModelAndView mV = new ModelAndView();
+        try {
+            Iterable<RecipeDTO> searchResults =  searchDAO.fetch(searchItem);
+            mV.setViewName("searchRecipes");
+            mV.addObject("searchResults", searchResults);
+            // Set off and error if movies = 0
+        } catch (Exception  e) {
+            e.printStackTrace();
+            mV.setViewName("error");
+        }
+        return mV;
+    }
+    @GetMapping(value = "/login")
+    public String loginRequest(Model model){
+        model.addAttribute("emailLogin");
+        return "login";
+    }
+
+    @GetMapping(value = "/signup")
+    public ModelAndView signUpRequest(){
+        return new ModelAndView();
+    }
+
+    @GetMapping(value = "/index")
+    public ModelAndView index(){
+        return new ModelAndView();
+    }
+
+
+    @MessageMapping("/profile-update")
+    @SendTo("/topic/messages")
+    public ProfileDTO updateProfile(String email, String firstName, String lastName) throws Exception {
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        JSONObject obj = new JSONObject(email);
+        System.out.println("controller dto: " + obj.getString("email"));
+
+        ProfileDTO docData = new ProfileDTO();
+        docData.setEmail(obj.getString("email"));
+        docData.setFirstName(obj.getString("firstName"));
+        docData.setLastName(obj.getString("lastName"));
+
+        UserRecord userRecord = FirebaseAuth.getInstance().getUserByEmail(obj.getString("email"));
+        String uid = userRecord.getUid();
+
+        ApiFuture<WriteResult> future = db.collection("Users").document(uid).set(docData);
+        System.out.println("Update time : " + future.get().getUpdateTime());
+
+        return new ProfileDTO();
+    }
+
+    @RequestMapping("/pantry")
+    public ModelAndView pantry(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
+        ModelAndView modelAndViewPantry = new ModelAndView();
+        try {
+            Iterable<RecipeDTO> topics = recipeService.fetchRecipes();
+            modelAndViewPantry.setViewName("pantry");
+            modelAndViewPantry.addObject("pantry", topics);
+        } catch (Exception  e) {
+            e.printStackTrace();
+            modelAndViewPantry.setViewName("error");
+        }
+        return modelAndViewPantry;
     }
 }
