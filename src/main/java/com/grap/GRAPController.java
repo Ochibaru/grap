@@ -4,19 +4,19 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.grap.dao.IPantryDAO;
 import com.grap.dao.IRecipeDAO;
 import com.grap.dao.ISearchDAO;
-import com.grap.dto.ProfileDTO;
 import com.grap.dto.PantryDTO;
+import com.grap.dto.ProfileDTO;
 import com.grap.dto.RecipeDTO;
 import com.grap.service.FirebaseService;
 import com.grap.service.IRecipeService;
-import org.json.JSONObject;
 import com.grap.service.PantryService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -85,14 +85,6 @@ public class GRAPController{
     public String fetchPantry(@CookieValue(value="uid", required=false) String uid, Model model) {
 
 
-    /**
- @Autowired
- private IProfileService profileService;
- @Autowired
- private ISearchDAO searchDAO;
- **/
-
-
         try {
             System.out.println("User is logged in. Fetching favorites.");
             List<PantryDTO> pantries = pantryService.fetchAll(firebaseService.getUser(uid).getEmail());
@@ -131,17 +123,37 @@ public class GRAPController{
             pantryService.save(pantry, firebaseService.getUser(uid).getEmail(), "pantryId");
 //            log.info("Saved Favorite Show " + favoriteShowId + " for user with uid " + uid);
         } catch (FirebaseAuthException | ExecutionException | InterruptedException e) {
-           // log.error("Unable to fetch user record from Firebase, a FirebaseAuthException occurred. Message: " + e.getMessage(), e);
+            // log.error("Unable to fetch user record from Firebase, a FirebaseAuthException occurred. Message: " + e.getMessage(), e);
             return "error";
         }
 
         return "redirect:/RJPantry";
     }
 
-    @GetMapping(value = "/test")
-    public ModelAndView test(@CookieValue(value="uid", required=false) String uid, Model model) throws Exception {
+
     @GetMapping(value = "/home")
     public ModelAndView home() {
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
+            modelAndView.setViewName("home");
+            modelAndView.addObject("recipes", recipes);
+        }
+        catch (Exception e){
+            // This should throw an error, not print stack trace
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
+
+    @PostMapping("/home")
+    public String create() {
+        return "home";
+    }
+
+    @GetMapping(value = "/test")
+    public ModelAndView test(@CookieValue(value="uid", required=false) String uid, Model model) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         try {
             Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
@@ -160,18 +172,13 @@ public class GRAPController{
     // Pantry Attempt
     @GetMapping(value = "/pantry")
     public ModelAndView pantry(@RequestParam(value="pantries", required=false, defaultValue="") String pantries, @CookieValue(value="uid", required=false) String uid, Model model) throws Exception {
-    @PostMapping("/home")
-    public String create() {
-        return "home";
-    }
-
-    @GetMapping(value = "/test")
-    public ModelAndView test() {
         ModelAndView modelAndView = new ModelAndView();
         try {
-            Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
-            modelAndView.setViewName("test");
-            modelAndView.addObject("recipes", recipes);
+            Iterable<PantryDTO> pantry = pantryDAO.fetch(pantries);
+//            List<PantryDTO> pantry = pantryService.fetch(firebaseService.getUser(uid).getEmail());
+            modelAndView.setViewName("pantry");
+            modelAndView.addObject("pantry", pantry);
+            model.addAttribute("uid", uid);
         }
         catch (Exception e){
             // This should throw an error, not print stack trace
@@ -235,6 +242,37 @@ public class GRAPController{
         return modelAndView;
     }
 
+    @RequestMapping("/home/topics")
+    public ModelAndView topics(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            Iterable<RecipeDTO> topics = recipeService.fetchRecipes();
+            modelAndView.setViewName("topics");
+            modelAndView.addObject("topics", topics);
+        } catch (Exception  e) {
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping("/home/topics/recipes")
+    public ModelAndView recipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            Iterable<RecipeDTO> spoonRecipes = recipeService.fetchSpoonRecipes();
+            modelAndView.setViewName("recipes");
+            modelAndView.addObject("spoonRecipes", spoonRecipes);
+
+            Iterable<RecipeDTO> topics = recipeService.fetchRecipes();
+            modelAndView.addObject("topics", topics);
+        } catch (Exception  e) {
+            e.printStackTrace();
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
+
     // Search for recipes
     @RequestMapping("/searchRecipes")
     public ModelAndView searchRecipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm, @CookieValue(value="uid", required=false) String uid, Model model) {
@@ -251,23 +289,6 @@ public class GRAPController{
         }
         return modelAndView;
     }
-
-    // Search for recipes
-//    @RequestMapping("/loginSearchRecipes")
-//    public ModelAndView loginSearchRecipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm, @CookieValue(value="uid", required=false) String uid, Model model) {
-//        ModelAndView modelAndView = new ModelAndView();
-//        try {
-//            Iterable<RecipeDTO> searchResults =  searchDAO.fetch(searchTerm);
-//            modelAndView.setViewName("loginSearchRecipes");
-//            modelAndView.addObject("searchResults", searchResults);
-//            model.addAttribute("uid", uid);
-//            // Set off and error if movies = 0
-//        } catch (Exception  e) {
-//            e.printStackTrace();
-//            modelAndView.setViewName("error");
-//        }
-//        return modelAndView;
-//    }
 
     @RequestMapping(value={"/searchAutocomplete", "userHome/*", "userHome/topics/*"})
     @ResponseBody
