@@ -1,3 +1,4 @@
+/**
 package com.grap.dao;
 
 import com.google.cloud.firestore.Firestore;
@@ -13,3 +14,4 @@ public class FirebaseConfig {
         return FirestoreClient.getFirestore();
     }
 }
+ **/
