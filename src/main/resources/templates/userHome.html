@@ -47,33 +47,13 @@
 <div th:replace="/topnav :: navbar"></div>
 
 <div class="container">
-    <h2>Services</h2>
     <div id="bxslider1" class="card-deck m-auto">
-        <div class="card">
-            <div class="card-header">Recipes</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/breakfast.jpg?tr=w-640,h-480">
+        <div class="card" th:each="pantry : ${pantries}">
+            <div class="card-header" th:text="${pantry.name}">
             </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Groceries</div>
             <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/lunch.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Pantry</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/dinner.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Health Monitoring</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/snack.jpg?tr=w-640,h-480">
+                <!--                <div th:text="'Calories: ' + ${recipe.calories}"></div>-->
+                <!--                <img class="image" th:src="@{${recipe.image}}">-->
             </div>
         </div>
     </div>
