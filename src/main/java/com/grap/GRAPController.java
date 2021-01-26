@@ -1,5 +1,6 @@
 package com.grap;
 
+import com.google.firebase.auth.FirebaseAuthException;
 import com.grap.dao.IPantryDAO;
 import com.grap.dao.IRecipeDAO;
 import com.grap.dao.ISearchDAO;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 public class GRAPController{
@@ -70,9 +73,13 @@ public class GRAPController{
     // Pantry Attempt
     @GetMapping(value = "/RJPantry")
     public String fetchPantry(@CookieValue(value="uid", required=false) String uid, Model model) {
+
+
         try {
             System.out.println("User is logged in. Fetching favorites.");
             List<PantryDTO> pantries = pantryService.fetchAll(firebaseService.getUser(uid).getEmail());
+
+
             model.addAttribute("pantries", pantries);
             model.addAttribute("uid", uid);
             return "RJPantry";
@@ -80,6 +87,37 @@ public class GRAPController{
             e.printStackTrace();
             return "error";
         }
+    }
+
+    @PostMapping("/RJPantry/save")
+    public String savePantry(HttpServletRequest request, @CookieValue(value = "uid", required = false) String uid) {
+//        log.debug("Entering /favorites/save/show endpoint.");
+//        log.trace("User's uid is: " + uid);
+
+        // User is not logged in, need to log in before show can be saved to favorites.
+        if (uid == null) {
+            // log.warn("No UID cookie found. User is not logged in. Redirecting to login...");
+            return "login";
+        }
+//        log.info("User is logged in. Saving favorite for logged in user with uid " + uid);
+
+        // Need to manually differentiate ID between Actor & Show since TVMaze API doesn't do it for us.
+        // String favoriteShowId = "Show_" + request.getParameter("id");
+
+        // Converting Show object properties to Favorite object to later save to Firebase
+        PantryDTO pantry = new PantryDTO();
+        pantry.setId(request.getParameter("pantryId"));
+        pantry.setName(request.getParameter("name"));
+
+        try {
+            pantryService.save(pantry, firebaseService.getUser(uid).getEmail(), "pantryId");
+//            log.info("Saved Favorite Show " + favoriteShowId + " for user with uid " + uid);
+        } catch (FirebaseAuthException | ExecutionException | InterruptedException e) {
+           // log.error("Unable to fetch user record from Firebase, a FirebaseAuthException occurred. Message: " + e.getMessage(), e);
+            return "error";
+        }
+
+        return "redirect:/RJPantry";
     }
 
     @GetMapping(value = "/test")

@@ -12,5 +12,5 @@ public interface IPantryService {
 
     List<PantryDTO> fetchAll(String email) throws ExecutionException, InterruptedException;
 
-    void save(Map<String, String> favoriteData, String email, String id) throws ExecutionException, InterruptedException;
+    void save(PantryDTO pantry, String email, String id) throws ExecutionException, InterruptedException;
 }

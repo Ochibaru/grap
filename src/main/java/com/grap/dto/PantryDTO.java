@@ -9,6 +9,9 @@ class  PantryDTO {
 //    @SerializedName("ingredients")
 //    private String ingredients;
 
+    @SerializedName("id")
+    private String id;
+
     @SerializedName("quantity")
     private int quantity;
 

@@ -5,8 +5,6 @@
     <meta charset="ISO-8859-1"/>
     <title>Pantry</title>
 
-
-
     <!-- Local CSS -->
     <link rel="stylesheet" href="../../css/grap.css">
 
@@ -77,12 +75,21 @@
         <option value="litre">litre</option>
     </select>
     <br> <br>
-
-<!--    <input type = "Submit" value = "Submit">-->
-    <input id="someInput" type="text">
-    <input type="button" value="Say Hello" onClick="doStuff()">
-
 </form>
+<!--    <input type = "Submit" value = "Submit">-->
+<!--    <input id="someInput" type="text">-->
+<!--    <input type="button" value="Say Hello" onClick="doStuff()">-->
+
+
+    <div class="list-group-item" role="listitem" th:each="pantry : ${pantries}">
+        <div class="col-sm-4">
+            <form action="/RJPantry/save" class="d-sm-inline-block" method="post">
+                <input name="pantryId" th:value="${pantry.name}" />
+                <button class="saveBtn" type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+
 
 <div class="container">
     <div id="bxslider1" class="card-deck m-auto">

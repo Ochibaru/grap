@@ -60,15 +60,21 @@ public class PantryDAO implements IPantryDAO{
         return pantries;
     }
 
+//    City city = new City("Los Angeles", "CA", "USA", false, 3900000L,
+//                Arrays.asList("west_coast", "socal"));
+//        ApiFuture<WriteResult> future = db.collection("cities").document("LA").set(city);
+//    // block on response if required
+//    System.out.println("Update time : " + future.get().getUpdateTime());
+
     // Firebase Reference: https://firebase.google.com/docs/firestore/manage-data/add-data
     @Override
-    public void save(Map<String, String> pantryData, String email, String id) throws ExecutionException, InterruptedException {
+    public void save(PantryDTO pantry, String email, String id) throws ExecutionException, InterruptedException {
         ApiFuture<WriteResult> writeResult = firebaseService.getFirestore()
                 .collection("users")
                 .document(email)
                 .collection("pantry")
                 .document(id)
-                .set(pantryData);
+                .set(pantry);
 
         System.out.println("Pantry with " + id + "added at time: " + writeResult.get().getUpdateTime());
     }

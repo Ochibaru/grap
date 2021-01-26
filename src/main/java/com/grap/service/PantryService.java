@@ -25,7 +25,7 @@ public class PantryService implements IPantryService {
     }
 
     @Override
-    public void save(Map<String, String> pantryData, String email, String id) throws ExecutionException, InterruptedException {
-        pantryDAO.save(pantryData, email, id);
+    public void save(PantryDTO pantry, String email, String id) throws ExecutionException, InterruptedException {
+        pantryDAO.save(pantry, email, id);
     }
 }
