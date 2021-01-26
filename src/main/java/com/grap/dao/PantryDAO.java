@@ -1,81 +1,34 @@
 package com.grap.dao;
 
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.*;
+
 import com.grap.dto.PantryDTO;
-import com.grap.service.FirebaseService;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
-@Repository
-public class PantryDAO implements IPantryDAO{
+public class PantryDAO implements  IPantryDAO {
 
     @Autowired
-    FirebaseService firebaseService;
+    private NetworkDAO networkDAO;
 
-    // https://www.youtube.com/watch?v=ScsID2yPB8k
-    // Firebase Reference: https://firebase.google.com/docs/firestore/query-data/get-data
-    // Thanks Umer
     @Override
-    public List<PantryDTO> fetch(String pantries) throws ExecutionException, InterruptedException {
-        List<PantryDTO> pantry = new ArrayList<>();
+    public List<PantryDTO> fetchAllPantryItems() throws Exception {
+        List<PantryDTO> pantries = new ArrayList<>();
+        return getPantriesDTOS(pantries, rawJson);
 
-        ApiFuture<QuerySnapshot> querySnapshot = firebaseService.getFirestore()
-                .collection("Users")
-                .get();
-
-        List<QueryDocumentSnapshot> documents = null;
-        documents = querySnapshot.get().getDocuments();
-
-        for (QueryDocumentSnapshot document : documents) {
-            pantry.add(document.toObject(PantryDTO.class));
-        }
-
-        return pantry;
     }
 
-    // Firebase Reference: https://firebase.google.com/docs/firestore/query-data/get-data
-    @Override
-    public List<PantryDTO> fetchAll(String email) throws ExecutionException, InterruptedException {
-        List<PantryDTO> pantries = new ArrayList<>();
-
-        ApiFuture<QuerySnapshot> querySnapshot = firebaseService.getFirestore()
-                .collection("users")
-                .document(email)
-                .collection("pantry")
-                .get();
-
-        List<QueryDocumentSnapshot> documents = null;
-        documents = querySnapshot.get().getDocuments();
-
-        for (QueryDocumentSnapshot document : documents) {
-            pantries.add(document.toObject(PantryDTO.class));
-        }
-
+    private List<PantryDTO> getPantriesDTOS(List<PantryDTO> pantries, String rawJson) {
+        JSONObject obj = new JSONObject(rawJson);
+        JSONArray pantry = obj.getJSONArray("hits");
         return pantries;
     }
-
-//    City city = new City("Los Angeles", "CA", "USA", false, 3900000L,
-//                Arrays.asList("west_coast", "socal"));
-//        ApiFuture<WriteResult> future = db.collection("cities").document("LA").set(city);
-//    // block on response if required
-//    System.out.println("Update time : " + future.get().getUpdateTime());
-
-    // Firebase Reference: https://firebase.google.com/docs/firestore/manage-data/add-data
-    @Override
-    public void save(PantryDTO pantry, String email, String id) throws ExecutionException, InterruptedException {
-        ApiFuture<WriteResult> writeResult = firebaseService.getFirestore()
-                .collection("users")
-                .document(email)
-                .collection("pantry")
-                .document(id)
-                .set(pantry);
-
-        System.out.println("Pantry with " + id + "added at time: " + writeResult.get().getUpdateTime());
-    }
 }
+
+
+
+
+

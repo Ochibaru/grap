@@ -1,4 +1,3 @@
-
 package com.grap.dto;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
@@ -6,11 +5,8 @@ import lombok.Data;
 public @Data
 class  PantryDTO {
 
-//    @SerializedName("ingredients")
-//    private String ingredients;
-
-    @SerializedName("id")
-    private String id;
+    @SerializedName("ingredients")
+    private String ingredients;
 
     @SerializedName("quantity")
     private int quantity;
@@ -20,4 +16,6 @@ class  PantryDTO {
 
     @SerializedName("measurement")
     private Double measurement;
+
+
 }
