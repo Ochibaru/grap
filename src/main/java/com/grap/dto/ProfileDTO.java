@@ -10,9 +10,11 @@ public @Data class ProfileDTO{
     @NotNull
     private String lastName;
 
+    @NotNull
     private String password;
     private String matchingPassword;
 
+    @NotNull
     private String email;
 
 }

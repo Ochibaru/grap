@@ -11,9 +11,6 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!-- Local CSS -->
-    <link rel="stylesheet" href="../../css/grap.css">
-
 
 
     <script type="text/javascript">
@@ -27,13 +24,15 @@
 </head>
 <body>
 
-<nav class="navbar navbar-light">
-    <h1>GRAP</h1>
-    <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">
-        <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
-    </form>
-</nav><br/>
+<div th:replace="/topnav :: navbar"></div>
+
+<!--<nav class="navbar navbar-light" style="background-color: black;">-->
+<!--    <h1>GRAP</h1>-->
+<!--    <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">-->
+<!--        <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">-->
+<!--        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>-->
+<!--    </form>-->
+<!--</nav><br/>-->
 
 
 </div>
@@ -60,7 +59,9 @@
         <option value="litre">litre</option>
     </select>
     <br> <br>
+
     <input type = "Submit" value = "Submit">
+
 </form>
 
 </body>
