@@ -77,8 +77,13 @@ var signInWithPopup = function() {
  * @param {!firebase.User} user
  */
 var handleSignedInUser = function(user) {
+
+
+    //var docRef = db.collection("Users").doc(user.uid);
+
     document.getElementById('user-signed-in').style.display = 'block';
     document.getElementById('user-signed-out').style.display = 'none';
+    //document.getElementById('fullName').textContent = user.name;
     document.getElementById('name').textContent = user.displayName;
     document.getElementById('email').textContent = user.email;
     document.getElementById('phone').textContent = user.phoneNumber;
@@ -114,6 +119,8 @@ var handleSignedOutUser = function() {
 firebase.auth().onAuthStateChanged(function(user) {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('loaded').style.display = 'block';
+    document.getElementById('profile').style.display = 'none';
+    document.getElementById('pantry').style.display = 'none';
     user ? handleSignedInUser(user) : handleSignedOutUser();
 });
 
@@ -170,11 +177,31 @@ var initApp = function() {
     })
     document.getElementById("btnEdit").addEventListener("click", updateProfileInfo, true);
 
+    $('.btnPantryNav').click(function (){
+        userPantryPage();
+    })
+
+    $('body')
+        .on('click', 'div.three button.btn-search', function(event) {
+            event.preventDefault();
+            var $input = $('div.three input');
+            $input.focus();
+            if ($input.val().length() > 0) {
+                // submit form
+            }
+        });
+
     connect();
 };
 
 window.addEventListener('load', initApp);
 
+function userPantryPage(){
+    document.getElementById('user-signed-in').style.display = 'none';
+    document.getElementById('user-signed-out').style.display = 'none';
+    document.getElementById('profile').style.display = 'none';
+    document.getElementById('pantry').style.display = 'block';
+}
 
 /**
  * Edit Profile
@@ -182,6 +209,7 @@ window.addEventListener('load', initApp);
 function userProfilePage(){
     document.getElementById('user-signed-in').style.display = 'none';
     document.getElementById('user-signed-out').style.display = 'none';
+    document.getElementById('pantry').style.display = 'none';
     document.getElementById('profile').style.display = 'block';
 }
 

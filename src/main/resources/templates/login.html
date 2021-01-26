@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>GRAP</title>
@@ -45,9 +45,9 @@
             </a>
         </li>
         <li class="has-subnav">
-            <a href="/pantry">
+            <a>
                 <i class="fa fa-book-open fa-2x"></i>
-                <span class="nav-text">Pantry</span>
+                <span class="nav-text btnPantryNav">Pantry</span>
             </a>
         </li>
         <li class="has-subnav">
@@ -96,6 +96,7 @@
                                         <h2 class="title" id="name"></h2>
                                         <div class="content">
                                             <p>
+                                            <p><div id="fullName"></div></p>
                                             <p><div id="email"></div></p>
                                             <p><div id="phone"></div></p>
                                             <p><div id="is-new-user"></div></p>
@@ -160,6 +161,37 @@
     </div>
 
 <!-- Profile End-->
+
+<!-- Pantry Start-->
+<div class="container pantry">
+    <div class="hidden container-profile" id="pantry">
+        <form action="/action_page.php" style="border:1px solid #ccc" id="pantry-form">
+            <fieldset>
+                <label><b>Quantity</b></label>
+                <input type="text" name="quantity" id="quantity">
+
+                <label><b>Name</b></label>
+                <input type="text" name="pantryName" id="pantryName">
+
+                <label><b>Measurement</b></label>
+                <input type="text" name="pantryMeasurement" id="pantryMeasurement">
+
+                <select name="weight" id="weight">
+                    <option value="kg">kg</option>
+                    <option value="gm">gm</option>
+                    <option value="pound">pound</option>
+                    <option value="ounce">ounce</option>
+                    <option value="litre">litre</option>
+                </select>
+                <br> <br>
+                <div class="clearfix">
+                    <button type="button" class="btnPantry" id="btnPantry">Submit</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<!-- Pantry End-->
 
 <script type="module" src="../javascript/common.js"></script>
 </body>

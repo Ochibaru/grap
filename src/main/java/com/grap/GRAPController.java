@@ -140,6 +140,20 @@ public class GRAPController{
         return suggestions;
     }
 
+    @RequestMapping(value = "/login")
+    public ModelAndView searchNavBar(@RequestParam(value="searchItem", required=false, defaultValue="") String searchItem){
+        ModelAndView mV = new ModelAndView();
+        try {
+            Iterable<RecipeDTO> searchResults =  searchDAO.fetch(searchItem);
+            mV.setViewName("searchRecipes");
+            mV.addObject("searchResults", searchResults);
+            // Set off and error if movies = 0
+        } catch (Exception  e) {
+            e.printStackTrace();
+            mV.setViewName("error");
+        }
+        return mV;
+    }
     @GetMapping(value = "/login")
     public String loginRequest(Model model){
         model.addAttribute("emailLogin");
@@ -178,5 +192,19 @@ public class GRAPController{
         System.out.println("Update time : " + future.get().getUpdateTime());
 
         return new ProfileDTO();
+    }
+
+    @RequestMapping("/pantry")
+    public ModelAndView pantry(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
+        ModelAndView modelAndViewPantry = new ModelAndView();
+        try {
+            Iterable<RecipeDTO> topics = recipeService.fetchRecipes();
+            modelAndViewPantry.setViewName("pantry");
+            modelAndViewPantry.addObject("pantry", topics);
+        } catch (Exception  e) {
+            e.printStackTrace();
+            modelAndViewPantry.setViewName("error");
+        }
+        return modelAndViewPantry;
     }
 }
