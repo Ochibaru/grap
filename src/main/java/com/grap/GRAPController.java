@@ -73,12 +73,9 @@ public class GRAPController{
     // Pantry Attempt
     @GetMapping(value = "/RJPantry")
     public String fetchPantry(@CookieValue(value="uid", required=false) String uid, Model model) {
-
-
         try {
             System.out.println("User is logged in. Fetching favorites.");
             List<PantryDTO> pantries = pantryService.fetchAll(firebaseService.getUser(uid).getEmail());
-
 
             model.addAttribute("pantries", pantries);
             model.addAttribute("uid", uid);
@@ -89,34 +86,35 @@ public class GRAPController{
         }
     }
 
-    @PostMapping("/RJPantry/save")
+    @PostMapping("/RJPantry/saveCategory")
     public String savePantry(HttpServletRequest request, @CookieValue(value = "uid", required = false) String uid) {
-//        log.debug("Entering /favorites/save/show endpoint.");
-//        log.trace("User's uid is: " + uid);
-
-        // User is not logged in, need to log in before show can be saved to favorites.
         if (uid == null) {
-            // log.warn("No UID cookie found. User is not logged in. Redirecting to login...");
             return "login";
         }
-//        log.info("User is logged in. Saving favorite for logged in user with uid " + uid);
 
-        // Need to manually differentiate ID between Actor & Show since TVMaze API doesn't do it for us.
-        // String favoriteShowId = "Show_" + request.getParameter("id");
+        String pantryId = request.getParameter("pantryId");
 
-        // Converting Show object properties to Favorite object to later save to Firebase
         PantryDTO pantry = new PantryDTO();
         pantry.setId(request.getParameter("pantryId"));
         pantry.setName(request.getParameter("name"));
+        pantry.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+        pantry.setMeasurement(Double.valueOf(request.getParameter("measurement")));
 
         try {
-            pantryService.save(pantry, firebaseService.getUser(uid).getEmail(), "pantryId");
-//            log.info("Saved Favorite Show " + favoriteShowId + " for user with uid " + uid);
+            pantryService.saveCategory(pantry, firebaseService.getUser(uid).getEmail(), pantryId);
         } catch (FirebaseAuthException | ExecutionException | InterruptedException e) {
-           // log.error("Unable to fetch user record from Firebase, a FirebaseAuthException occurred. Message: " + e.getMessage(), e);
             return "error";
         }
+        return "redirect:/RJPantry";
+    }
 
+    @PostMapping("/RJPantry/deleteCategory")
+    public String deletePantryItem(@RequestParam(value = "pantryId") String pantryId, @CookieValue(value = "uid") String uid) {
+        try {
+            pantryService.deleteCategory(firebaseService.getUser(uid).getEmail(), pantryId);
+        } catch (FirebaseAuthException | ExecutionException | InterruptedException e) {
+            return "error";
+        }
         return "redirect:/RJPantry";
     }
 
