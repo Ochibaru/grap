@@ -10,6 +10,7 @@ function getUiConfig() {
             'signInSuccessWithAuthResult': function(authResult, redirectUrl) {
                 if (authResult.user) {
                     handleSignedInUser(authResult.user);
+                    window.location.replace("/set-uid/?uid=" + authResult.user.uid);
                 }
                 if (authResult.additionalUserInfo) {
                     document.getElementById('is-new-user').textContent =

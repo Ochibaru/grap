@@ -49,6 +49,7 @@ public class GRAPController{
     @Autowired
     private PantryService pantryService;
 
+    // Home pages for signed in and public users
     @GetMapping("/")
     public String home(@RequestParam(value = "countryCode", required = false) String countryCode, Model model, @CookieValue(value = "uid", required = false) String uid) throws Exception {
         try {
@@ -79,115 +80,57 @@ public class GRAPController{
             return "error";
         }
     }
+    // < ------------------------------------------------------------------------------------ >
 
-    // Pantry Attempt
-    @GetMapping(value = "/RJPantry")
+    // Signed in Users Pantry Page and Save and Delete Functions
+    @GetMapping(value = "/userHome/pantry")
     public String fetchPantry(@CookieValue(value="uid", required=false) String uid, Model model) {
-
-
         try {
             System.out.println("User is logged in. Fetching favorites.");
             List<PantryDTO> pantries = pantryService.fetchAll(firebaseService.getUser(uid).getEmail());
-
-
             model.addAttribute("pantries", pantries);
             model.addAttribute("uid", uid);
-            return "RJPantry";
+            return "pantry";
         } catch (Exception e) {
             e.printStackTrace();
             return "error";
         }
     }
 
-    @PostMapping("/RJPantry/save")
+    @PostMapping("/userHome/pantry/saveCategory")
     public String savePantry(HttpServletRequest request, @CookieValue(value = "uid", required = false) String uid) {
-//        log.debug("Entering /favorites/save/show endpoint.");
-//        log.trace("User's uid is: " + uid);
-
-        // User is not logged in, need to log in before show can be saved to favorites.
         if (uid == null) {
-            // log.warn("No UID cookie found. User is not logged in. Redirecting to login...");
             return "login";
         }
-//        log.info("User is logged in. Saving favorite for logged in user with uid " + uid);
 
-        // Need to manually differentiate ID between Actor & Show since TVMaze API doesn't do it for us.
-        // String favoriteShowId = "Show_" + request.getParameter("id");
+        String pantryId = request.getParameter("pantryId");
 
-        // Converting Show object properties to Favorite object to later save to Firebase
         PantryDTO pantry = new PantryDTO();
         pantry.setId(request.getParameter("pantryId"));
         pantry.setName(request.getParameter("name"));
+        pantry.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+        pantry.setMeasurement(Double.valueOf(request.getParameter("measurement")));
 
         try {
-            pantryService.save(pantry, firebaseService.getUser(uid).getEmail(), "pantryId");
-//            log.info("Saved Favorite Show " + favoriteShowId + " for user with uid " + uid);
+            pantryService.saveCategory(pantry, firebaseService.getUser(uid).getEmail(), pantryId);
         } catch (FirebaseAuthException | ExecutionException | InterruptedException e) {
-            // log.error("Unable to fetch user record from Firebase, a FirebaseAuthException occurred. Message: " + e.getMessage(), e);
             return "error";
         }
-
-        return "redirect:/RJPantry";
+        return "redirect:/userHome/pantry";
     }
 
-
-    @GetMapping(value = "/home")
-    public ModelAndView home() {
-        ModelAndView modelAndView = new ModelAndView();
+    @PostMapping("/userHome/pantry/deleteCategory")
+    public String deletePantryItem(@RequestParam(value = "pantryId") String pantryId, @CookieValue(value = "uid") String uid) {
         try {
-            Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
-            modelAndView.setViewName("home");
-            modelAndView.addObject("recipes", recipes);
+            pantryService.deleteCategory(firebaseService.getUser(uid).getEmail(), pantryId);
+        } catch (FirebaseAuthException | ExecutionException | InterruptedException e) {
+            return "error";
         }
-        catch (Exception e){
-            // This should throw an error, not print stack trace
-            e.printStackTrace();
-            modelAndView.setViewName("error");
-        }
-        return modelAndView;
+        return "redirect:/userHome/pantry";
     }
+    // < ------------------------------------------------------------------------------------ >
 
-    @PostMapping("/home")
-    public String create() {
-        return "home";
-    }
-
-    @GetMapping(value = "/test")
-    public ModelAndView test(@CookieValue(value="uid", required=false) String uid, Model model) throws Exception {
-        ModelAndView modelAndView = new ModelAndView();
-        try {
-            Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
-            modelAndView.setViewName("test");
-            modelAndView.addObject("recipes", recipes);
-            model.addAttribute("uid", uid);
-        }
-        catch (Exception e){
-            // This should throw an error, not print stack trace
-            e.printStackTrace();
-            modelAndView.setViewName("error");
-        }
-        return modelAndView;
-    }
-
-    // Pantry Attempt
-    @GetMapping(value = "/pantry")
-    public ModelAndView pantry(@RequestParam(value="pantries", required=false, defaultValue="") String pantries, @CookieValue(value="uid", required=false) String uid, Model model) throws Exception {
-        ModelAndView modelAndView = new ModelAndView();
-        try {
-            Iterable<PantryDTO> pantry = pantryDAO.fetch(pantries);
-//            List<PantryDTO> pantry = pantryService.fetch(firebaseService.getUser(uid).getEmail());
-            modelAndView.setViewName("pantry");
-            modelAndView.addObject("pantry", pantry);
-            model.addAttribute("uid", uid);
-        }
-        catch (Exception e){
-            // This should throw an error, not print stack trace
-            e.printStackTrace();
-            modelAndView.setViewName("error");
-        }
-        return modelAndView;
-    }
-
+    // Sets the Users UID in the login.js file
     // Reference: https://dzone.com/articles/how-to-use-cookies-in-spring-boot
     @GetMapping("/set-uid")
     public String setCookie(HttpServletResponse response, @RequestParam(value = "uid") String uid) {
@@ -208,7 +151,9 @@ public class GRAPController{
 
         return "redirect:/";
     }
+    // < ------------------------------------------------------------------------------------ >
 
+    // Signed in Users Recipes topic Page and Specific Recipes
     @RequestMapping("/userHome/topics")
     public ModelAndView topics(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm, @CookieValue(value="uid", required=false) String uid, Model model) {
         ModelAndView modelAndView = new ModelAndView();
@@ -241,7 +186,9 @@ public class GRAPController{
         }
         return modelAndView;
     }
+    // < ------------------------------------------------------------------------------------ >
 
+    // Topics and Recipes Pages for public users
     @RequestMapping("/home/topics")
     public ModelAndView topics(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
         ModelAndView modelAndView = new ModelAndView();
@@ -272,8 +219,9 @@ public class GRAPController{
         }
         return modelAndView;
     }
+    // < ------------------------------------------------------------------------------------ >
 
-    // Search for recipes
+    // Search for recipes and Autocomplete
     @RequestMapping("/searchRecipes")
     public ModelAndView searchRecipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm, @CookieValue(value="uid", required=false) String uid, Model model) {
         ModelAndView modelAndView = new ModelAndView();
@@ -304,14 +252,16 @@ public class GRAPController{
         }
         return suggestions;
     }
+    // < ------------------------------------------------------------------------------------ >
 
     @RequestMapping(value = "/login")
-    public ModelAndView searchNavBar(@RequestParam(value="searchItem", required=false, defaultValue="") String searchItem){
+    public ModelAndView searchNavBar(@RequestParam(value="searchItem", required=false, defaultValue="") String searchItem, @CookieValue(value="uid", required=false) String uid, Model model){
         ModelAndView mV = new ModelAndView();
         try {
             Iterable<RecipeDTO> searchResults =  searchDAO.fetch(searchItem);
             mV.setViewName("searchRecipes");
             mV.addObject("searchResults", searchResults);
+            model.addAttribute("uid", uid);
             // Set off and error if movies = 0
         } catch (Exception  e) {
             e.printStackTrace();
@@ -320,8 +270,9 @@ public class GRAPController{
         return mV;
     }
     @GetMapping(value = "/login")
-    public String loginRequest(Model model){
+    public String loginRequest(@CookieValue(value="uid", required=false) String uid, Model model){
         model.addAttribute("emailLogin");
+        model.addAttribute("uid", uid);
         return "login";
     }
 
@@ -334,7 +285,6 @@ public class GRAPController{
     public ModelAndView index(){
         return new ModelAndView();
     }
-
 
     @MessageMapping("/profile-update")
     @SendTo("/topic/messages")
@@ -359,17 +309,74 @@ public class GRAPController{
         return new ProfileDTO();
     }
 
-    @RequestMapping("/pantry")
-    public ModelAndView pantry(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
-        ModelAndView modelAndViewPantry = new ModelAndView();
-        try {
-            Iterable<RecipeDTO> topics = recipeService.fetchRecipes();
-            modelAndViewPantry.setViewName("pantry");
-            modelAndViewPantry.addObject("pantry", topics);
-        } catch (Exception  e) {
-            e.printStackTrace();
-            modelAndViewPantry.setViewName("error");
-        }
-        return modelAndViewPantry;
-    }
+    //    @GetMapping(value = "/home")
+//    public ModelAndView home() {
+//        ModelAndView modelAndView = new ModelAndView();
+//        try {
+//            Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
+//            modelAndView.setViewName("home");
+//            modelAndView.addObject("recipes", recipes);
+//        }
+//        catch (Exception e){
+//            // This should throw an error, not print stack trace
+//            e.printStackTrace();
+//            modelAndView.setViewName("error");
+//        }
+//        return modelAndView;
+//    }
+//
+//    @PostMapping("/home")
+//    public String create() {
+//        return "home";
+//    }
+
+//    @GetMapping(value = "/test")
+//    public ModelAndView test(@CookieValue(value="uid", required=false) String uid, Model model) throws Exception {
+//        ModelAndView modelAndView = new ModelAndView();
+//        try {
+//            Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
+//            modelAndView.setViewName("test");
+//            modelAndView.addObject("recipes", recipes);
+//            model.addAttribute("uid", uid);
+//        }
+//        catch (Exception e){
+//            // This should throw an error, not print stack trace
+//            e.printStackTrace();
+//            modelAndView.setViewName("error");
+//        }
+//        return modelAndView;
+//    }
+
+//    // Pantry Attempt
+//    @GetMapping(value = "/pantry")
+//    public ModelAndView pantry(@RequestParam(value="pantries", required=false, defaultValue="") String pantries, @CookieValue(value="uid", required=false) String uid, Model model) throws Exception {
+//        ModelAndView modelAndView = new ModelAndView();
+//        try {
+//            Iterable<PantryDTO> pantry = pantryDAO.fetch(pantries);
+////            List<PantryDTO> pantry = pantryService.fetch(firebaseService.getUser(uid).getEmail());
+//            modelAndView.setViewName("pantry");
+//            modelAndView.addObject("pantry", pantry);
+//            model.addAttribute("uid", uid);
+//        }
+//        catch (Exception e){
+//            // This should throw an error, not print stack trace
+//            e.printStackTrace();
+//            modelAndView.setViewName("error");
+//        }
+//        return modelAndView;
+//    }
+
+//    @RequestMapping("/pantry")
+//    public ModelAndView pantry(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
+//        ModelAndView modelAndViewPantry = new ModelAndView();
+//        try {
+//            Iterable<RecipeDTO> topics = recipeService.fetchRecipes();
+//            modelAndViewPantry.setViewName("pantry");
+//            modelAndViewPantry.addObject("pantry", topics);
+//        } catch (Exception  e) {
+//            e.printStackTrace();
+//            modelAndViewPantry.setViewName("error");
+//        }
+//        return modelAndViewPantry;
+//    }
 }

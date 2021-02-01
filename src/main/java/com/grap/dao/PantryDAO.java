@@ -1,15 +1,13 @@
 package com.grap.dao;
-
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.grap.dto.PantryDTO;
 import com.grap.service.FirebaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Repository
@@ -20,7 +18,6 @@ public class PantryDAO implements IPantryDAO{
 
     // https://www.youtube.com/watch?v=ScsID2yPB8k
     // Firebase Reference: https://firebase.google.com/docs/firestore/query-data/get-data
-    // Thanks Umer
     @Override
     public List<PantryDTO> fetch(String pantries) throws ExecutionException, InterruptedException {
         List<PantryDTO> pantry = new ArrayList<>();
@@ -60,15 +57,9 @@ public class PantryDAO implements IPantryDAO{
         return pantries;
     }
 
-//    City city = new City("Los Angeles", "CA", "USA", false, 3900000L,
-//                Arrays.asList("west_coast", "socal"));
-//        ApiFuture<WriteResult> future = db.collection("cities").document("LA").set(city);
-//    // block on response if required
-//    System.out.println("Update time : " + future.get().getUpdateTime());
-
     // Firebase Reference: https://firebase.google.com/docs/firestore/manage-data/add-data
     @Override
-    public void save(PantryDTO pantry, String email, String id) throws ExecutionException, InterruptedException {
+    public void saveCategory(PantryDTO pantry, String email, String id) throws ExecutionException, InterruptedException {
         ApiFuture<WriteResult> writeResult = firebaseService.getFirestore()
                 .collection("users")
                 .document(email)
@@ -77,5 +68,30 @@ public class PantryDAO implements IPantryDAO{
                 .set(pantry);
 
         System.out.println("Pantry with " + id + "added at time: " + writeResult.get().getUpdateTime());
+    }
+
+//    @Override
+//    public void saveItem(PantryDTO pantry, String email, String id) throws ExecutionException, InterruptedException {
+//        ApiFuture<WriteResult> writeResult = firebaseService.getFirestore()
+//                .collection("users")
+//                .document(email)
+//                .collection("pantry")
+//                .document(id)
+//                .collection(item)
+//                .set(pantry);
+//
+//        System.out.println("Pantry with " + id + "added at time: " + writeResult.get().getUpdateTime());
+//    }
+
+    // Firebase Reference: https://firebase.google.com/docs/firestore/manage-data/delete-data
+    @Override
+    @CacheEvict(value = "pantry", allEntries = true)
+    public void deleteCategory(String email, String id) {
+        ApiFuture<WriteResult> writeResult = firebaseService.getFirestore()
+                .collection("users")
+                .document(email)
+                .collection("pantry")
+                .document(id)
+                .delete();
     }
 }
