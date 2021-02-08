@@ -1,3 +1,5 @@
+// Code reference https://firebase.google.com/docs/auth/web/google-signin
+
 const ui = new firebaseui.auth.AuthUI(firebase.auth());
 import { getEmailSignInMethod, getRecaptchaMode } from './common.js';
 
@@ -10,6 +12,9 @@ function getUiConfig() {
             'signInSuccessWithAuthResult': function(authResult, redirectUrl) {
                 if (authResult.user) {
                     handleSignedInUser(authResult.user);
+                    //window.location.replace("/set-uid/?uid=" + authResult.user.uid);
+                    document.cookie = "uid="+ authResult.user.uid;
+                    console.log(document.cookie);
                 }
                 if (authResult.additionalUserInfo) {
                     document.getElementById('is-new-user').textContent =

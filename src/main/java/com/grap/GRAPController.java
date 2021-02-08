@@ -49,7 +49,8 @@ public class GRAPController{
     @Autowired
     private PantryService pantryService;
 
-    @GetMapping("/")
+
+        @GetMapping("/")
     public String home(@RequestParam(value = "countryCode", required = false) String countryCode, Model model, @CookieValue(value = "uid", required = false) String uid) throws Exception {
         try {
             // if (countryCode == null) { countryCode = "US"; }
@@ -61,6 +62,30 @@ public class GRAPController{
             e.printStackTrace();
             return "error";
         }
+    }
+
+
+    @RequestMapping(value = "/login")
+    public ModelAndView searchNavBar(@RequestParam(value="searchItem", required=false, defaultValue="") String searchItem){
+        ModelAndView mV = new ModelAndView();
+        try {
+            Iterable<RecipeDTO> searchResults =  searchDAO.fetch(searchItem);
+            mV.setViewName("searchRecipes");
+            mV.addObject("searchResults", searchResults);
+            // Set off and error if movies = 0
+        } catch (Exception  e) {
+            e.printStackTrace();
+            mV.setViewName("error");
+        }
+        return mV;
+    }
+    @GetMapping(value = "/login")
+    public String loginRequest(Model model){
+
+
+        model.addAttribute("emailLogin");
+        //List<PantryDTO> pantries = pantryService.fetchAll(firebaseService.getUser(uid).getEmail());
+        return "login";
     }
 
     @GetMapping(value = "/userHome")
@@ -304,25 +329,7 @@ public class GRAPController{
         return suggestions;
     }
 
-    @RequestMapping(value = "/login")
-    public ModelAndView searchNavBar(@RequestParam(value="searchItem", required=false, defaultValue="") String searchItem){
-        ModelAndView mV = new ModelAndView();
-        try {
-            Iterable<RecipeDTO> searchResults =  searchDAO.fetch(searchItem);
-            mV.setViewName("searchRecipes");
-            mV.addObject("searchResults", searchResults);
-            // Set off and error if movies = 0
-        } catch (Exception  e) {
-            e.printStackTrace();
-            mV.setViewName("error");
-        }
-        return mV;
-    }
-    @GetMapping(value = "/login")
-    public String loginRequest(Model model){
-        model.addAttribute("emailLogin");
-        return "login";
-    }
+
 
     @GetMapping(value = "/signup")
     public ModelAndView signUpRequest(){

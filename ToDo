@@ -64,6 +64,7 @@ Progress
         Removed NonNull on ProfileDTO.
         Changed Login.html to include Profile.html information to help with changing app to a single page web app.
     1/25
+        Merged RJ's branch with UI branch.
 
 
 
