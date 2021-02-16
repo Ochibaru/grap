@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -39,8 +40,6 @@ public class GRAPController{
     private PantryService pantryService;
 
     // Home pages for signed in and public users
-    /*
-    NOT BEING USED
     @GetMapping("/")
     public String home(@RequestParam(value = "countryCode", required = false) String countryCode, Model model, @CookieValue(value = "uid", required = false) String uid) throws Exception {
         try {
@@ -55,7 +54,6 @@ public class GRAPController{
         }
     }
 
-     */
 
 
     @GetMapping(value = "/userHome")
@@ -183,7 +181,7 @@ public class GRAPController{
     // < ------------------------------------------------------------------------------------ >
 
     // Topics and Recipes Pages for public users
-    @RequestMapping("/home/topics")
+    @RequestMapping("/topics")
     public ModelAndView topics(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
         ModelAndView modelAndView = new ModelAndView();
         try {
@@ -197,7 +195,7 @@ public class GRAPController{
         return modelAndView;
     }
 
-    @RequestMapping("/home/topics/recipes")
+    @RequestMapping("/topics/recipes")
     public ModelAndView recipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
         ModelAndView modelAndView = new ModelAndView();
         try {
@@ -263,55 +261,4 @@ public class GRAPController{
         }
         return mV;
     }
-
-    /*
-        @GetMapping(value = "/newlogin")
-    public String loginRequest(@CookieValue(value="uid", required=false) String uid, Model model){
-        model.addAttribute("emailLogin");
-        model.addAttribute("uid", uid);
-        return "login";
-    }
-     */
-
-
-    /*
-        @GetMapping(value = "/signup")
-    public ModelAndView signUpRequest(){
-        return new ModelAndView();
-    }
-
-    @GetMapping(value = "/index")
-    public ModelAndView index(){
-        return new ModelAndView();
-    }
-
-
-     */
-
-    /*
-            @MessageMapping("/profile-update")
-    @SendTo("/topic/messages")
-    public ProfileDTO updateProfile(String email, String firstName, String lastName) throws Exception {
-
-        Firestore db = FirestoreClient.getFirestore();
-
-        JSONObject obj = new JSONObject(email);
-        System.out.println("controller dto: " + obj.getString("email"));
-
-        ProfileDTO docData = new ProfileDTO();
-        docData.setEmail(obj.getString("email"));
-        docData.setFirstName(obj.getString("firstName"));
-        docData.setLastName(obj.getString("lastName"));
-
-        UserRecord userRecord = FirebaseAuth.getInstance().getUserByEmail(obj.getString("email"));
-        String uid = userRecord.getUid();
-
-        ApiFuture<WriteResult> future = db.collection("Users").document(uid).set(docData);
-        System.out.println("Update time : " + future.get().getUpdateTime());
-
-        return new ProfileDTO();
-
-
-    }
-     */
 }

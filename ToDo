@@ -84,3 +84,10 @@ Style Coding
 Bugs
     When entering search and don't have anything in field, the search takes you to blank page
     If not logged onto Firebase, user lands on error page with no useful information
+
+**Search function should be up and running
+
+To Do
+    Create home page for public users (no account)
+    Login page allows you to sign up for an account and input your personal information (address/phone/name)
+    Place search function (<i class="fas fa-search"></i>)
