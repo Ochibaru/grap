@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>GRAP</title>
+    <script src="https://kit.fontawesome.com/dd34a0058a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- *******************************************************************************************
+       * TODO(DEVELOPER): Paste the initialization snippet from:
+       * Firebase Console > Overview > Add Firebase to your web app. *
+       ***************************************************************************************** -->
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!-- Custom JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script type="module" src="../javascript/init-firebase.js"></script>
+    <script type="module" src="../javascript/login.js"></script>
+    <script type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<!-- Profile Card Start -->
+<div id="container">
+    <div class="container">
+        <div id="loading">Loading...</div>
+        <div id="loaded" class="hidden">
+            <div id="user-signed-in" class="hidden">
+                <div class="container">
+                    <div class="item-list">
+                        <div class="item item-1">
+                            <div class="img img-content"><a href="javascript:;"></a>
+                                <div class="img-content"><img id="photo"></div>
+                            </div>
+                            <div class="social"><a href="javascript:;">
+                                <div class="fb"><i class="fa fa-facebook" aria-hidden="true"></i></div></a><a href="javascript:;">
+                                <div class="ig"><i class="fa fa-instagram" aria-hidden="true"></i></div></a><a href="javascript:;">
+                                <div class="tw"><i class="fa fa-twitter" aria-hidden="true"></i></div></a></div>
+                            <div class="text-container">
+                                <h2 class="title" id="name"></h2>
+                                <div class="content">
+                                    <p>
+                                    <p><div id="fullName"></div></p>
+                                    <p><div id="email"></div></p>
+                                    <p><div id="phone"></div></p>
+                                    <p><div id="is-new-user"></div></p>
+                                    <div class="clearfix"></div>
+                                    </p>
+                                </div>
+                                <div class="readmore">
+                                    <h3>Sign Out</h3>
+                                    <h4>Delete account</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="user-signed-out" class="hidden">
+            <h4><span class="nav-text">You are signed out.</span></h4>
+
+            <div id="firebaseui-spa">
+                <div id="firebaseui-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Profile Card End-->
+`
+<script type="module" src="../javascript/common.js"></script>
+</body>
+</html>

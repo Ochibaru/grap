@@ -705,3 +705,12 @@ button.btn-search, button.btn-reset {
         transform: rotateZ(0deg) scale(1);
     }
 }
+
+
+.ui-autocomplete-loading {
+    background: white url("../gifs/ui-anim_basic_16x16.gif") right center no-repeat;
+}
+.card {
+    max-width: 245px;
+    max-height: 400px;
+}

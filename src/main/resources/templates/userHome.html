@@ -5,10 +5,13 @@
     <meta charset="ISO-8859-1"/>
     <title>Welcome to GRAP</title>
 
-    <!-- Local CSS -->
-    <link rel="stylesheet" href="../../css/grap.css">
+    <!-- Navigation Icons -->
+    <script src="https://kit.fontawesome.com/dd34a0058a.js" crossorigin="anonymous"></script>
 
-    <!-- jquery, must come before bootstrap. This is styling for autocomplete. -->
+    <!-- Local CSS -->
+   <link rel="stylesheet" href="../css/style.css">
+
+   <!-- jquery, must come before bootstrap. This is styling for autocomplete. -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- Bootstrap latest compiled and minified CSS -->
@@ -40,11 +43,12 @@
     <!-- Local Javascript -->
     <script src="../../javascript/topics.js"></script>
     <script src="../../javascript/grap.js"></script>
+    <script src="../../javascript/login.js"></script>
 
 </head>
 <body>
 
-<div th:replace="/topnav :: navbar"></div>
+<div th:replace="/sidenav :: navbar"></div>
 
 <div class="container">
     <div id="bxslider1" class="card-deck m-auto">

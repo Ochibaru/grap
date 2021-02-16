@@ -193,11 +193,62 @@
 </div>
 <!-- Pantry End-->
 
+
+
+<!-- Pantry Start Experimental-->
+<div class="hidden" id="pantry-exp">
+    <!--This saves or updates a pantry item-->
+    <div class="container-fluid">
+        <div class="row mt-2">
+            <div class="col col-md-8">
+                <div class="col-sm-7 col-lg-9">
+                    <div class="row">
+                        <form action="/userHome/pantry/saveCategory" class="d-sm-inline-block" method="post">
+                            <div><label>Category: <input name="pantryId" required/></label></div>
+                            <div><label>Name: <input name="name" required/></label></div>
+                            <div><label>Quantity: <input name="quantity" required/></label></div>
+                            <div><label>Measurement: <input name="measurement" required/></label></div>
+                            <button class="saveBtn" type="submit">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--This deletes an existing pantry item-->
+    <div class="list-group-item" role="listitem" th:each="pantry : ${pantries}">
+        <div class="col-sm-4">
+            <form action="/userHome/pantry/deleteCategory" class="d-sm-inline-block" method="post">
+                <input name="pantryId" th:value="${pantry.name}" />
+                <input name="name" th:value="${pantry.name}" />
+                <input name="quantity" th:value="${pantry.quantity}" />
+                <input name="measurement" th:value="${pantry.measurement}" />
+                <button class="deleteBtn" type="submit">Delete</button>
+            </form>
+        </div>
+    </div>
+    <!--This displays the existing pantry items-->
+    <div class="container">
+        <div id="bxslider1" class="card-deck m-auto">
+            <div class="card" th:each="pantry : ${pantries}">
+                <div class="card-body">
+                    <div th:text="'Name: ' + ${pantry.name}"></div>
+                    <div th:text="'Quantity: ' + ${pantry.quantity}"></div>
+                    <div th:text="'Measurement: ' + ${pantry.measurement}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Pantry End Experimental-->
+
+
+
 <!-- Topic Start-->
 <div class="container hidden" id="topic">
     <div class="container">
         <h2>Meals</h2>
-        <div id="bxslider1" class="card-deck m-auto">
+        <div id="bxslider3" class="card-deck m-auto">
             <div class="card">
                 <div class="card-header">Breakfast</div>
                 <div class="card-body">
@@ -354,7 +405,7 @@
 
     <div class="container">
         <h2>Cuisines</h2>
-        <div id="bxslider3" class="card-deck m-auto">
+        <div id="" class="card-deck m-auto">
             <div class="card">
                 <div class="card-header">American</div>
                 <div class="card-body">

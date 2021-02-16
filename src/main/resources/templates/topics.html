@@ -5,8 +5,12 @@
         <meta charset="ISO-8859-1"/>
         <title>Topics</title>
 
+        <!-- Navigation Icons -->
+        <script src="https://kit.fontawesome.com/dd34a0058a.js" crossorigin="anonymous"></script>
+
         <!-- Local CSS -->
-        <link rel="stylesheet" href="../../css/grap.css">
+        <link rel="stylesheet" href="./../css/grap.css">
+        <link rel="stylesheet" href="../css/style.css">
 
         <!-- jquery, must come before bootstrap. This is styling for autocomplete. -->
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -44,7 +48,7 @@
     </head>
     <body>
 
-    <div th:replace="/topnav :: navbar"></div>
+    <div th:replace="/sidenav :: navbar"></div>
 
         <div class="container">
             <h2>Meals</h2>

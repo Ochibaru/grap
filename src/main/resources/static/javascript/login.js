@@ -120,8 +120,8 @@ var handleSignedOutUser = function() {
 firebase.auth().onAuthStateChanged(function(user) {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('loaded').style.display = 'block';
-    document.getElementById('profile').style.display = 'none';
-    document.getElementById('pantry').style.display = 'none';
+    //document.getElementById('profile').style.display = 'none';
+    //document.getElementById('pantry').style.display = 'none';
     user ? handleSignedInUser(user) : handleSignedOutUser();
 });
 
@@ -176,7 +176,7 @@ var initApp = function() {
     $('.btnProfileNav').click(function (){
         userProfilePage();
     })
-    document.getElementById("btnEdit").addEventListener("click", updateProfileInfo, true);
+    // document.getElementById("btnEdit").addEventListener("click", updateProfileInfo, true);
 
     $('.btnPantryNav').click(function (){
         userPantryPage();
@@ -201,7 +201,7 @@ function userPantryPage(){
     document.getElementById('user-signed-in').style.display = 'none';
     document.getElementById('user-signed-out').style.display = 'none';
     document.getElementById('profile').style.display = 'none';
-    document.getElementById('pantry').style.display = 'block';
+    document.getElementById('pantry-exp').style.display = 'block';
 }
 
 /**
@@ -210,7 +210,7 @@ function userPantryPage(){
 function userProfilePage(){
     document.getElementById('user-signed-in').style.display = 'none';
     document.getElementById('user-signed-out').style.display = 'none';
-    document.getElementById('pantry').style.display = 'none';
+    document.getElementById('pantry-exp').style.display = 'none';
     document.getElementById('profile').style.display = 'block';
 }
 

@@ -65,7 +65,8 @@ Progress
         Changed Login.html to include Profile.html information to help with changing app to a single page web app.
     1/25
         Merged RJ's branch with UI branch.
-
+    2/15
+        Merged grap.css to style.css (ui-autocomplete-loading/card)
 
 
 Informational
@@ -82,3 +83,4 @@ Style Coding
 
 Bugs
     When entering search and don't have anything in field, the search takes you to blank page
+    If not logged onto Firebase, user lands on error page with no useful information

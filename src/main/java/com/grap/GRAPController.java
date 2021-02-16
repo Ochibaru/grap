@@ -1,25 +1,15 @@
 package com.grap;
 
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.UserRecord;
-import com.google.firebase.cloud.FirestoreClient;
 import com.grap.service.FirebaseService;
 import com.grap.dao.IPantryDAO;
 import com.grap.dao.IRecipeDAO;
 import com.grap.dao.ISearchDAO;
 import com.grap.dto.PantryDTO;
-import com.grap.dto.ProfileDTO;
 import com.grap.dto.RecipeDTO;
 import com.grap.service.IRecipeService;
 import com.grap.service.PantryService;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -50,6 +39,8 @@ public class GRAPController{
     private PantryService pantryService;
 
     // Home pages for signed in and public users
+    /*
+    NOT BEING USED
     @GetMapping("/")
     public String home(@RequestParam(value = "countryCode", required = false) String countryCode, Model model, @CookieValue(value = "uid", required = false) String uid) throws Exception {
         try {
@@ -64,12 +55,15 @@ public class GRAPController{
         }
     }
 
+     */
+
+
     @GetMapping(value = "/userHome")
     public String userHome(@CookieValue(value="uid", required=false) String uid, Model model) throws Exception {
         try {
             if (uid == null) {
                 System.out.println("No UID cookie found. User is not logged in.");
-                return "login";
+                return "newlogin";
             }
             List<PantryDTO> pantries = pantryService.fetchAll(firebaseService.getUser(uid).getEmail());
             model.addAttribute("pantries", pantries);
@@ -100,7 +94,7 @@ public class GRAPController{
     @PostMapping("/userHome/pantry/saveCategory")
     public String savePantry(HttpServletRequest request, @CookieValue(value = "uid", required = false) String uid) {
         if (uid == null) {
-            return "login";
+            return "newlogin";
         }
 
         String pantryId = request.getParameter("pantryId");
@@ -254,7 +248,7 @@ public class GRAPController{
     }
     // < ------------------------------------------------------------------------------------ >
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/newlogin")
     public ModelAndView searchNavBar(@RequestParam(value="searchItem", required=false, defaultValue="") String searchItem, @CookieValue(value="uid", required=false) String uid, Model model){
         ModelAndView mV = new ModelAndView();
         try {
@@ -269,14 +263,19 @@ public class GRAPController{
         }
         return mV;
     }
-    @GetMapping(value = "/login")
+
+    /*
+        @GetMapping(value = "/newlogin")
     public String loginRequest(@CookieValue(value="uid", required=false) String uid, Model model){
         model.addAttribute("emailLogin");
         model.addAttribute("uid", uid);
         return "login";
     }
+     */
 
-    @GetMapping(value = "/signup")
+
+    /*
+        @GetMapping(value = "/signup")
     public ModelAndView signUpRequest(){
         return new ModelAndView();
     }
@@ -286,7 +285,11 @@ public class GRAPController{
         return new ModelAndView();
     }
 
-    @MessageMapping("/profile-update")
+
+     */
+
+    /*
+            @MessageMapping("/profile-update")
     @SendTo("/topic/messages")
     public ProfileDTO updateProfile(String email, String firstName, String lastName) throws Exception {
 
@@ -307,76 +310,8 @@ public class GRAPController{
         System.out.println("Update time : " + future.get().getUpdateTime());
 
         return new ProfileDTO();
+
+
     }
-
-    //    @GetMapping(value = "/home")
-//    public ModelAndView home() {
-//        ModelAndView modelAndView = new ModelAndView();
-//        try {
-//            Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
-//            modelAndView.setViewName("home");
-//            modelAndView.addObject("recipes", recipes);
-//        }
-//        catch (Exception e){
-//            // This should throw an error, not print stack trace
-//            e.printStackTrace();
-//            modelAndView.setViewName("error");
-//        }
-//        return modelAndView;
-//    }
-//
-//    @PostMapping("/home")
-//    public String create() {
-//        return "home";
-//    }
-
-//    @GetMapping(value = "/test")
-//    public ModelAndView test(@CookieValue(value="uid", required=false) String uid, Model model) throws Exception {
-//        ModelAndView modelAndView = new ModelAndView();
-//        try {
-//            Iterable<RecipeDTO> recipes = recipeService.fetchRecipes();
-//            modelAndView.setViewName("test");
-//            modelAndView.addObject("recipes", recipes);
-//            model.addAttribute("uid", uid);
-//        }
-//        catch (Exception e){
-//            // This should throw an error, not print stack trace
-//            e.printStackTrace();
-//            modelAndView.setViewName("error");
-//        }
-//        return modelAndView;
-//    }
-
-//    // Pantry Attempt
-//    @GetMapping(value = "/pantry")
-//    public ModelAndView pantry(@RequestParam(value="pantries", required=false, defaultValue="") String pantries, @CookieValue(value="uid", required=false) String uid, Model model) throws Exception {
-//        ModelAndView modelAndView = new ModelAndView();
-//        try {
-//            Iterable<PantryDTO> pantry = pantryDAO.fetch(pantries);
-////            List<PantryDTO> pantry = pantryService.fetch(firebaseService.getUser(uid).getEmail());
-//            modelAndView.setViewName("pantry");
-//            modelAndView.addObject("pantry", pantry);
-//            model.addAttribute("uid", uid);
-//        }
-//        catch (Exception e){
-//            // This should throw an error, not print stack trace
-//            e.printStackTrace();
-//            modelAndView.setViewName("error");
-//        }
-//        return modelAndView;
-//    }
-
-//    @RequestMapping("/pantry")
-//    public ModelAndView pantry(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
-//        ModelAndView modelAndViewPantry = new ModelAndView();
-//        try {
-//            Iterable<RecipeDTO> topics = recipeService.fetchRecipes();
-//            modelAndViewPantry.setViewName("pantry");
-//            modelAndViewPantry.addObject("pantry", topics);
-//        } catch (Exception  e) {
-//            e.printStackTrace();
-//            modelAndViewPantry.setViewName("error");
-//        }
-//        return modelAndViewPantry;
-//    }
+     */
 }

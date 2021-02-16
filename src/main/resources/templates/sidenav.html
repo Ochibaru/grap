@@ -1,0 +1,53 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="navbar">
+    <div class="area"></div>
+    <nav class="main-menu" th:unless="${uid == null}">
+        <ul>
+            <li>
+                <a href="/userHome/topics">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a>
+                    <i class="fa fa-user fa-2x"></i>
+                    <div class="nav-text btnProfileNav">User Profile</div>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="/userHome/pantry">
+                    <i class="fa fa-book-open fa-2x"></i>
+                    <span class="nav-text btnPantryNav">Pantry</span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="/userHome/topics">
+                    <i class="fa fa-utensils fa-2x"></i>
+                    <span class="nav-text">Recipes</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="logout hidden">
+            <li>
+                <a href="#">
+                    <i class="fa fa-power-off fa-2x hidden"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="login">
+            <li>
+                <a href="/newlogin">
+                    <i class="fa fa-power-off fa-2x"></i>
+                    <span class="nav-text">Login</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+
+</html>
