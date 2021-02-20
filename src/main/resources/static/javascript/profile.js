@@ -1,5 +1,20 @@
 var database = firebase.database();
 
+function updateProfileInfo(){
+    var user = firebase.auth().currentUser;
+    if (user != null) {
+        var displayName = document.getElementById('username').value;
+        user.updateProfile({displayName: displayName, photoURL: user.photoURL}).then(function () {
+            sendProfileInformation();
+            // Update Successful
+            console.log(user.displayName);
+        }).catch(function (error) {
+            // An error happened
+            console.log('Profile Nav error');
+        })
+    }
+}
+
 function writeUserProfile(userId, name, email, imageUrl) {
     firebase.database().ref('users/' + userId).set({
         username: name,
@@ -129,4 +144,10 @@ function signOut(){
             text: "Error",
         })
     });
+
+    function  goHome()
+    {
+        window.location.href="/userHome?.html"
+    }
+
 }
