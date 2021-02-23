@@ -145,9 +145,15 @@ function signOut(){
         })
     });
 
-    function  goHome()
-    {
-        window.location.href="/userHome?.html"
-    }
+    /**
+     * Initializes the app.
+     */
+    var initApp = function() {
+        document.getElementById('return').addEventListener('click', function() {
+            window.location.replace("userHome=" + authResult.user.uid);
+        });
+    };
+
+    window.addEventListener('load', initApp);
 
 }

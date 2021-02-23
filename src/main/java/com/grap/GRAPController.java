@@ -64,6 +64,13 @@ public class GRAPController{
         }
     }
 
+    @GetMapping(value = "/userProfile")
+    public String userProfileUpdate(@CookieValue(value="uid", required=false) String uid, Model model){
+        model.addAttribute("emailLogin");
+        model.addAttribute("uid", uid);
+        return "userProfile";
+    }
+
     @GetMapping(value = "/userHome")
     public String userHome(@CookieValue(value="uid", required=false) String uid, Model model) throws Exception {
         try {
@@ -307,6 +314,25 @@ public class GRAPController{
         System.out.println("Update time : " + future.get().getUpdateTime());
 
         return new ProfileDTO();
+
+    }
+
+    @GetMapping(value = "/profile")
+    public String userProfile (@CookieValue(value = "uid", required = false) String uid, Model model) throws
+            Exception {
+        try {
+            if (uid == null) {
+                System.out.println("No UID cookie found. User is not logged in.");
+                return "login";
+            }
+            List<PantryDTO> pantries = pantryService.fetchAll(firebaseService.getUser(uid).getEmail());
+            model.addAttribute("pantries", pantries);
+            model.addAttribute("uid", uid);
+            return "profile";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
     }
 
     //    @GetMapping(value = "/home")

@@ -1,7 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml%22%3E">
 <head>
     <meta charset="UTF-8">
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
 
     <!-- Local CSS
     <link rel="stylesheet" href="../../css/style.css"> -->
@@ -12,6 +20,7 @@
     <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script src="profile.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <title>User Profile</title>
 </head>
@@ -46,12 +55,12 @@
         .container {
             padding: 16px;
         }
-        .editbtn, .savebtn {
+        .editbtn, .returnbtn {
             float: left;
             width: 50%;
         }
         .returnbtn {
-            float: right;
+
             padding: 10px 15px;
             background-color: #f44336;
 
@@ -97,9 +106,7 @@
     }
 </script>-->
 
-<script src="profile.js"></script>
-
-<form action="action_page.php" style="border:1px solid #ccc">
+<form style="border:1px solid #ccc">
     <div class="container">
         <h1>User Profile</h1>
         <hr>
@@ -119,10 +126,8 @@
         </a>
 
         <div class="clearfix">
-            <button onClick="JavaScript:updateProfileInfo()" class="editbtn">Edit</button>
-
             <button type="button" class="savebtn">Save</button>
-            <button onClick="goHome()" class="returnbtn">Return</button>
+            <button id="return" class="returnbtn">Return</button>
         </div>
 
     </div>
