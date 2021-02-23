@@ -6,13 +6,11 @@ import com.grap.dto.BMI_DTO;
 
 public class BMI_DAO implements IBMI_DAO{
     double bmiCalculation = 0;
-    double weight = 0;
-    double height = 0;
     String heightMeasurement = "";
     String weightMeasurement = "";
 
     @Override
-    public double fetchBMI_DAO(String calculateBMI) throws Exception {
+    public double fetchBMI_DAO(double weight, double height, String type, String type2) throws Exception {
 
         BMI_DTO bmi_dto = new BMI_DTO();
 
