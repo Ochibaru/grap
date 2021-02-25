@@ -124,18 +124,18 @@ function saveProfile(){
     }
 }
 // Working For Sign Out
-function signOut(){
-    firebase.auth().signOut().then(function() {
+function signOut() {
+    firebase.auth().signOut().then(function () {
         // Sign-out successful.
         return new Swal({
             type: 'successful',
             title: 'Signed Out',
         }).then((value) => {
-            setTimeout(function(){
+            setTimeout(function () {
                 window.location.replace("../login.html");
             }, 1000)
         });
-    }).catch(function(error) {
+    }).catch(function (error) {
         // An error happened.
         let errorMessage = error.message;
         swal({
@@ -148,12 +148,31 @@ function signOut(){
     /**
      * Initializes the app.
      */
-    var initApp = function() {
-        document.getElementById('return').addEventListener('click', function() {
+    var initApp = function () {
+        document.getElementById('return').addEventListener('click', function () {
             window.location.replace("userHome=" + authResult.user.uid);
         });
     };
 
     window.addEventListener('load', initApp);
+    $(document).ready(function () {
 
+
+        var readURL = function (input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.avatar').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        $(".file-upload").on('change', function () {
+            readURL(this);
+        });
+    });
 }
