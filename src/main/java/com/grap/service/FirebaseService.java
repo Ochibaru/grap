@@ -58,6 +58,7 @@ public class FirebaseService {
     public UserRecord getUser(String uid) throws FirebaseAuthException {
         UserRecord userRecord = FirebaseAuth.getInstance().getUser(uid);
 
+        System.out.println("Got user ID of " + userRecord);
         System.out.println("Got user with pantry of " + userRecord.getEmail());
 
         return userRecord;
