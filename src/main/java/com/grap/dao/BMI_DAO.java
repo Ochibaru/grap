@@ -8,22 +8,34 @@ public class BMI_DAO implements IBMI_DAO{
     double bmiCalculation = 0;
     String heightMeasurement = "";
     String weightMeasurement = "";
+    String unit = "";
 
     @Override
     public double fetchBMI_DAO(double weight, double height, String type, String type2) throws Exception {
 
         BMI_DTO bmi_dto = new BMI_DTO();
 
-        if (heightMeasurement.equals("ft") && weightMeasurement.equals("lb")) {
+        /*if (heightMeasurement.equals("ft") && weightMeasurement.equals("lb")) {
             bmiCalculation = (weight / ((height * 12) * (height * 12))) * 703;
         }
 
        else if (heightMeasurement.equals("cm") && weightMeasurement.equals("kg"))    {
              bmiCalculation = (weight / ((height/100) * (height/100)));
+        }    */
+
+        switch(unit)    {
+            case "lb":
+                bmiCalculation = (weight / ((height * 12) * (height * 12))) * 703;
+                break;
+
+            case "kg":
+                bmiCalculation = (weight / ((height/100) * (height/100)));
+                break;
         }
 
         return bmiCalculation;
     }
+
 
     @Override
     public double fetchAll(String measurementBMI) throws Exception {

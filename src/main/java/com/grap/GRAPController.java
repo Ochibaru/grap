@@ -359,7 +359,8 @@ public class GRAPController{
         return new ProfileDTO();
     }
 
-    @RequestMapping("/pantry")
+
+   @RequestMapping("/pantry")
     public ModelAndView pantry(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm) {
         ModelAndView modelAndViewPantry = new ModelAndView();
         try {
@@ -372,4 +373,32 @@ public class GRAPController{
         }
         return modelAndViewPantry;
     }
+
+
+    @RequestMapping(value = "/nutrition")
+    public ModelAndView searchNavBar(@RequestParam(value="searchItem", required=false, defaultValue="") String searchItem, @CookieValue(value="uid", required=false) String uid, Model model){
+        ModelAndView mVN = new ModelAndView();
+        try {
+            // Code that is implemented when user is taken to  /nutrition
+        } catch (Exception  e) {
+            e.printStackTrace();
+            mVN.setViewName("error");
+        }
+        return mVN;
+    }
+
+
+    @RequestMapping(value = "/bmi")
+    public ModelAndView searchNavBar1(@RequestParam(value="searchItem", required=false, defaultValue="") String searchItem, @CookieValue(value="uid", required=false) String uid, Model model){
+        ModelAndView mVN = new ModelAndView();
+        try {
+            // Code that is implemented when user is taken to  /bmi
+        } catch (Exception  e) {
+            e.printStackTrace();
+            mVN.setViewName("error");
+        }
+        return mVN;
+    }
+
+
 }

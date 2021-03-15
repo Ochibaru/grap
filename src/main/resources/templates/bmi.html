@@ -30,54 +30,42 @@
 </head>
 <body>
 
-<nav class="navbar navbar-light">
-    <h1>GRAP</h1>
-    <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">
-        <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
-    </form>
-</nav><br/>
-<div th:replace="/topnav :: navbar"></div>
-
-<!--<nav class="navbar navbar-light" style="background-color: black;">-->
-<!--    <h1>GRAP</h1>-->
-<!--    <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">-->
-<!--        <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">-->
-<!--        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>-->
-<!--    </form>-->
-<!--</nav><br/>-->
-
-
 </div>
-
-<br>
-
 
 <form action="/action_page.php" >
 
-    <label  for = "quantity"><b>Quantity</b></label>
-    <input  type = "number" id = "quantity" name = "quantity" min = "0" step = "1"> <br> <br>
-
-    <label  for = "name"><b>Name</b></label>
-    <input type = "text" id = "name" name = "name">
-    <br> <br>
-
-    <label  for = "measurement"><b>Measurement</b></label>
-    <input  type = "double" id = "measurement" name = "measurement">
-
-    <select name="weight" id="weight">
-        <option value="kg">kg</option>
-        <option value="gm">gm</option>
-        <option value="pound">pound</option>
-        <option value="ounce">ounce</option>
-        <option value="litre">litre</option>
+    <label style="position: absolute; left:100px" for = "height"><b>Height</b></label>
+    <select style="position: absolute; left:200px; width: 200px" name="height" id="height">
+        <option value="ft">ft</option>
+        <option value="cm">cm</option>
     </select>
     <br> <br>
 
-    <input  type = "Submit" value = "Submit">
+    <label style="position: absolute; left:100px" for = "weight"><b>Weight</b></label>
+    <select style="position: absolute; left:200px; width: 200px" name="weight" id="weight">
+        <option value="kg">kg</option>
+        <option value="pound">pound</option>
+    </select>
+    <br> <br>
+
+    <label style="position: absolute; left:100px" for = "age"><b>Age</b></label>
+    <input style="position: absolute; left:200px; width:200px" type = "text" id = "age" name = "age"> <br> <br>
+
+    <label style="position: absolute; left:100px" for = "gender"><b>Gender</b></label>
+    <select style="position: absolute; left:200px; width: 200px" name="gender" id="gender">
+        <option value="male">male</option>
+        <option value="female">female</option>
+    </select>
+    <br> <br>
+
+    <!-----<label for = "bmi"><b>BMI</b></label>
+    <input type = "double" id = "bmi" name = "bmi"> <br> <br>------>
+
+
+    <input style="position: absolute; left:150px; width: 150px" type = "Submit" value = "Submit">
 
 </form>
 
-</body>
 
+</body>
 </html>
