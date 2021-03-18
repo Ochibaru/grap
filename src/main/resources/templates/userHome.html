@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta charset="ISO-8859-1"/>
-    <title>Test</title>
+    <title>Welcome to GRAP</title>
 
     <!-- Local CSS -->
     <link rel="stylesheet" href="../../css/grap.css">
@@ -13,6 +13,9 @@
 
     <!-- Bootstrap latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- bxslider -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 
     <!-- Slick Carousel -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" />
@@ -31,30 +34,26 @@
     <!-- Slick Carousel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
+    <!-- bxslider -->
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
     <!-- Local Javascript -->
-    <script src="../../javascript/recipes.js"></script>
+    <script src="../../javascript/topics.js"></script>
     <script src="../../javascript/grap.js"></script>
 
 </head>
 <body>
-<nav class="navbar navbar-light">
-    <h1>GRAP</h1>
-    <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">
-        <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
-    </form>
-</nav><br/>
+
+<div th:replace="/topnav :: navbar"></div>
 
 <div class="container">
-    <div class="row slider">
-        <div class="col-md-12" th:each="recipe : ${recipes}">
-            <div class="card">
-                <div class="card-header" th:text="${recipe.label}">
-                </div>
-                <div class="card-body">
-                    <div th:text="${recipe.calories}">Calories: </div>
-                    <img class="image" th:src="@{${recipe.image}}">
-                </div>
+    <div id="bxslider1" class="card-deck m-auto">
+        <div class="card" th:each="pantry : ${pantries}">
+            <div class="card-header" th:text="${pantry.name}">
+            </div>
+            <div class="card-body">
+                <!--                <div th:text="'Calories: ' + ${recipe.calories}"></div>-->
+                <!--                <img class="image" th:src="@{${recipe.image}}">-->
             </div>
         </div>
     </div>

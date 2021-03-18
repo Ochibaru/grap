@@ -75,6 +75,21 @@ public class RecipeDAO implements IRecipeDAO {
     }
 
     @Override
+    public List<RecipeDTO> fetchSpoonData(String searchTerm) throws Exception{
+        List<RecipeDTO> spoonRecipes = new ArrayList<>();
+        String endpoint = "https://api.spoonacular.com/recipes/search?";
+        String api = "apiKey=20f0acb7d3ac49f0aa61782da562de2e&cuisine=";
+        String rawJson = networkDAO.request(endpoint + api);
+        return getSpoonRecipesDTOS(spoonRecipes, rawJson + searchTerm);
+
+//        List<RecipeDTO> searchResults = new ArrayList<>();
+//        String endpoint = "https://api.edamam.com/search?app_id=47c17ed5";
+//        String api = "&app_key=b53ffdd94b4b532aee16d1502bca8359&q=";
+//        String rawJson = networkDAO.request(endpoint + api + searchTerm);
+    }
+
+
+    @Override
     public List<RecipeDTO> fetchSpoon() throws Exception{
         List<RecipeDTO> spoonRecipes = new ArrayList<>();
         String rawJson = networkDAO.request("https://api.spoonacular.com/recipes/search?apiKey=20f0acb7d3ac49f0aa61782da562de2e&cuisine=american");
