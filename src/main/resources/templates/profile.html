@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head xmlns:th="http://www.w3.org/1999/xhtml">
     <meta charset="utf-8">
 <!-- Firebase components of the code -->
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="profile.js"></script>
 
     <title>User Profile</title>
 </head>
@@ -67,47 +66,47 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="home">
                     <hr>
-                    <form class="form" action="##" method="post" id="userForm">
-<!-- First name -->
+                    <form class="form" action="/profile/saveProfile" method="post" id="userForm" th:each="profile : ${profile}">
+
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label for="first_name"><h4>First name</h4></label>
-                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name">
+                                <input type="text" class="form-control" name="firstName" th:value="${profile.firstName}" id="first_name" placeholder="first name">
                             </div>
                         </div>
-<!-- Last name -->
+
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label for="last_name"><h4>Last name</h4></label>
-                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name">
+                                <input type="text" class="form-control" name="lastName" th:value="${profile.lastName}" id="last_name" placeholder="last name">
                             </div>
                         </div>
-<!-- Phone -->
+
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label for="phone"><h4>Phone</h4></label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone">
+                                <input type="text" class="form-control" th:value="${profile.phoneNumber}" name="phoneNumber" id="phone" placeholder="enter phone">
                             </div>
                         </div>
-<!-- Email -->
+
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label for="email"><h4>Email</h4></label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com">
+                                <input type="email" class="form-control" th:value="${profile.email}" name="email" id="email" placeholder="you@email.com">
                             </div>
                         </div>
-<!-- Username -->
+
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label for="username"><h4>Username</h4></label>
-                                <input type="text" class="form-control" name="username" id="username" placeholder="username">
+                                <input type="text" class="form-control" th:value="${profile.username}" name="username" id="username" placeholder="username">
                             </div>
                         </div>
-<!-- Address -->
+
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label for="address"><h4>Address</h4></label>
-                                <input type="address" class="form-control" id="address" placeholder="enter location">
+                                <input type="address" class="form-control" th:value="${profile.address}" name="address" id="address" placeholder="enter location">
                             </div>
                         </div>
 <!-- Save button -->

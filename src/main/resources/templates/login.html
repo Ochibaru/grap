@@ -33,13 +33,13 @@
 <div class="area"></div><nav class="main-menu">
     <ul>
         <li>
-            <a href="/home/topics">
+            <a th:action="@{/home/topics}" th:if="${uid == null}" >
                 <i class="fa fa-home fa-2x"></i>
                 <span class="nav-text">Dashboard</span>
             </a>
         </li>
         <li class="has-subnav">
-            <a>
+            <a href="/profile">
                 <i class="fa fa-user fa-2x"></i>
                 <div class="nav-text btnProfileNav">User Profile</div>
             </a>

@@ -13,7 +13,9 @@ import com.grap.dao.IRecipeDAO;
 import com.grap.dao.ISearchDAO;
 import com.grap.dto.PantryDTO;
 import com.grap.dto.ProfileDTO;
+import com.grap.dao.IProfileDAO;
 import com.grap.dto.RecipeDTO;
+import com.grap.service.ProfileService;
 import com.grap.service.IRecipeService;
 import com.grap.service.PantryService;
 import org.json.JSONObject;
@@ -48,6 +50,10 @@ public class GRAPController{
     private FirebaseService firebaseService;
     @Autowired
     private PantryService pantryService;
+    @Autowired
+    private ProfileService profileService;
+    @Autowired
+    private IProfileDAO profileDAO;
 
     // Home pages for signed in and public users
     @GetMapping("/")
@@ -64,12 +70,12 @@ public class GRAPController{
         }
     }
 
-    @GetMapping(value = "/userProfile")
-    public String userProfileUpdate(@CookieValue(value="uid", required=false) String uid, Model model){
-        model.addAttribute("emailLogin");
-        model.addAttribute("uid", uid);
-        return "userProfile";
-    }
+//    @GetMapping(value = "/userProfile")
+//    public String userProfileUpdate(@CookieValue(value="uid", required=false) String uid, Model model){
+//        model.addAttribute("emailLogin");
+//        model.addAttribute("uid", uid);
+//        return "userProfile";
+//    }
 
     @GetMapping(value = "/userHome")
     public String userHome(@CookieValue(value="uid", required=false) String uid, Model model) throws Exception {
@@ -293,46 +299,103 @@ public class GRAPController{
         return new ModelAndView();
     }
 
-    @MessageMapping("/profile-update")
-    @SendTo("/topic/messages")
-    public ProfileDTO updateProfile(String email, String firstName, String lastName) throws Exception {
+//    @MessageMapping("/profile-update")
+//    @SendTo("/topic/messages")
+//    public ProfileDTO updateProfile(String email, String firstName, String lastName) throws Exception {
+//
+//        Firestore db = FirestoreClient.getFirestore();
+//
+//        JSONObject obj = new JSONObject(email);
+//        System.out.println("controller dto: " + obj.getString("email"));
+//
+//        ProfileDTO docData = new ProfileDTO();
+//        docData.setEmail(obj.getString("email"));
+//        docData.setFirstName(obj.getString("firstName"));
+//        docData.setLastName(obj.getString("lastName"));
+//
+//        UserRecord userRecord = FirebaseAuth.getInstance().getUserByEmail(obj.getString("email"));
+//        String uid = userRecord.getUid();
+//
+//        ApiFuture<WriteResult> future = db.collection("Users").document(uid).set(docData);
+//        System.out.println("Update time : " + future.get().getUpdateTime());
+//
+//        return new ProfileDTO();
+//
+//    }
+//
+//    @GetMapping(value = "/profile")
+//    public String userProfile (@CookieValue(value = "uid", required = false) String uid, Model model) throws
+//            Exception {
+//        try {
+//            if (uid == null) {
+//                System.out.println("No UID cookie found. User is not logged in.");
+//                return "login";
+//            }
+//            List<PantryDTO> pantries = pantryService.fetchAll(firebaseService.getUser(uid).getEmail());
+//            model.addAttribute("pantries", pantries);
+//            model.addAttribute("uid", uid);
+//            return "profile";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "error";
+//        }
+//    }
 
-        Firestore db = FirestoreClient.getFirestore();
+    // < ------------------------------------------------------------------------------------ >
 
-        JSONObject obj = new JSONObject(email);
-        System.out.println("controller dto: " + obj.getString("email"));
-
-        ProfileDTO docData = new ProfileDTO();
-        docData.setEmail(obj.getString("email"));
-        docData.setFirstName(obj.getString("firstName"));
-        docData.setLastName(obj.getString("lastName"));
-
-        UserRecord userRecord = FirebaseAuth.getInstance().getUserByEmail(obj.getString("email"));
-        String uid = userRecord.getUid();
-
-        ApiFuture<WriteResult> future = db.collection("Users").document(uid).set(docData);
-        System.out.println("Update time : " + future.get().getUpdateTime());
-
-        return new ProfileDTO();
-
-    }
-
+    // Profile page prompted after initial sign in
     @GetMapping(value = "/profile")
-    public String userProfile (@CookieValue(value = "uid", required = false) String uid, Model model) throws
+    public String profile (HttpServletRequest request, @CookieValue(value = "uid", required = false) String uid, Model model) throws
             Exception {
+        if (uid == null) {
+            return "login";
+        }
+
+        ProfileDTO profiles = new ProfileDTO();
+        profiles.setFirstName(firebaseService.getUser(uid).getDisplayName());
+        profiles.setLastName(request.getParameter("lastName"));
+        profiles.setEmail(firebaseService.getUser(uid).getEmail());
+        profiles.setPhoneNumber(request.getParameter("phoneNumber"));
+        profiles.setAddress(request.getParameter("address"));
+        profiles.setUsername(request.getParameter("username"));
+
         try {
             if (uid == null) {
                 System.out.println("No UID cookie found. User is not logged in.");
                 return "login";
             }
-            List<PantryDTO> pantries = pantryService.fetchAll(firebaseService.getUser(uid).getEmail());
-            model.addAttribute("pantries", pantries);
+            profileService.saveProfile(profiles, firebaseService.getUser(uid).getEmail(), firebaseService.getUser(uid).getDisplayName());
+
+            List<ProfileDTO> profile = profileService.fetch(firebaseService.getUser(uid).getEmail());
+            model.addAttribute("profile", profile);
             model.addAttribute("uid", uid);
             return "profile";
         } catch (Exception e) {
             e.printStackTrace();
             return "error";
         }
+    }
+
+    @PostMapping("/profile/saveProfile")
+    public String saveProfile(HttpServletRequest request, @CookieValue(value = "uid", required = false) String uid) throws FirebaseAuthException {
+        if (uid == null) {
+            return "login";
+        }
+
+        ProfileDTO profiles = new ProfileDTO();
+        profiles.setFirstName(request.getParameter("firstName"));
+        profiles.setLastName(request.getParameter("lastName"));
+        profiles.setEmail(request.getParameter("email"));
+        profiles.setPhoneNumber(request.getParameter("phoneNumber"));
+        profiles.setAddress(request.getParameter("address"));
+        profiles.setUsername(request.getParameter("username"));
+
+        try {
+            profileService.saveProfile(profiles, firebaseService.getUser(uid).getEmail(), firebaseService.getUser(uid).getDisplayName());
+        } catch (FirebaseAuthException | ExecutionException | InterruptedException e) {
+            return "error";
+        }
+        return "redirect:/userHome";
     }
 
     //    @GetMapping(value = "/home")
