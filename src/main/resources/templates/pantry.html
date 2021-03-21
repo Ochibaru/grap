@@ -2,14 +2,50 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta charset="ISO-8859-1"/>
     <title>Pantry</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="../../css/grap.css">
+
+    <!-- jquery, must come before bootstrap. This is styling for autocomplete. -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- Bootstrap latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- bxslider -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/sunny/jquery-ui.css">
+
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" />
+
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-app.js"></script>
+    <!-- Add additional services you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase-functions.js"></script>
+
+    <!-- jquery, must come before bootstrap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- jquery, must come before bootstrap. This is for autocomplete. -->
     <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+
+    <!-- Slick Carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+    <!-- bxslider -->
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- Local CSS -->
     <link rel="stylesheet" href="../../css/grap.css">
@@ -19,14 +55,12 @@
 
 
 
-    <script type="text/javascript">
-        $(function() {
-            $("#search").autocomplete({
-                source: "searchAutocomplete",
-                minLength: 3
-            });
-        });
-    </script>
+
+    <!-- Local Javascript -->
+    <script src="../../javascript/topics.js"></script>
+    <script src="../../javascript/grap.js"></script>
+    <script src="../../javascript/pantry.js"></script>
+
 </head>
 <body>
 
@@ -39,16 +73,26 @@
 </nav><br/>
 <div th:replace="/topnav :: navbar"></div>
 
-<!--<nav class="navbar navbar-light" style="background-color: black;">-->
-<!--    <h1>GRAP</h1>-->
-<!--    <form class="form-inline" action="#" th:action="@{/searchRecipes}" method="GET">-->
-<!--        <input class="form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">-->
-<!--        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>-->
-<!--    </form>-->
-<!--</nav><br/>-->
 
-
+<!--This saves or updates a pantry item-->
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col col-md-8">
+            <div class="col-sm-7 col-lg-9">
+                <div class="row">
+                    <form action="/userHome/pantry/saveCategory" class="d-sm-inline-block" method="post">
+                        <div><label>Category: <input name="pantryId" required/></label></div>
+                        <div><label>Name: <input name="name" required/></label></div>
+                        <div><label>Quantity: <input name="quantity" required/></label></div>
+                        <div><label>Measurement: <input name="measurement" required/></label></div>
+                        <button class="saveBtn" type="submit">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <br>
 
@@ -76,8 +120,46 @@
 
     <input  type = "Submit" value = "Submit">
 
-</form>
+<!--    <select name="weight" id="weight">-->
+<!--        <option value="kg">kg</option>-->
+<!--        <option value="gm">gm</option>-->
+<!--        <option value="pound">pound</option>-->
+<!--        <option value="ounce">ounce</option>-->
+<!--        <option value="litre">litre</option>-->
+<!--    </select>-->
+<!--    <br> <br>-->
+
+<!--    <input type = "Submit" value = "Submit">-->
+<!--    <input id="someInput" type="text">-->
+<!--    <input type="button" value="Say Hello" onClick="doStuff()">-->
+
+<!--This deletes an existing pantry item-->
+<div class="list-group-item" role="listitem" th:each="pantry : ${pantries}">
+    <div class="col-sm-4">
+        <form action="/userHome/pantry/deleteCategory" class="d-sm-inline-block" method="post">
+            <input name="pantryId" th:value="${pantry.name}" />
+            <input name="name" th:value="${pantry.name}" />
+            <input name="quantity" th:value="${pantry.quantity}" />
+            <input name="measurement" th:value="${pantry.measurement}" />
+            <button class="deleteBtn" type="submit">Delete</button>
+        </form>
+    </div>
+</div>
+
+
+
+<!--This displays the existing pantry items-->
+<div class="container">
+    <div id="bxslider1" class="card-deck m-auto">
+        <div class="card" th:each="pantry : ${pantries}">
+            <div class="card-body">
+                <div th:text="'Name: ' + ${pantry.name}"></div>
+                <div th:text="'Quantity: ' + ${pantry.quantity}"></div>
+                <div th:text="'Measurement: ' + ${pantry.measurement}"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
-
 </html>
