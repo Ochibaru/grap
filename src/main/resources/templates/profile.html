@@ -53,6 +53,17 @@
 
                     $(".file-upload").on('change', function(){
                         readURL(this);
+
+                        var user = firebase.auth().currentUser;
+
+                        user.updateProfile({
+                            displayName: "Jane Q. User",
+                            photoURL: "readURL(this)"
+                        }).then(function() {
+                            // Update successful.
+                        }).catch(function(error) {
+                            // An error happened.
+                        });
                     });
                 });
             </script>
