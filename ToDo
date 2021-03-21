@@ -18,7 +18,10 @@ To Do
         Needs to have test code implemented.
 
     NetworkDAO
-        Needs to have exception caught with relative information returned
+        Needs to have exception caught with relative information returned.
+
+    login-error.html
+        Needs to be created.
 
 Progress
     8/31
@@ -43,9 +46,38 @@ Progress
         Added firebase-admin to pom.xml file for Firebase dependencies.
         Created Firebase DAO/Test/Service classes.
         Fix FirebaseServiceTest assertEquals line to equal actual number.
+    10/26
+        FirebaseServiceTest is completed and runs correctly. (Except whenLoginToFirebase_ThenCorrect, need to verify how to receive auth information from Firestore.)
+        Created a temporary login page to test Firebase.
+        Added login to controller.
+    11/2
+        Added JS dependecies for firebase/firebaseui.
+
+    11/3
+        Completed login page, and hooked it up to Firebase.
+    11/22
+        Added CSS for HTML login page.
+        Added https://fontawesome.com/ to HTML page for Icons.
+    11/23
+        Added spring-websocket/spring-messaging dependencies to pom.xml.
+        Added WebSocketConfiguration to create a bi-directional, persistent connection.
+        Removed NonNull on ProfileDTO.
+        Changed Login.html to include Profile.html information to help with changing app to a single page web app.
+    1/25
+
+
 
 Informational
     EDAMAM API for Nutrition Analysis/Recipe Analysis
         Path: https://api.edamam.com/api/nutrition-details
         Returns nutritional information based on a POST request of the recipe content
         Requires Parameters: app_id/app_key. Optional Parameter: force (Forces the re-evaluation of the recipe. The value, if any, is ignored.)
+
+Research
+    SneakyThrows(FirebaseServiceTest)
+
+Style Coding
+    https://codepen.io/JFarrow/pen/fFrpg
+
+Bugs
+    When entering search and don't have anything in field, the search takes you to blank page
