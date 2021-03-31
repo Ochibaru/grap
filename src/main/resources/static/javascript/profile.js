@@ -1,5 +1,20 @@
 var database = firebase.database();
 
+function updateProfileInfo(){
+    var user = firebase.auth().currentUser;
+    if (user != null) {
+        var displayName = document.getElementById('username').value;
+        user.updateProfile({displayName: displayName, photoURL: user.photoURL}).then(function () {
+            sendProfileInformation();
+            // Update Successful
+            console.log(user.displayName);
+        }).catch(function (error) {
+            // An error happened
+            console.log('Profile Nav error');
+        })
+    }
+}
+
 function writeUserProfile(userId, name, email, imageUrl) {
     firebase.database().ref('users/' + userId).set({
         username: name,
@@ -109,18 +124,18 @@ function saveProfile(){
     }
 }
 // Working For Sign Out
-function signOut(){
-    firebase.auth().signOut().then(function() {
+function signOut() {
+    firebase.auth().signOut().then(function () {
         // Sign-out successful.
         return new Swal({
             type: 'successful',
             title: 'Signed Out',
         }).then((value) => {
-            setTimeout(function(){
+            setTimeout(function () {
                 window.location.replace("../login.html");
             }, 1000)
         });
-    }).catch(function(error) {
+    }).catch(function (error) {
         // An error happened.
         let errorMessage = error.message;
         swal({
@@ -129,4 +144,5 @@ function signOut(){
             text: "Error",
         })
     });
+
 }

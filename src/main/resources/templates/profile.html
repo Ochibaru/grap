@@ -1,121 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta charset="ISO-8859-1"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/sunny/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <title>User Profile</title>
-    <style>
-        * {box-sizing: border-box}
-        input[type=text], input[type=email] {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0 22px 0;
-            display: inline-block;
-            border: none;
-            background: #f1f1f1;
-        }
-        hr {
-            border: 1px solid #f1f1f1;
-            margin-bottom: 25px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: black;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            opacity: 0.9;
-        }
-        .container {
-            padding: 16px;
-        }
-        .editbtn, .returnbtn {
-            float: left;
-            width: 50%;
-        }
-        .returnbtn {
-            padding: 14px 20px;
-            background-color: #f44336;
-        }
-    </style>
+    <!-- Navigation Icons -->
+    <script src="https://kit.fontawesome.com/dd34a0058a.js" crossorigin="anonymous"></script>
 
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+
+    <!-- jquery, must come before bootstrap. This is styling for autocomplete. -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap latest compiled and minified CSS -->
+    <link rel="stylesheet" href=v"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+
+    <title>User Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
-<script>
-function writeNewPost(uid, first, last, picture) {
-// A post entry.
-var postData = {
-uid: uid,
-firstName: first,
-lastName: last,
-authorPic: picture };
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
 
-// Get a key for a new Post.
-var newPostKey = firebase.database().ref().child('posts').push().key;
+<script type="module" src="../javascript/profile.js"></script>
 
-// Write the new post's data simultaneously in the posts list and the user's post list.
-var updates = {};
-updates['/posts/' + newPostKey] = postData;
-updates['/user-posts/' + uid + '/' + newPostKey] = postData;
-return firebase.database().ref().update(updates);
+<hr>
+<div class="container bootstrap snippet">
+    <div class="row"></div>
+    <div class="row">
+        <div class="col-sm-3"><!--left col-->
 
-    UserRecord userRecord = FirebaseAuth.getInstance().getUserByEmail(email);
+            <!-- Photo part of User Profile -->
+            <div class="text-center">
+                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                <h6>Upload your photo...</h6>
+                <input type="file" class="text-center center-block file-upload">
+            </div></hr><br>
+            <script>
+                $(document).ready(function() {
 
-    UpdateRequest request = new UpdateRequest(uid)
-        .setFirstName("Jane")
-        .setLastName("Doe")
-        .setEmail("user@example.com")
-        .setEmailVerified(true)
-        .setUsername("Jane Doe")
-        .setAddress(true);
+                    var readURL = function(input) {
+                        if (input.files && input.files[0]) {
+                            var reader = new FileReader();
 
+                            reader.onload = function (e) {
+                                $('.avatar').attr('src', e.target.result);
+                            }
 
-    UserRecord userRecord = FirebaseAuth.getInstance().updateUser(request);
-    System.out.println("Successfully updated user: " + userRecord.getUid());
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    }
 
-}
-</script>
+                    $(".file-upload").on('change', function(){
+                        readURL(this);
 
-<form action="action_page.php" style="border:1px solid #ccc">
-    <div class="container">
-        <h1>User Profile</h1>
-        <hr>
+                        var user = firebase.auth().currentUser;
 
-        <label><b>First Name</b></label>
-        <input type="text" name="firstName">
+                        user.updateProfile({
+                            displayName: "Jane Q. User",
+                            photoURL: "readURL(this)"
+                        }).then(function() {
+                            // Update successful.
+                        }).catch(function(error) {
+                            // An error happened.
+                        });
+                    });
+                });
+            </script>
+        </div><!--/col-3-->
 
-        <label><b>Last Name</b></label>
-        <input type="text" name="lastName">
+        <!-- User Information tab on the top -->
+        <div class="col-sm-9">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">User Information</a></li>
+            </ul>
 
-        <label><b>Username</b></label>
-        <input type="text" name="username">
+            <div class="tab-content">
+                <div class="tab-pane active" id="home">
+                    <hr>
+                    <form class="form" action="##" method="post" id="userForm">
+                        <!-- First name -->
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="first_name"><h4>First name</h4></label>
+                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name">
+                            </div>
+                        </div>
+                        <!-- Last name -->
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="last_name"><h4>Last name</h4></label>
+                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name">
+                            </div>
+                        </div>
+                        <!-- Phone -->
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="phone"><h4>Phone</h4></label>
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone">
+                            </div>
+                        </div>
+                        <!-- Email -->
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="email"><h4>Email</h4></label>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com">
+                            </div>
+                        </div>
+                        <!-- Username -->
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="username"><h4>Username</h4></label>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="username">
+                            </div>
+                        </div>
+                        <!-- Address -->
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="address"><h4>Address</h4></label>
+                                <input type="address" class="form-control" id="address" placeholder="enter location">
+                            </div>
+                        </div>
+                        <!-- Save button -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <br>
+                                <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                            </div>
+                        </div>
 
-        <label><b>Email</b></label>
-        <input type="email" name="email">
-
-        <label><b>Address</b></label>
-        <input type="text" name="address">
-
-        </a>
-
-        <div class="clearfix">
-            <button type="button" class="editbtn">Edit</button>
-            <button type="button" class="returnbtn">Return</button>
+                    </form>
+                </div>
+            </div>
         </div>
-
     </div>
-</form>
+</div>
 </body>
 </html>
-

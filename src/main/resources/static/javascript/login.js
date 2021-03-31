@@ -10,6 +10,7 @@ function getUiConfig() {
             'signInSuccessWithAuthResult': function(authResult, redirectUrl) {
                 if (authResult.user) {
                     handleSignedInUser(authResult.user);
+                    window.location.replace("/set-uid/?uid=" + authResult.user.uid);
                 }
                 if (authResult.additionalUserInfo) {
                     document.getElementById('is-new-user').textContent =
@@ -48,68 +49,25 @@ function getUiConfig() {
 }
 
 /**
- * @return {string} The URL of the FirebaseUI standalone widget.
- */
-function getWidgetUrl() {
-    return '/widget#recaptcha=' + getRecaptchaMode() + '&emailSignInMethod=' +
-        getEmailSignInMethod();
-}
-
-
-/**
  * Redirects to the FirebaseUI widget.
  */
 var signInWithRedirect = function() {
     window.location.assign(getWidgetUrl());
 };
 
-
-/**
- * Open a popup with the FirebaseUI widget.
- */
-var signInWithPopup = function() {
-    window.open(getWidgetUrl(), 'Sign In', 'width=985,height=735');
-};
-
-
 /**
  * Displays the UI for a signed in user.
  * @param {!firebase.User} user
  */
 var handleSignedInUser = function(user) {
-
-
-    //var docRef = db.collection("Users").doc(user.uid);
-
-    document.getElementById('user-signed-in').style.display = 'block';
-    document.getElementById('user-signed-out').style.display = 'none';
-    //document.getElementById('fullName').textContent = user.name;
-    document.getElementById('name').textContent = user.displayName;
-    document.getElementById('email').textContent = user.email;
-    document.getElementById('phone').textContent = user.phoneNumber;
-    if (user.photoURL) {
-        var photoURL = user.photoURL;
-        // Append size to the photo URL for Google hosted images to avoid requesting
-        // the image with its original resolution (using more bandwidth than needed)
-        // when it is going to be presented in smaller size.
-        if ((photoURL.indexOf('googleusercontent.com') !== -1) ||
-            (photoURL.indexOf('ggpht.com') !== -1)) {
-            photoURL = photoURL + '?sz=' +
-                document.getElementById('photo').clientHeight;
-        }
-        document.getElementById('photo').src = photoURL;
-        document.getElementById('photo').style.display = 'block';
-    } else {
-        document.getElementById('photo').style.display = 'none';
-    }
 };
 
 /**
  * Displays the UI for a signed out user.
  */
 var handleSignedOutUser = function() {
-    document.getElementById('user-signed-in').style.display = 'none';
-    document.getElementById('user-signed-out').style.display = 'block';
+    //document.getElementById('user-signed-in').style.display = 'none';
+    //document.getElementById('user-signed-out').style.display = 'block';
 
     ui.start('#firebaseui-container', getUiConfig());
 };
@@ -117,10 +75,6 @@ var handleSignedOutUser = function() {
 // Listen to change in auth state so it displays the correct UI for when
 // the user is signed in or not.
 firebase.auth().onAuthStateChanged(function(user) {
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('loaded').style.display = 'block';
-    document.getElementById('profile').style.display = 'none';
-    document.getElementById('pantry').style.display = 'none';
     user ? handleSignedInUser(user) : handleSignedOutUser();
 });
 
@@ -142,25 +96,41 @@ var deleteAccount = function() {
     });
 };
 
-
-/**
- * Handles when the user changes the reCAPTCHA or email signInMethod initFirebase.
- */
-function handleConfigChange() {
-    const newRecaptchaValue = document.querySelector(
-        'input[name="recaptcha"]:checked').value;
-    const newEmailSignInMethodValue = document.querySelector(
-        'input[name="emailSignInMethod"]:checked').value;
-    location.replace(
-        location.pathname + '#recaptcha=' + newRecaptchaValue +
-        '&emailSignInMethod=' + newEmailSignInMethodValue);
-
-    // Reset the inline widget so the initFirebase changes are reflected.
-    ui.reset();
-    ui.start('#firebaseui-container', getUiConfig());
+function loginUser(){
+    var email = document.getElementById("emailExistingUser").value;
+    var password = document.getElementById("passwordExistingUser").value;
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            console.log('user signed in : ', user.uid);
+            // ...
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log('login error code: ' + errorCode + ' login error message: ' + errorMessage);
+        });
 }
 
-
+// This does nothing with the username field
+function signUpNewUser(){
+    var email = document.getElementById("emailNewUser").value;
+    var password = document.getElementById("passwordNewUser").value;
+    var username = document.getElementById("usernameNewUser").value;
+    // Create user with email and pass.
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === 'auth/weak-password') {
+            alert('The password is too weak.');
+        } else {
+            alert(errorMessage);
+        }
+        console.log(error);
+    });
+}
 /**
  * Initializes the app.
  */
@@ -169,85 +139,9 @@ var initApp = function() {
     $('.readmore h3').click(function (){
         firebase.auth().signOut();
     })
-    $('.readmore h4').click(function (){
-        deleteAccount();
-    })
-    $('.btnProfileNav').click(function (){
-        userProfilePage();
-    })
-    document.getElementById("btnEdit").addEventListener("click", updateProfileInfo, true);
-
-    $('.btnPantryNav').click(function (){
-        userPantryPage();
-    })
-
-    $('body')
-        .on('click', 'div.three button.btn-search', function(event) {
-            event.preventDefault();
-            var $input = $('div.three input');
-            $input.focus();
-            if ($input.val().length() > 0) {
-                // submit form
-            }
-        });
-
-    connect();
+    document.getElementById('btnLogin').addEventListener('click', loginUser, true);
+    document.getElementById('btnSignUp').addEventListener('click', signUpNewUser, true);
 };
 
 window.addEventListener('load', initApp);
 
-function userPantryPage(){
-    document.getElementById('user-signed-in').style.display = 'none';
-    document.getElementById('user-signed-out').style.display = 'none';
-    document.getElementById('profile').style.display = 'none';
-    document.getElementById('pantry').style.display = 'block';
-}
-
-/**
- * Edit Profile
- */
-function userProfilePage(){
-    document.getElementById('user-signed-in').style.display = 'none';
-    document.getElementById('user-signed-out').style.display = 'none';
-    document.getElementById('pantry').style.display = 'none';
-    document.getElementById('profile').style.display = 'block';
-}
-
-function updateProfileInfo(){
-    var user = firebase.auth().currentUser;
-    if (user != null) {
-        var displayName = document.getElementById('username').value;
-        user.updateProfile({displayName: displayName, photoURL: user.photoURL}).then(function () {
-            sendProfileInformation();
-            // Update Successful
-            console.log(user.displayName);
-        }).catch(function (error) {
-            // An error happened
-            console.log('Profile Nav error');
-        })
-    }
-}
-
-
-/*
-    Web Socket
- */
-var stompClient = null;
-
-function connect() {
-    var socket = new SockJS('/profile-update');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/messages', function (updateProfile) {
-            // Use if sending message back to client side
-        });
-    });
-}
-
-function sendProfileInformation() {
-    var email = firebase.auth().currentUser.email;
-    var uid = firebase.auth().currentUser.uid;
-    console.log("login email shows: " + email);
-    stompClient.send("/profile-update", {}, JSON.stringify({'email': email, 'firstName': $("#firstName").val(), 'lastName': $("#lastName").val()}));
-}
