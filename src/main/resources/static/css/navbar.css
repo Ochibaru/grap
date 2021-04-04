@@ -8,6 +8,10 @@ div.relative {
     left: 250px;
 }
 
+.card {
+    max-width: 245px;
+    max-height: 400px;
+}
 /* <!-- Navigation Template Start --> */
 body {
     margin: 0;
