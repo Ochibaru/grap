@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Pantry</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/sunny/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="../../css/grap.css">
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="../../css/style.css">
+
+
+
+    <script type="text/javascript">
+        $(function() {
+            $("#search").autocomplete({
+                source: "searchAutocomplete",
+                minLength: 3
+            });
+        });
+    </script>
+</head>
+<body>
+
+</div>
+
+<form action="/action_page.php" >
+
+    <label style="position: absolute; left:100px" for = "height"><b>Height</b></label>
+    <select style="position: absolute; left:200px; width: 200px" name="height" id="height">
+        <option value="ft">ft</option>
+        <option value="cm">cm</option>
+    </select>
+    <br> <br>
+
+    <label style="position: absolute; left:100px" for = "weight"><b>Weight</b></label>
+    <select style="position: absolute; left:200px; width: 200px" name="weight" id="weight">
+        <option value="kg">kg</option>
+        <option value="pound">pound</option>
+    </select>
+    <br> <br>
+
+    <label style="position: absolute; left:100px" for = "age"><b>Age</b></label>
+    <input style="position: absolute; left:200px; width:200px" type = "text" id = "age" name = "age"> <br> <br>
+
+    <label style="position: absolute; left:100px" for = "gender"><b>Gender</b></label>
+    <select style="position: absolute; left:200px; width: 200px" name="gender" id="gender">
+        <option value="male">male</option>
+        <option value="female">female</option>
+    </select>
+    <br> <br>
+
+    <!-----<label for = "bmi"><b>BMI</b></label>
+    <input type = "double" id = "bmi" name = "bmi"> <br> <br>------>
+
+
+    <input style="position: absolute; left:150px; width: 150px" type = "Submit" value = "Submit">
+
+</form>
+
+
+</body>
+</html>

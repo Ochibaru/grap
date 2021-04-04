@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Pantry</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/sunny/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="../../css/grap.css">
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="../../css/style.css">
+
+
+
+    <script type="text/javascript">
+        $(function() {
+            $("#search").autocomplete({
+                source: "searchAutocomplete",
+                minLength: 3
+            });
+        });
+    </script>
+</head>
+<body>
+
+</div>
+
+<form action="/action_page.php" >
+
+    <label style="position: absolute; left:100px" for = "label"><b>Name</b></label>
+    <input style="position: absolute; left:250px; width:200px" type = "text" id = "label" name = "label">
+    <br> <br>
+
+    <label style="position: absolute; left:100px" for = "totalDaily"><b>Total Daily</b></label>
+    <input style="position: absolute; left:250px;  width:200px" type = "number" id = "totalDaily" min = "0" name = "totalDaily"> <br> <br>
+
+    <label style="position: absolute; left:100px" for = "totalNutrients"><b>Total Nutrients</b></label>
+    <input style="position: absolute; left:250px;  width:200px" type = "number" id = "totalNutrients" min = "0" name = "totalNutrients"> <br> <br>
+
+    <label style="position: absolute; left:100px" for = "totalWeight"><b>Total Weight</b></label>
+    <input style="position: absolute; left:250px; width:200px" type = "double" id = "totalWeight" name = "totalWeight"> <br> <br>
+
+    <label style="position: absolute; left:100px" for = "calories"><b>Calories</b></label>
+    <input style="position: absolute; left:250px; width:200px" type = "text" id = "calories" name = "calories"> <br> <br>
+
+    <label style="position: absolute; left:100px" for = "quantity"><b>Quantity</b></label>
+    <input style="position: absolute; left:250px; width:200px" type = "number" id = "quantity" name = "quantity" min = "0" step = "1"> <br> <br>
+
+    <label style="position: absolute; left:100px" for = "unit"><b>Unit</b></label>
+    <select style="position: absolute; left:250px; width:200px" name="unit" id="unit">
+        <option value="kg">kg</option>
+        <option value="gm">gm</option>
+        <option value="pound">pound</option>
+        <option value="ounce">ounce</option>
+        <option value="litre">litre</option>
+    </select>
+    <br> <br>
+
+    <input style="position: absolute; left:150px; width:200px" type = "Submit" value = "Submit">
+
+</form>
+
+
+</body>
+</html>

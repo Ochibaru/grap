@@ -5,8 +5,8 @@ import lombok.Data;
 public @Data
 class  PantryDTO {
 
-//    @SerializedName("ingredients")
-//    private String ingredients;
+    @SerializedName("ingredients")
+    private String ingredients;
 
     @SerializedName("id")
     private String id;
@@ -19,4 +19,6 @@ class  PantryDTO {
 
     @SerializedName("measurement")
     private Double measurement;
+
+
 }
