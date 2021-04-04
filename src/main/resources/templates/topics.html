@@ -1,352 +1,341 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <meta charset="ISO-8859-1"/>
-    <title>Topics</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta charset="ISO-8859-1"/>
+        <title>Topics</title>
 
-    <!-- Local CSS -->
-    <link rel="stylesheet" href="../../css/grap.css">
+        <!-- Navigation Icons -->
+        <script src="https://kit.fontawesome.com/dd34a0058a.js" crossorigin="anonymous"></script>
 
-    <!-- jquery, must come before bootstrap. This is styling for autocomplete. -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <!-- Local CSS -->
+        <link rel="stylesheet" href="../css/login.css">
+        <link rel="stylesheet" href="../css/navbar.css">
 
-    <!-- Bootstrap latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <!-- jquery, must come before bootstrap. This is styling for autocomplete. -->
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    <!-- bxslider -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+        <!-- Bootstrap latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    <!-- Slick Carousel -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" />
+        <!-- bxslider -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 
-    <!-- jquery, must come before bootstrap -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <!-- Slick Carousel -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" />
 
-    <!-- jquery, must come before bootstrap. This is for autocomplete. -->
-    <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+        <!-- jquery, must come before bootstrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-    <!-- Bootstrap latest compiled and minified JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
+        <!-- jquery, must come before bootstrap. This is for autocomplete. -->
+        <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 
-    <!-- Slick Carousel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+        <!-- Bootstrap latest compiled and minified JavaScript -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
 
-    <!-- bxslider -->
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+        <!-- Slick Carousel -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
-    <!-- Local Javascript -->
-    <script src="../../javascript/topics.js"></script>
-    <script src="../../javascript/grap.js"></script>
+        <!-- bxslider -->
+        <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
-</head>
-<body>
+        <!-- Local Javascript -->
+        <script src="../../javascript/topics.js"></script>
 
-<div th:replace="/topnav :: navbar"></div>
+    </head>
+    <body>
 
-<div class="container">
-    <h2>Meals</h2>
-    <div id="bxslider1" class="card-deck m-auto">
-        <div class="card">
-            <div class="card-header">Breakfast</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/breakfast.jpg?tr=w-640,h-480">
+    <div th:replace="/sidenav :: navbar"></div>
+
+        <div class="container">
+            <h2>Meals</h2>
+            <div id="bxslider1" class="card-deck m-auto">
+                <div class="card">
+                    <div class="card-header">Breakfast</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/breakfast.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Lunch</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/lunch.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Dinner</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/dinner.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Snack</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/snack.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Teatime</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/teatime.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-header">Lunch</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/lunch.jpg?tr=w-640,h-480">
+        <div class="container">
+            <h2>Dishes</h2>
+            <div id="bxslider2" class="card-deck m-auto">
+                <div class="card">
+                    <div class="card-header">Alcohol</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/alcohol.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Biscuits and Cookies</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/biscuitsAndCookies.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Bread</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/bread.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Cereals</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/cereal.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Drinks</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/drinks.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Desserts</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/desserts.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Egg</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/egg.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Main course</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/mainCourse.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Omelet</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/omelet.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Pancake</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/pancake.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Preps</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/preps.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Preserve</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/preserves.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Salad</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/salad.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Sandwiches</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/sandwich.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Soup</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/soup.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Starter</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/starter.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-header">Dinner</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/dinner.jpg?tr=w-640,h-480">
+        <div class="container">
+            <h2>Cuisines</h2>
+            <div id="bxslider3" class="card-deck m-auto">
+                <div class="card">
+                    <div class="card-header">American</div>
+                    <div class="card-body">
+                        <a th:href="@{/userHome/topics/recipes}"><img class="image" name="searchTerm" src="https://ik.imagekit.io/rzvkccjocg/americanCuisine.jpg?tr=w-640,h-480"></a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Asian</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/asianCuisine.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">British</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/british.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Caribbean</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/caribbean.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Central Europe</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/centralEuropean.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Chinese</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/chinese.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Eastern Europe</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/easternEuropean.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">French</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/french.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Indian</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/indian.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Italian</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/italian.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Japanese</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/japanese.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Kosher</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/kosher.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Mediterranean</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/mediterranean.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Mexican</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/mexican.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Middle Eastern</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/middleEastern.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Nordic</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/nordic.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">South American</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/southAmerican.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">South East Asian</div>
+                    <div class="card-body">
+                        <img class="image" src="https://ik.imagekit.io/rzvkccjocg/southeastAsian.jpg?tr=w-640,h-480">
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="card">
-            <div class="card-header">Snack</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/snack.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Teatime</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/teatime.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <h2>Dishes</h2>
-    <div id="bxslider2" class="card-deck m-auto">
-        <div class="card">
-            <div class="card-header">Alcohol</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/alcohol.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Biscuits and Cookies</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/biscuitsAndCookies.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Bread</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/bread.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Cereals</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/cereal.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Drinks</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/drinks.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Desserts</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/desserts.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Egg</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/egg.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Main course</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/mainCourse.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Omelet</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/omelet.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Pancake</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/pancake.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Preps</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/preps.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Preserve</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/preserves.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Salad</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/salad.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Sandwiches</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/sandwich.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Soup</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/soup.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Starter</div>
-            <div class="card-body">
-                <img class="image" src="https://ik.imagekit.io/rzvkccjocg/starter.jpg?tr=w-640,h-480">
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <h2>Cuisines</h2>
-    <div id="bxslider3" class="card-deck m-auto">
-        <div class="card">
-
-
-<!--            <form class="form-inline" action="#" th:action="@{/userHome/topics/recipes}" method="GET">-->
-<!--                <div class="card-header" th:value="american" name="searchTerm">American</div>-->
-<!--&lt;!&ndash;                <input class="form-control mr-sm-2" th:value="american" style="display: none" id="search" type="search" placeholder="Search" aria-label="Search" name="searchTerm">&ndash;&gt;-->
-<!--                <img class="image" type="submit" src="https://ik.imagekit.io/rzvkccjocg/americanCuisine.jpg?tr=w-640,h-480">-->
-<!--            </form>-->
-
-<!--            <div class="card-header" type="search" name="searchTerm">American</div>-->
-<!--            <div class="card-body">-->
-<!--                <img class="image" type="submit" src="https://ik.imagekit.io/rzvkccjocg/americanCuisine.jpg?tr=w-640,h-480">-->
-<!--            </div>-->
-
-            <div class="card-header" th:value="american" name="searchTerm">American</div>
-            <div class="card-body">
-                <input class="form-control mr-sm-2" th:value="american" style="display: none" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
-                <a th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/americanCuisine.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Asian</div>
-            <div class="card-body">
-                <a name="searchTerm=asian" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/asianCuisine.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">British</div>
-            <div class="card-body">
-                <a name="searchTerm=british" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/british.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Caribbean</div>
-            <div class="card-body">
-                <a name="searchTerm=caribbean" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/caribbean.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <!--                <div class="card">-->
-        <!--                    <div class="card-header">Central Europe</div>-->
-        <!--                    <div class="card-body">-->
-        <!--                        <a name="searchTerm=CentralEurope" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/centralEuropean.jpg?tr=w-640,h-480"></a>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-
-        <div class="card">
-            <div class="card-header">Chinese</div>
-            <div class="card-body">
-                <a name="searchTerm=American" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/chinese.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Eastern Europe</div>
-            <div class="card-body">
-                <a name="searchTerm=American" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/easternEuropean.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">French</div>
-            <div class="card-body">
-                <a name="searchTerm=American" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/french.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Indian</div>
-            <div class="card-body">
-                <a name="searchTerm=American" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/indian.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Italian</div>
-            <div class="card-body">
-                <a name="searchTerm=American" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/italian.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Japanese</div>
-            <div class="card-body">
-                <a name="searchTerm=American" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/japanese.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Kosher</div>
-            <div class="card-body">
-                <a name="searchTerm=American" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/kosher.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Mediterranean</div>
-            <div class="card-body">
-                <a name="searchTerm=American" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/mediterranean.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Mexican</div>
-            <div class="card-body">
-                <a name="searchTerm=American" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/mexican.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Middle Eastern</div>
-            <div class="card-body">
-                <a name="searchTerm=American" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/middleEastern.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">Nordic</div>
-            <div class="card-body">
-                <a name="searchTerm=American" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/nordic.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">South American</div>
-            <div class="card-body">
-                <a name="searchTerm=American" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/southAmerican.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">South East Asian</div>
-            <div class="card-body">
-                <a name="searchTerm=American" th:href="@{/userHome/topics/recipes}"><img class="image" src="https://ik.imagekit.io/rzvkccjocg/southeastAsian.jpg?tr=w-640,h-480"></a>
-            </div>
-        </div>
-    </div>
-</div>
-
-</body>
+    <div class="fullscreen-bg"></div>
+    </body>
 </html>

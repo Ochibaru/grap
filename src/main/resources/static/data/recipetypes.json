@@ -1,0 +1,48 @@
+{
+   "mealType":[
+      "Breakfast",
+      "Lunch",
+      "Dinner",
+      "Snack",
+      "Teatime"
+   ],
+   "dishType":[
+      "Alcohol-cocktail",
+      "Biscuits and cookies",
+      "Bread",
+      "Cereals",
+      "Condiments and sauces",
+      "Drinks",
+      "Desserts",
+      "Egg",
+      "Main course",
+      "Omelet",
+      "Pancake",
+      "Preps",
+      "Preserve",
+      "Salad",
+      "Sandwiches",
+      "Soup",
+      "Starter"
+   ],
+   "cuisineType":[
+      "American",
+      "Asian",
+      "British",
+      "Caribbean",
+      "Central Europe",
+      "Chinese",
+      "Eastern Europe",
+      "French",
+      "Indian",
+      "Italian",
+      "Japanese",
+      "Kosher",
+      "Mediterranean",
+      "Mexican",
+      "Middle Eastern",
+      "Nordic",
+      "South American",
+      "South East Asian"
+   ]
+}

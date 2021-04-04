@@ -25,6 +25,14 @@ public class RecipeDAO implements IRecipeDAO {
     }
 
     @Override
+    public List<RecipeDTO> fetch(String url, String blank) throws Exception {
+        url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=20f0acb7d3ac49f0aa61782da562de2e&ingredients=" + url;
+        List<RecipeDTO> recipes = new ArrayList<>();
+        String rawJson = networkDAO.request(url);
+        return getRecipesDTOS(recipes, rawJson);
+    }
+
+    @Override
     public List<RecipeDTO> fetch(String filepath) throws Exception {
         List<RecipeDTO> recipes = new ArrayList<>();
 

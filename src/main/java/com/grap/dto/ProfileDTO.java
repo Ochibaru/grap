@@ -1,30 +1,27 @@
 package com.grap.dto;
+
+import com.google.firebase.database.annotations.NotNull;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 public @Data class ProfileDTO{
+    @NotNull
+    @SerializedName("uid")
+    private String uid;
 
-    @SerializedName("id")
-    private String id;
+    @SerializedName("displayName")
+    private String displayName;
 
-    @SerializedName("firstName")
-    private String firstName;
-
-    @SerializedName("lastName")
-    private String lastName;
+    @SerializedName("photoURL")
+    private String photoURL;
 
     @SerializedName("password")
     private String password;
+    private String matchingPassword;
 
     @SerializedName("email")
     private String email;
 
     @SerializedName("phoneNumber")
     private String phoneNumber;
-
-    @SerializedName("address")
-    private String address;
-
-    @SerializedName("username")
-    private String username;
 }
