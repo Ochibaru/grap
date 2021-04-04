@@ -34,8 +34,8 @@
 
 <div class="container">
     <div id="bxslider1" class="card-deck m-auto">
-        <div class="card" th:each="pantry : ${pantries}">
-            <div class="card-header" th:text="${pantry.name}">
+        <div class="card" th:each="pantry : ${pantries?}">
+            <div class="card-header" th:text="${pantry?.name}">
             </div>
             <div class="card-body">
                 <!--                <div th:text="'Calories: ' + ${recipe.calories}"></div>-->

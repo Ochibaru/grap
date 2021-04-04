@@ -1,0 +1,59 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="navbar" >
+    <div class="area"></div>
+    <nav class="main-menu" >
+        <ul>
+            <li class="has-subnav">
+                <a href="/userHome">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="/profile">
+                    <i class="fa fa-user fa-2x"></i>
+                    <span class="nav-text btnProfileNav">User Profile</span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="/userHome/pantry">
+                    <i class="fa fa-book-open fa-2x"></i>
+                    <span class="nav-text btnPantryNav">Pantry</span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="/userHome/recipes">
+                    <i class="fa fa-utensils fa-2x"></i>
+                    <span class="nav-text btnRecipeNav">Recipes</span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="/userHome/topics">
+                    <i class="fa fa-clipboard-list fa-2x"></i>
+                    <span class="nav-text btnTopicsNav">Topics</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="logout hidden" id="logout">
+            <li>
+                <a href="/login">
+                    <i class="fa fa-power-off fa-2x hidden"></i>
+                    <span class="nav-text btnLogoutNav">Logout</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="login" id="login">
+            <li>
+                <a href="/userHome">
+                    <i class="fa fa-power-off fa-2x"></i>
+                    <span class="nav-text btnLoginNav">Login</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+
+</html>
