@@ -93,7 +93,7 @@ public class GRAPController{
 
 
     // Pantry Attempt
-    @GetMapping(value = "/RJPantry")
+   /* @GetMapping(value = "/RJPantry")
     public String fetchPantry(@CookieValue(value="uid", required=false) String uid, Model model) {
 
 
@@ -141,7 +141,7 @@ public class GRAPController{
 
         return "redirect:/RJPantry";
     }
-
+*/
 
     @GetMapping(value = "/home")
     public ModelAndView home() {
@@ -450,8 +450,8 @@ public class GRAPController{
         PantryDTO pantry = new PantryDTO();
         pantry.setId(request.getParameter("pantryId"));
         pantry.setName(request.getParameter("name"));
-        pantry.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-        pantry.setMeasurement(Double.valueOf(request.getParameter("measurement")));
+        pantry.setQuantity(request.getParameter("quantity"));
+        pantry.setMeasurement(request.getParameter("measurement"));
 
         try {
             pantryService.saveCategory(pantry, firebaseService.getUser(uid).getEmail(), pantryId);

@@ -12,13 +12,13 @@ class  PantryDTO {
     private String id;
 
     @SerializedName("quantity")
-    private int quantity;
+    private String quantity;
 
     @SerializedName("name")
     private String name;
 
     @SerializedName("measurement")
-    private Double measurement;
+    private String measurement;
 
 
 }
