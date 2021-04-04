@@ -9,7 +9,8 @@
     <script src="https://kit.fontawesome.com/dd34a0058a.js" crossorigin="anonymous"></script>
 
     <!-- Local CSS -->
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/autocomplete.css">
 
     <!-- jquery, must come before bootstrap. This is styling for autocomplete. -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -51,91 +52,65 @@
 
     <!-- Local Javascript -->
     <script src="../../javascript/topics.js"></script>
-    <script src="../../javascript/grap.js"></script>
-    <script src="../../javascript/pantry.js"></script>
+
 
 </head>
 <body>
 
 <div th:replace="/sidenav :: navbar"></div>
 
+<div class="container">
+    <div class="slider rel">
 
-<!--This saves or updates a pantry item-->
-<div class="container-fluid">
-    <div class="row mt-2">
-        <div class="col col-md-8">
-            <div class="col-sm-7 col-lg-9">
+            <!--This saves or updates a pantry item-->
+            <div id="up">
                 <div class="row">
-                    <form action="/userHome/pantry/saveCategory" class="d-sm-inline-block" method="post">
-                        <div><label>Category: <input name="pantryId" required/></label></div>
-                        <div><label>Name: <input name="name" required/></label></div>
-                        <div><label>Quantity: <input name="quantity" required/></label></div>
-                        <div><label>Measurement: <input name="measurement" required/></label></div>
-                        <button class="saveBtn" type="submit">Save</button>
-                    </form>
+                    <div class="col-md-12">
+                        <form action="/userHome/pantry/saveCategory" method="post">
+                            <h1> Add Pantry Item </h1>
+                            <fieldset>
+                                <label for="category">Category:</label>
+                                <input type="text" id="category" name="pantryId" >
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name">
+                                <label for="quantity">Quantity:</label>
+                                <input type="text" id="quantity" name="quantity">
+                                <label for="measurement">Measurement:</label>
+                                <input type="text" id="measurement" name="measurement">
+                            </fieldset>
+                            <button class="saveBtn" type="submit">Save</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <!--This deletes an existing pantry item-->
+            <div id="del">
+                <div th:each="pantry : ${pantries}">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="/userHome/pantry/deleteCategory" method="post">
+                                <h1> Delete Pantry Item </h1>
+                                <fieldset>
+                                    <label for="id">ID:</label>
+                                    <input type="text" id="id" name="pantryId" th:value="${pantry.id}">
+                                    <label for="named">Name:</label>
+                                    <input type="text" id="named" name="user_name" th:value="${pantry.name}">
+                                    <label for="quantityd">Quantity:</label>
+                                    <input type="text" id="quantityd" name="quantity" th:value="${pantry.quantity}">
+                                    <label for="measurementd">Measurement:</label>
+                                    <input type="text" id="measurementd" name="measurement" th:value="${pantry.measurement}">
+                                </fieldset>
+                                <button class="deleteBtn" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
-</div>
-
-
-<br>
-
-
-<form action="/action_page.php" >
-
-    <label  for = "quantity"><b>Quantity</b></label>
-    <input  type = "number" id = "quantity" name = "quantity" min = "0" step = "1"> <br> <br>
-
-    <label  for = "name"><b>Name</b></label>
-    <input type = "text" id = "name" name = "name">
-    <br> <br>
-
-    <label  for = "measurement"><b>Measurement</b></label>
-    <input  type = "double" id = "measurement" name = "measurement">
-
-    <select name="weight" id="weight">
-        <option value="kg">kg</option>
-        <option value="gm">gm</option>
-        <option value="pound">pound</option>
-        <option value="ounce">ounce</option>
-        <option value="litre">litre</option>
-    </select>
-    <br> <br>
-
-    <input  type = "Submit" value = "Submit">
-
-    <!--    <select name="weight" id="weight">-->
-    <!--        <option value="kg">kg</option>-->
-    <!--        <option value="gm">gm</option>-->
-    <!--        <option value="pound">pound</option>-->
-    <!--        <option value="ounce">ounce</option>-->
-    <!--        <option value="litre">litre</option>-->
-    <!--    </select>-->
-    <!--    <br> <br>-->
-
-    <!--    <input type = "Submit" value = "Submit">-->
-    <!--    <input id="someInput" type="text">-->
-    <!--    <input type="button" value="Say Hello" onClick="doStuff()">-->
-
-    <!--This deletes an existing pantry item-->
-    <div class="list-group-item" role="listitem" th:each="pantry : ${pantries}">
-        <div class="col-sm-4">
-            <form action="/userHome/pantry/deleteCategory" class="d-sm-inline-block" method="post">
-                <input name="pantryId" th:value="${pantry.name}" />
-                <input name="name" th:value="${pantry.name}" />
-                <input name="quantity" th:value="${pantry.quantity}" />
-                <input name="measurement" th:value="${pantry.measurement}" />
-                <button class="deleteBtn" type="submit">Delete</button>
-            </form>
-        </div>
-    </div>
-
-
 
     <!--This displays the existing pantry items-->
-    <div class="container">
+    <div class="rel set">
         <div id="bxslider1" class="card-deck m-auto">
             <div class="card" th:each="pantry : ${pantries}">
                 <div class="card-body">
@@ -146,6 +121,10 @@
             </div>
         </div>
     </div>
-</form>
+</div>
+
+<div class="fullscreen-bg"></div>
+
+
 </body>
 </html>

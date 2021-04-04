@@ -1,10 +1,12 @@
 package com.grap.service;
 
 import com.grap.dao.IRecipeDAO;
+import com.grap.dao.RecipeDAO;
 import com.grap.dto.RecipeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -56,4 +58,23 @@ public class RecipeService implements IRecipeService{
 
         return Collections.emptyList();
     }
+
+    public List<RecipeDTO> fetchSpoonRecipesFromPantry(String url) throws Exception{
+        List<RecipeDTO> spoonRecipesFromPantry = new ArrayList<>();
+        String blank = "";
+
+        spoonRecipesFromPantry = recipeDAO.fetch(url,blank);
+
+        try{
+            if (spoonRecipesFromPantry != null) {
+                return spoonRecipesFromPantry;
+            }
+        } catch (NullPointerException  e) {
+            System.out.print("NullPointerException Caught for recipes.fetch()");
+        }
+
+        return Collections.emptyList();
+    }
+
+
 }

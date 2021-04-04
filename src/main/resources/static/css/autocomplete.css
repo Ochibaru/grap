@@ -1,0 +1,114 @@
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    color: #384047;
+}
+
+form {
+    max-width: 300px;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+}
+
+h1 {
+    margin: 0 0 30px 0;
+    text-align: center;
+}
+input[type="text"],
+textarea {
+    border: none;
+    font-size: 16px;
+    height: auto;
+    outline: 0;
+    padding: 15px;
+    width: 100%;
+    background: #e8eeef;
+    color: #f9a828;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin: 0 0 30px;
+}
+
+
+
+button {
+    padding: 19px 39px 18px 39px;
+    color: #FFF;
+    background-color: #f9a828;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    border-radius: 5px;
+    width: 100%;
+    border: solid #faa620;
+    border-width: 1px 1px 3px;
+    box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+    margin-bottom: 10px;
+}
+
+fieldset {
+    margin-bottom: 30px;
+    border: none;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+
+
+@media screen and (min-width: 480px) {
+    form {
+        max-width: 480px;
+    }
+}
+
+.fullscreen-bg {
+    position: fixed;
+    z-index: -1;
+    top:0; right:0; bottom:0; left:0;
+    background: #1d2327;
+    background-size: cover;
+}
+
+
+#up {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#del {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+.container{
+    display: block;
+    width: 30%;
+
+}
+.slider {
+    left: 0;
+    height: 100%;
+}
+.abs {
+    position: absolute;
+}
+.rel {
+    position: relative;
+}
+.set {
+    top: 650px;
+}
+.lef {
+    left: 350px;
+}

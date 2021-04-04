@@ -7,11 +7,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
+import com.grap.dao.*;
+import com.grap.dto.IngredientsDTO;
 import com.grap.dto.ProfileDTO;
 import com.grap.service.FirebaseService;
-import com.grap.dao.IPantryDAO;
-import com.grap.dao.IRecipeDAO;
-import com.grap.dao.ISearchDAO;
 import com.grap.dto.PantryDTO;
 import com.grap.dto.RecipeDTO;
 import com.grap.service.IRecipeService;
@@ -28,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.Console;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +48,10 @@ public class GRAPController{
     private FirebaseService firebaseService;
     @Autowired
     private PantryService pantryService;
+    @Autowired
+    private IIngredientsDAO ingredientsDAO;
+    @Autowired
+    private ProfileDAO profileDAO;
 
     // Home pages for signed in and public users
     @GetMapping("/")
@@ -57,7 +61,7 @@ public class GRAPController{
             List<RecipeDTO> recipes = recipeService.fetchRecipes();
             model.addAttribute("recipes", recipes);
             model.addAttribute("uid", uid);
-            return "home";
+            return "userHome";
         } catch (IOException e) {
             e.printStackTrace();
             return "error";
@@ -92,11 +96,33 @@ public class GRAPController{
             List<PantryDTO> pantries = pantryService.fetchAll(firebaseService.getUser(uid).getEmail());
             model.addAttribute("pantries", pantries);
             model.addAttribute("uid", uid);
+
+            /*
+            Iterable<IngredientsDTO> allIngredients = ingredientsDAO.fetch();
+            model.addAttribute("allIngredients", allIngredients);
+            System.out.println("Ingredient Search List: " + allIngredients);
+             */
+
             return "pantry";
         } catch (Exception e) {
             e.printStackTrace();
             return "error";
         }
+    }
+    @PostMapping(value="/userHome/pantry/searchIngredients")
+    public ModelAndView searchIngredients(){
+        ModelAndView modelAndView = new ModelAndView();
+        try{
+            Iterable<IngredientsDTO> allIngredients = ingredientsDAO.fetch();
+
+            modelAndView.setViewName("searchIngredients");
+            modelAndView.addObject("allIngredients", allIngredients);
+            System.out.println("Ingredient Search List: " + allIngredients);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return modelAndView;
     }
 
     @PostMapping("/userHome/pantry/saveCategory")
@@ -171,7 +197,7 @@ public class GRAPController{
         return modelAndView;
     }
 
-    @RequestMapping("/userHome/topics/recipes")
+    @RequestMapping("/userHome/recipes")
     public ModelAndView recipes(@RequestParam(value="searchTerm", required=false, defaultValue="") String searchTerm, @CookieValue(value="uid", required=false) String uid, Model model) {
         ModelAndView modelAndView = new ModelAndView();
         try {
@@ -232,6 +258,7 @@ public class GRAPController{
             modelAndView.setViewName("searchRecipes");
             modelAndView.addObject("searchResults", searchResults);
             model.addAttribute("uid", uid);
+            System.out.println("Ingredient Search List: " + searchResults);
             // Set off and error if movies = 0
         } catch (Exception  e) {
             e.printStackTrace();
@@ -254,6 +281,7 @@ public class GRAPController{
         }
         return suggestions;
     }
+
     // < ------------------------------------------------------------------------------------ >
 
     @RequestMapping(value = "/login")
@@ -280,12 +308,55 @@ public class GRAPController{
     }
 
     // < ------------------------------------------------------------------------------------ >
+    @GetMapping(value = "/userHome/userProfile")
+    public String fetchProfile(@CookieValue(value="uid", required=false) String uid, Model model) {
+        try {
+            System.out.println("User is logged in. Fetching favorites.");
+            List<PantryDTO> pantries = pantryService.fetchAll(firebaseService.getUser(uid).getEmail());
+            model.addAttribute("pantries", pantries);
+            model.addAttribute("uid", uid);
+
+            return "profile";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
+    @PostMapping("/userHome/userProfile/profile-update")
+    public String userProfileUpdate(HttpServletRequest request, @CookieValue(value = "uid", required = false) String uid) throws FirebaseAuthException {
+        if (uid == null) {
+            return "login";
+        }
+
+        String pantryId = request.getParameter("pantryId");
+
+
+        ProfileDTO profile = new ProfileDTO();
+        profile.setEmail(request.getParameter("email"));
+        profile.setPhoneNumber(request.getParameter("phoneNumber"));
+        profile.setPassword(request.getParameter("password"));
+        profile.setDisplayName(request.getParameter("displayName"));
+        //String photoURL = profile.setPhotoURL(request.getParameter("displayName"));
+
+        /*
+                try {
+            pantryService.saveCategory(pantry, firebaseService.getUser(uid).getEmail(), pantryId);
+        } catch (FirebaseAuthException | ExecutionException | InterruptedException e) {
+            return "error";
+        }
+         */
+        profileDAO.saveProfile(profile, uid);
+        return "redirect:/userHome/profile";
+    }
+
+
     @GetMapping(value = "/userProfile")
     public String userProfileUpdate(@CookieValue(value="uid", required=false) String uid, Model model){
         model.addAttribute("emailLogin");
         model.addAttribute("uid", uid);
         return "userProfile";
     }
+
     @MessageMapping("/profile-update")
     @SendTo("/topic/messages")
     public ProfileDTO updateProfile(String email, String firstName, String lastName) throws Exception {
@@ -297,8 +368,8 @@ public class GRAPController{
 
         ProfileDTO docData = new ProfileDTO();
         docData.setEmail(obj.getString("email"));
-        docData.setFirstName(obj.getString("firstName"));
-        docData.setLastName(obj.getString("lastName"));
+        //docData.setFirstName(obj.getString("firstName"));
+        //docData.setLastName(obj.getString("lastName"));
 
         UserRecord userRecord = FirebaseAuth.getInstance().getUserByEmail(obj.getString("email"));
         String uid = userRecord.getUid();

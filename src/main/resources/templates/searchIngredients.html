@@ -1,0 +1,38 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="header">
+    <script type="text/javascript">
+        jQuery(document).ready(function($){
+            $('.live-search-list li').each(function(){
+                $(this).attr('data-search-term', $(this).text().toLowerCase());
+            });
+            $('.live-search-box').on('keyup', function(){
+                var searchTerm = $(this).val().toLowerCase();
+                $('.live-search-list li').each(function(){
+                    if ($(this).filter('[data-search-term *= ' + searchTerm + ']').length > 0 || searchTerm.length < 2) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
+    <input type="text" class="live-search-box" placeholder="search here" id="populate"/>
+    <script th:inline="javascript">
+        document.getElementById("populate").onkeydown = function() {populateData()};
+        function populateData() {
+            var ingredients = /*[[${allIngredients}]]*/ 'default';
+            var ul = document.getElementById("ingredientsList");
+            for (var i = 0; i < ingredients.length; i++) {
+                var ingredient = ingredients[i];
+                var li = document.createElement('li');
+                li.appendChild(document.createTextNode(ingredient));
+                ul.appendChild(li);
+            }
+        }
+    </script>
+    <ul class="live-search-box" id="ingredientsList">
+        <li th:each="result : ${allIngredients}" th:text="${result}"></li>
+    </ul>
+</div>

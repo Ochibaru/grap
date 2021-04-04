@@ -103,7 +103,8 @@ function loginUser(){
         .then((userCredential) => {
             // Signed in
             var user = userCredential.user;
-            console.log('user signed in : ', user.uid);
+            console.log('user signed in : ', user.uid)
+            window.location.replace("/set-uid/?uid=" + user.uid);
             // ...
         })
         .catch((error) => {

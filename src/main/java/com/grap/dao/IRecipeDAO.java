@@ -12,4 +12,6 @@ public interface IRecipeDAO {
     List<RecipeDTO> fetchSpoon() throws Exception;
 
     List<RecipeDTO> fetchSpoon(String filepath) throws Exception;
+
+    List<RecipeDTO> fetch(String url, String blank) throws Exception;
 }
